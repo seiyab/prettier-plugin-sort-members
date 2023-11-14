@@ -1,0 +1,10 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`format interface.ts 1`] = `
+"interface A {
+  b: string;
+  c: unknown;
+  a: string;
+}
+"
+`;
