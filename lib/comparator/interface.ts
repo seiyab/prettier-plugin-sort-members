@@ -1,29 +1,31 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { C, nodeComparator } from "./comparator";
+import { C } from "./comparator";
 
-export const interfaceComparator = nodeComparator<TSESTree.TypeElement>()
-	.type(
-		AST_NODE_TYPES.TSPropertySignature,
+export const interfaceComparator = C.chain<TSESTree.TypeElement>(
+	C.when(
+		shrink(AST_NODE_TYPES.TSPropertySignature),
 		C.chain(
 			C.property("computed", C.boolean),
 			C.property(
 				"key",
-				nodeComparator<TSESTree.PropertyName>()
-					.type(AST_NODE_TYPES.Identifier, C.property("name", C.string))
-					.build(),
+				C.when(shrink(AST_NODE_TYPES.Identifier), C.property("name", C.string)),
 			),
 		),
-	)
-	.type(
-		AST_NODE_TYPES.TSMethodSignature,
+	),
+	C.when(
+		shrink(AST_NODE_TYPES.TSMethodSignature),
 		C.chain(
 			C.property("computed", C.boolean),
 			C.property(
 				"key",
-				nodeComparator<TSESTree.PropertyName>()
-					.type(AST_NODE_TYPES.Identifier, C.property("name", C.string))
-					.build(),
+				C.when(shrink(AST_NODE_TYPES.Identifier), C.property("name", C.string)),
 			),
 		),
-	)
-	.build();
+	),
+);
+
+function shrink<K extends AST_NODE_TYPES>(key: K) {
+	return function <N extends TSESTree.Node>(node: N): node is N & { type: K } {
+		return node.type === key;
+	};
+}
