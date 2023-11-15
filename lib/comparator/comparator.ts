@@ -50,3 +50,43 @@ export function nodeComparator<N extends TSESTree.Node>() {
 		};
 	}
 }
+
+export const C = {
+	property<T, K extends keyof T>(
+		key: K,
+		comp: Comparator<T[K]>,
+	): Comparator<T> {
+		return (a, b) => {
+			return comp(a[key], b[key]);
+		};
+	},
+	chain<T>(...comps: Comparator<T>[]): Comparator<T> {
+		return (a, b) => {
+			for (const comp of comps) {
+				const res = comp(a, b);
+				if (res !== Order.Equal) return res;
+			}
+			return Order.Equal;
+		};
+	},
+	boolean(a: boolean, b: boolean): Order {
+		if (a === b) return Order.Equal;
+		if (a) return Order.Greater;
+		return Order.Less;
+	},
+	string(a: string, b: string): Order {
+		if (a < b) return Order.Less;
+		if (a > b) return Order.Greater;
+		return Order.Equal;
+	},
+	maybe<T>(comp: Comparator<T>): Comparator<T | undefined | null> {
+		return (a, b) => {
+			if (a == null) {
+				if (b == null) return Order.Equal;
+				return Order.Less;
+			}
+			if (b == null) return Order.Greater;
+			return comp(a, b);
+		};
+	},
+};
