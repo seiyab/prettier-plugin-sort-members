@@ -9,48 +9,6 @@ export type Order = (typeof Order)[keyof typeof Order];
 
 type Comparator<A> = (a: A, b: A) => number;
 
-export function nodeComparator<N extends TSESTree.Node>() {
-	const comparators: Partial<{
-		[K in N["type"]]: Comparator<N & { type: K }>;
-	}> = {};
-
-	const builder = {
-		type,
-		build,
-	};
-	return builder;
-
-	function type<T extends N["type"]>(
-		type: T,
-		comparator: Comparator<N & { type: T }>,
-	): typeof builder {
-		comparators[type] = comparator;
-		return builder;
-	}
-
-	function build(): Comparator<N> {
-		const typeOrder = new Map<N["type"], number>(
-			Array.from(Object.keys(comparators)).map((type, index) => [
-				type as N["type"],
-				index,
-			]),
-		);
-
-		return (a, b) => {
-			if (a.type !== b.type) {
-				const aOrder = typeOrder.get(a.type) ?? Number.MAX_SAFE_INTEGER;
-				const bOrder = typeOrder.get(b.type) ?? Number.MAX_SAFE_INTEGER;
-				if (aOrder < bOrder) return Order.Less;
-				if (aOrder > bOrder) return Order.Greater;
-				return Order.Equal;
-			}
-			return (
-				comparators[a.type as keyof typeof comparators]?.(a, b) ?? Order.Equal
-			);
-		};
-	}
-}
-
 export const C = {
 	property<T, K extends keyof T>(
 		key: K,
@@ -87,6 +45,19 @@ export const C = {
 			}
 			if (b == null) return Order.Greater;
 			return comp(a, b);
+		};
+	},
+	when<T, U extends T>(
+		pred: (a: T) => a is U,
+		comp: Comparator<U>,
+	): Comparator<T> {
+		return (a, b) => {
+			if (pred(a)) {
+				if (pred(b)) return comp(a, b);
+				return Order.Less;
+			}
+			if (pred(b)) return Order.Greater;
+			return Order.Equal;
 		};
 	},
 };
