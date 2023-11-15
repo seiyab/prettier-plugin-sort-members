@@ -6,5 +6,13 @@ exports[`format interface.ts 1`] = `
   b: string;
   c: unknown;
 }
+
+interface B {
+  c: number;
+  x: string;
+  a(): string;
+  b(): never;
+  z(): string;
+}
 "
 `;

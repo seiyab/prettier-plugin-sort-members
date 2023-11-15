@@ -12,5 +12,3 @@ export const printers = {
 		preprocess: p,
 	},
 };
-
-export const preprocess = p;
