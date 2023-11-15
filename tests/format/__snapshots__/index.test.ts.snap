@@ -2,9 +2,9 @@
 
 exports[`format interface.ts 1`] = `
 "interface A {
+  a: string;
   b: string;
   c: unknown;
-  a: string;
 }
 "
 `;
