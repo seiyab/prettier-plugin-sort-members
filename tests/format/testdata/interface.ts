@@ -3,3 +3,11 @@ interface A {
 	c:  unknown;
 	a: string;
 }
+
+interface B {
+	x: string;
+	a(): string;
+	z(): string;
+	b(): never;
+	c: number;
+}
