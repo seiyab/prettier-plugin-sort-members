@@ -1,12 +1,8 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { Order } from "./comparator";
+import { Order, nodeComparator } from "./comparator";
 
-export function interfaceComparator(
-	a: TSESTree.TypeElement,
-	b: TSESTree.TypeElement,
-): Order {
-	if (a.type === AST_NODE_TYPES.TSPropertySignature) {
-		if (b.type !== a.type) return Order.Less;
+export const interfaceComparator = nodeComparator<TSESTree.TypeElement>()
+	.type(AST_NODE_TYPES.TSPropertySignature, (a, b) => {
 		if (a.computed) {
 			if (b.computed) return Order.Equal;
 			return Order.Greater;
@@ -20,6 +16,5 @@ export function interfaceComparator(
 			return Order.Equal;
 		}
 		return Order.Equal;
-	}
-	return Order.Less;
-}
+	})
+	.build();
