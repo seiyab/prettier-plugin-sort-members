@@ -1,5 +1,21 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`format class.ts 1`] = `
+"class A {
+  private a: unknown;
+  public b: unknown;
+  static d: unknown;
+  e: unknown;
+  private static g: unknown;
+  h: unknown;
+  constructor() {}
+  c(): void {}
+  static f(): void {}
+  public i(): void {}
+}
+"
+`;
+
 exports[`format interface.ts 1`] = `
 "interface A {
   a: string;
