@@ -7,7 +7,7 @@ export const Order = {
 };
 export type Order = (typeof Order)[keyof typeof Order];
 
-type Comparator<A> = (a: A, b: A) => number;
+export type Comparator<A> = (a: A, b: A) => number;
 
 export const C = {
 	property<T, K extends keyof T>(
@@ -16,6 +16,11 @@ export const C = {
 	): Comparator<T> {
 		return (a, b) => {
 			return comp(a[key], b[key]);
+		};
+	},
+	by<T, U>(fn: ($: T) => U, comp: Comparator<U>): Comparator<T> {
+		return (a, b) => {
+			return comp(fn(a), fn(b));
 		};
 	},
 	chain<T>(...comps: Comparator<T>[]): Comparator<T> {
