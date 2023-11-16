@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C, Comparator } from "./comparator";
-import { select } from "./utils";
+import { select } from "./select";
 
 export const keyIdentifierName = <
 	T extends {

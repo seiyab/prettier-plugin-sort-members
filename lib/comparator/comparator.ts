@@ -60,6 +60,9 @@ export const C = {
 			return comp(a, b);
 		};
 	},
+	reverse<T>(comp: Comparator<T>): Comparator<T> {
+		return (a, b) => comp(b, a);
+	},
 	when<T, U extends T>(
 		pred: (a: T) => a is U,
 		comp: Comparator<U>,
