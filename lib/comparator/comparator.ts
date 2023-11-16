@@ -27,12 +27,20 @@ export const C = {
 			return Order.Equal;
 		};
 	},
+	nop(): Order {
+		return Order.Equal;
+	},
 	boolean(a: boolean, b: boolean): Order {
 		if (a === b) return Order.Equal;
 		if (a) return Order.Greater;
 		return Order.Less;
 	},
 	string(a: string, b: string): Order {
+		if (a < b) return Order.Less;
+		if (a > b) return Order.Greater;
+		return Order.Equal;
+	},
+	number(a: number, b: number): Order {
 		if (a < b) return Order.Less;
 		if (a > b) return Order.Greater;
 		return Order.Equal;
