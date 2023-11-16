@@ -32,3 +32,18 @@ interface D {
 	am(): 0;
 	bm(): 0;
 }
+
+interface E {
+	// comment-on-a
+	a: 0;
+
+	// comment-on-c
+	c: 0; // tail-comment-c
+
+	// comment-on-d
+	d(): 0; // tail-comment-d
+	b: 0;	// tail-comment-b
+
+	e(): 0;
+	// trailing-comment
+}
