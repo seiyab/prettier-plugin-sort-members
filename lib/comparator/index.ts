@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C } from "./comparator";
-import { predicate, select } from "./utils";
+import { select } from "./select";
 import { keyIdentifierName } from "./keyIdentifierName";
 import { functionExpressions } from "../ast";
 
@@ -10,21 +10,26 @@ export const comparator = C.chain<TSESTree.Node>(
 
 	// field
 	C.when(
-		predicate.or(
+		select.or(
 			select.node(AST_NODE_TYPES.TSPropertySignature),
-			predicate.and(
+			select.and(
 				select.node(AST_NODE_TYPES.PropertyDefinition),
 				($) => !($.value && functionExpressions.includes($.value.type)),
 			),
 		),
-		C.chain(C.property("computed", C.boolean), keyIdentifierName()),
+		C.chain(
+			C.property("static", C.reverse(C.boolean)),
+			C.property("readonly", C.reverse(C.boolean)),
+			C.property("computed", C.boolean),
+			keyIdentifierName(),
+		),
 	),
 
 	// constructor
 	C.when(
-		predicate.or(
+		select.or(
 			select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration),
-			predicate.and(
+			select.and(
 				select.node(AST_NODE_TYPES.MethodDefinition),
 				($) =>
 					$.key.type === AST_NODE_TYPES.Identifier &&
@@ -39,14 +44,18 @@ export const comparator = C.chain<TSESTree.Node>(
 
 	// method
 	C.when(
-		predicate.or(
+		select.or(
 			select.node(AST_NODE_TYPES.TSMethodSignature),
 			select.node(AST_NODE_TYPES.MethodDefinition),
-			predicate.and(
+			select.and(
 				select.node(AST_NODE_TYPES.PropertyDefinition),
 				($) => $.value != null && functionExpressions.includes($.value.type),
 			),
 		),
-		C.chain(C.property("computed", C.boolean), keyIdentifierName()),
+		C.chain(
+			C.property("static", C.reverse(C.boolean)),
+			C.property("computed", C.boolean),
+			keyIdentifierName(),
+		),
 	),
 );

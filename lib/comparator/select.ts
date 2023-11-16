@@ -8,9 +8,6 @@ export const select = {
 			return keys.some((key) => node.type === key);
 		};
 	},
-};
-
-export const predicate = {
 	and,
 	or,
 };
