@@ -47,3 +47,16 @@ interface E {
 	e(): 0;
 	// trailing-comment
 }
+
+interface F {
+	a(): 0;
+	b: 0;
+	[c: number]: 0;
+	new (): F;
+	new (a: 0, b: 0): F;
+	[d: symbol]: 0;
+	[`e`]: 0;
+	[`f`]: 0;
+	new (a: 0): F;
+	[`g`](): 0;
+}
