@@ -11,3 +11,24 @@ interface B {
 	b(): never;
 	c: number;
 }
+
+interface C {
+	z: 0;
+	a: string;
+
+	b: string;
+	aa: 0;
+	m(): unknown;
+
+	c: string;
+}
+
+interface D {
+	a: string;
+	b: string;
+
+	c: 0;
+
+	am(): 0;
+	bm(): 0;
+}

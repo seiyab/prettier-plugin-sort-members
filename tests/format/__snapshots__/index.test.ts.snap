@@ -14,5 +14,25 @@ interface B {
   b(): never;
   z(): string;
 }
+
+interface C {
+  a: string;
+
+  aa: 0;
+  b: string;
+  c: string;
+  z: 0;
+  m(): unknown;
+}
+
+interface D {
+  a: string;
+  b: string;
+
+  c: 0;
+
+  am(): 0;
+  bm(): 0;
+}
 "
 `;
