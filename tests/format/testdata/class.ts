@@ -11,4 +11,7 @@ class A {
     public i(): void{}
     [j: number]: unknown;
     readonly k: unknown;
+    private l(): void {};
+    protected m(): void {};
+    n(): void {};
 }
