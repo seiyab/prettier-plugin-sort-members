@@ -2,6 +2,9 @@
   "name": "prettier-plugin-sort-members",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "check": "bun test && tsc"
+  },
   "devDependencies": {
     "@typescript-eslint/types": "^6.11.0",
     "bun-types": "latest",
