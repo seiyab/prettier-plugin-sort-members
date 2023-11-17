@@ -59,4 +59,6 @@ interface F {
 	[`f`]: 0;
 	new (a: 0): F;
 	[`g`](): 0;
+	set h(_: 0);
+	get i(): 0;
 }
