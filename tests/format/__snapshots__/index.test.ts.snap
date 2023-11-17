@@ -23,6 +23,12 @@ exports[`format class.ts 1`] = `
   o(): void {}
   @deco
   protected r(): void {}
+  get z(): 0 {
+    return 0;
+  }
+  protected set x(_: unknown) {}
+  private set w(_: unknown) {}
+  abstract set y(_: unknown);
   c(): void {}
   public i(): void {}
   n(): void {}

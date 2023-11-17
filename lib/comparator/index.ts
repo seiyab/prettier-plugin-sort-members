@@ -6,6 +6,7 @@ import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { decoration } from "./decoration";
 import { abstracts } from "./abstracts";
+import { methodKind } from "./method-kind";
 
 export const comparator = C.chain<TSESTree.Node>(
 	// Signature
@@ -33,7 +34,8 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 	),
 
-	// constructor
+	// constructor signature for interface
+	// constructor in class is handled as method
 	C.when(
 		select.or(
 			select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration),
@@ -55,6 +57,7 @@ export const comparator = C.chain<TSESTree.Node>(
 		select.or(
 			select.node(AST_NODE_TYPES.TSMethodSignature),
 			select.node(AST_NODE_TYPES.MethodDefinition),
+			select.node(AST_NODE_TYPES.TSAbstractMethodDefinition),
 			select.and(
 				select.node(AST_NODE_TYPES.PropertyDefinition),
 				($) => $.value != null && functionExpressions.includes($.value.type),
@@ -63,8 +66,9 @@ export const comparator = C.chain<TSESTree.Node>(
 		C.chain(
 			C.property("static", C.reverse(C.boolean)),
 			decoration(),
-			accessibility(),
+			methodKind(),
 			abstracts(),
+			accessibility(),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
 		),
