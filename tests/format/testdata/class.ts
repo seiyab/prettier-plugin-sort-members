@@ -28,6 +28,10 @@ abstract class A {
     abstract t: unknown;
     abstract u(): void;
     private v(): void {};
+    private set w(_: unknown) {};
+    protected set x(_: unknown) {};
+    abstract set y(_: unknown);
+    get z(): 0 { return 0 };
 }
 
 
