@@ -4,8 +4,8 @@ import { select } from "./select";
 import { keyIdentifierName } from "./key-identifier-name";
 import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
-import { decoration } from "./decoration";
-import { abstracts } from "./abstracts";
+import { decorated } from "./decorated";
+import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 
 export const comparator = C.chain<TSESTree.Node>(
@@ -33,9 +33,9 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 		C.chain(
 			C.property("static", C.prefer),
-			decoration(),
+			C.by(decorated, C.prefer),
 			accessibility(),
-			abstracts(),
+			C.by(abstracted, C.defer),
 			C.property("computed", C.defer),
 			keyIdentifierName(),
 		),
@@ -72,9 +72,9 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 		C.chain(
 			C.property("static", C.prefer),
-			decoration(),
+			C.by(decorated, C.prefer),
 			methodKind(),
-			abstracts(),
+			C.by(abstracted, C.defer),
 			accessibility(),
 			C.property("computed", C.defer),
 			keyIdentifierName(),
