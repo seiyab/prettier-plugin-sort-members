@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C } from "./comparator";
 import { select } from "./select";
-import { keyIdentifierName } from "./keyIdentifierName";
+import { keyIdentifierName } from "./key-identifier-name";
 import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { decoration } from "./decoration";
