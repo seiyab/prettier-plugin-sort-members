@@ -62,3 +62,9 @@ interface F {
 	set h(_: 0);
 	get i(): 0;
 }
+
+interface G {
+	a: 0;
+	[c: number]: () => 0;
+	[d: symbol]: 0;
+}

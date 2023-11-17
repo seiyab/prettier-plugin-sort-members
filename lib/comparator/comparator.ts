@@ -1,5 +1,3 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-
 export const Order = {
 	Less: -1,
 	Equal: 0,

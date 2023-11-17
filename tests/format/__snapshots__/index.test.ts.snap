@@ -107,5 +107,11 @@ interface F {
   a(): 0;
   [\`g\`](): 0;
 }
+
+interface G {
+  [d: symbol]: 0;
+  [c: number]: () => 0;
+  a: 0;
+}
 "
 `;
