@@ -5,11 +5,11 @@ exports[`format class.ts 1`] = `
   [j: number]: unknown;
   static d: unknown;
   private static g: unknown;
-  private a: unknown;
   public b: unknown;
   e: unknown;
   h: unknown;
   readonly k: unknown;
+  private a: unknown;
   constructor() {}
   static f(): void {}
   c(): void {}
