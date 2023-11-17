@@ -35,10 +35,15 @@ export const C = {
 	nop(): Order {
 		return Order.Equal;
 	},
-	boolean(a: boolean, b: boolean): Order {
+	defer(a: boolean, b: boolean): Order {
 		if (a === b) return Order.Equal;
 		if (a) return Order.Greater;
 		return Order.Less;
+	},
+	prefer(a: boolean, b: boolean): Order {
+		if (a === b) return Order.Equal;
+		if (a) return Order.Less;
+		return Order.Greater;
 	},
 	string(a: string, b: string): Order {
 		if (a < b) return Order.Less;
@@ -63,7 +68,7 @@ export const C = {
 	reverse<T>(comp: Comparator<T>): Comparator<T> {
 		return (a, b) => comp(b, a);
 	},
-	when<T, U extends T>(
+	capture<T, U extends T>(
 		pred: (a: T) => a is U,
 		comp: Comparator<U>,
 	): Comparator<T> {

@@ -10,10 +10,10 @@ import { methodKind } from "./method-kind";
 
 export const comparator = C.chain<TSESTree.Node>(
 	// Signature
-	C.when(select.node(AST_NODE_TYPES.TSIndexSignature), C.nop),
+	C.capture(select.node(AST_NODE_TYPES.TSIndexSignature), C.nop),
 
 	// field
-	C.when(
+	C.capture(
 		select.or(
 			select.node(AST_NODE_TYPES.TSPropertySignature),
 			select.and(
@@ -25,18 +25,18 @@ export const comparator = C.chain<TSESTree.Node>(
 			),
 		),
 		C.chain(
-			C.property("static", C.reverse(C.boolean)),
+			C.property("static", C.prefer),
 			decoration(),
 			accessibility(),
 			abstracts(),
-			C.property("computed", C.boolean),
+			C.property("computed", C.defer),
 			keyIdentifierName(),
 		),
 	),
 
 	// constructor signature for interface
 	// constructor in class is handled as method
-	C.when(
+	C.capture(
 		select.or(
 			select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration),
 			select.and(
@@ -53,7 +53,7 @@ export const comparator = C.chain<TSESTree.Node>(
 	),
 
 	// method
-	C.when(
+	C.capture(
 		select.or(
 			select.node(AST_NODE_TYPES.TSMethodSignature),
 			select.node(AST_NODE_TYPES.MethodDefinition),
@@ -64,12 +64,12 @@ export const comparator = C.chain<TSESTree.Node>(
 			),
 		),
 		C.chain(
-			C.property("static", C.reverse(C.boolean)),
+			C.property("static", C.prefer),
 			decoration(),
 			methodKind(),
 			abstracts(),
 			accessibility(),
-			C.property("computed", C.boolean),
+			C.property("computed", C.defer),
 			keyIdentifierName(),
 		),
 	),
