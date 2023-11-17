@@ -102,6 +102,8 @@ interface F {
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
+  get i(): 0;
+  set h(_: 0);
   a(): 0;
   [\`g\`](): 0;
 }
