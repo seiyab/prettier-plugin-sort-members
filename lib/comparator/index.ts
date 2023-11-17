@@ -4,6 +4,7 @@ import { select } from "./select";
 import { keyIdentifierName } from "./keyIdentifierName";
 import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
+import { decoration } from "./decoration";
 
 export const comparator = C.chain<TSESTree.Node>(
 	// Signature
@@ -20,6 +21,7 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 		C.chain(
 			C.property("static", C.reverse(C.boolean)),
+			decoration(),
 			accessibility(),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
@@ -55,6 +57,7 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 		C.chain(
 			C.property("static", C.reverse(C.boolean)),
+			decoration(),
 			accessibility(),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
