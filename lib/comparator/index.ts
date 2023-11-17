@@ -19,7 +19,6 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 		C.chain(
 			C.property("static", C.reverse(C.boolean)),
-			C.property("readonly", C.reverse(C.boolean)),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
 		),

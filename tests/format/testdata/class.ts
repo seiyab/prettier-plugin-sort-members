@@ -9,4 +9,6 @@ class A {
     constructor() {}
     h: unknown;
     public i(): void{}
+    [j: number]: unknown;
+    readonly k: unknown;
 }
