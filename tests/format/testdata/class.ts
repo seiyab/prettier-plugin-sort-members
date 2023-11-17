@@ -1,4 +1,4 @@
-class A {
+abstract class A {
     private a: unknown;
     public b: unknown;
     c(): void{}
@@ -24,6 +24,10 @@ class A {
     q: unknown;
     @deco
     protected r(): void {};
+    abstract s(): void;
+    abstract t: unknown;
+    abstract u(): void;
+    private v(): void {};
 }
 
 

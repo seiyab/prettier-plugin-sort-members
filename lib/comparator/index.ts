@@ -5,6 +5,7 @@ import { keyIdentifierName } from "./keyIdentifierName";
 import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { decoration } from "./decoration";
+import { abstracts } from "./abstracts";
 
 export const comparator = C.chain<TSESTree.Node>(
 	// Signature
@@ -15,7 +16,10 @@ export const comparator = C.chain<TSESTree.Node>(
 		select.or(
 			select.node(AST_NODE_TYPES.TSPropertySignature),
 			select.and(
-				select.node(AST_NODE_TYPES.PropertyDefinition),
+				select.node(
+					AST_NODE_TYPES.PropertyDefinition,
+					AST_NODE_TYPES.TSAbstractPropertyDefinition,
+				),
 				($) => !($.value && functionExpressions.includes($.value.type)),
 			),
 		),
@@ -23,6 +27,7 @@ export const comparator = C.chain<TSESTree.Node>(
 			C.property("static", C.reverse(C.boolean)),
 			decoration(),
 			accessibility(),
+			abstracts(),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
 		),
@@ -59,6 +64,7 @@ export const comparator = C.chain<TSESTree.Node>(
 			C.property("static", C.reverse(C.boolean)),
 			decoration(),
 			accessibility(),
+			abstracts(),
 			C.property("computed", C.boolean),
 			keyIdentifierName(),
 		),

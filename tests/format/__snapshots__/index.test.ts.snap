@@ -1,7 +1,7 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`format class.ts 1`] = `
-"class A {
+"abstract class A {
   [j: number]: unknown;
   static d: unknown;
   private static g: unknown;
@@ -15,6 +15,7 @@ exports[`format class.ts 1`] = `
   e: unknown;
   h: unknown;
   readonly k: unknown;
+  abstract t: unknown;
   private a: unknown;
   constructor() {}
   static f(): void {}
@@ -27,6 +28,9 @@ exports[`format class.ts 1`] = `
   n(): void {}
   protected m(): void {}
   private l(): void {}
+  private v(): void {}
+  abstract s(): void;
+  abstract u(): void;
 }
 
 function deco(a: unknown, b: unknown): void {}
