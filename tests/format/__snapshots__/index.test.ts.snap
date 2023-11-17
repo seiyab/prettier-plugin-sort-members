@@ -2,12 +2,14 @@
 
 exports[`format class.ts 1`] = `
 "class A {
+  [j: number]: unknown;
   static d: unknown;
   private static g: unknown;
   private a: unknown;
   public b: unknown;
   e: unknown;
   h: unknown;
+  readonly k: unknown;
   constructor() {}
   static f(): void {}
   c(): void {}
