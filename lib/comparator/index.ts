@@ -10,7 +10,14 @@ import { methodKind } from "./method-kind";
 
 export const comparator = C.chain<TSESTree.Node>(
 	// Signature
-	C.capture(select.node(AST_NODE_TYPES.TSIndexSignature), C.nop),
+	C.capture(
+		select.node(AST_NODE_TYPES.TSIndexSignature),
+		C.by(
+			($) =>
+				$.typeAnnotation?.typeAnnotation.type === AST_NODE_TYPES.TSFunctionType,
+			C.defer,
+		),
+	),
 
 	// field
 	C.capture(
