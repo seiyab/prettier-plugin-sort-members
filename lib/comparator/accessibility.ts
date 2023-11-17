@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { C, Comparator, Order } from "./comparator";
+import { C, Comparator } from "./comparator";
 
 export function accessibility<T extends TSESTree.Node>(): Comparator<T> {
 	return C.by(($) => {

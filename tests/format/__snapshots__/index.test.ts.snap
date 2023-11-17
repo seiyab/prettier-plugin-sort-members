@@ -5,6 +5,12 @@ exports[`format class.ts 1`] = `
   [j: number]: unknown;
   static d: unknown;
   private static g: unknown;
+  @deco
+  @deco
+  @deco
+  q: unknown;
+  @deco
+  private p: unknown;
   public b: unknown;
   e: unknown;
   h: unknown;
@@ -12,12 +18,18 @@ exports[`format class.ts 1`] = `
   private a: unknown;
   constructor() {}
   static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
   c(): void {}
   public i(): void {}
   n(): void {}
   protected m(): void {}
   private l(): void {}
 }
+
+function deco(a: unknown, b: unknown): void {}
 "
 `;
 
