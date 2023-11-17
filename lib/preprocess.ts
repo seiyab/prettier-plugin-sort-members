@@ -16,5 +16,11 @@ export function preprocess(ast: AST): AST {
 				body: node.body.slice().sort(comparator),
 			};
 		},
+		TSTypeLiteral(node) {
+			return {
+				...node,
+				members: node.members.slice().sort(comparator),
+			};
+		},
 	});
 }
