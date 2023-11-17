@@ -9,7 +9,7 @@ export const keyIdentifierName = <
 >(): Comparator<T> =>
 	C.property(
 		"key",
-		C.when<TSESTree.Node, TSESTree.Identifier>(
+		C.capture<TSESTree.Node, TSESTree.Identifier>(
 			select.node(AST_NODE_TYPES.Identifier),
 			C.property("name", C.string),
 		),

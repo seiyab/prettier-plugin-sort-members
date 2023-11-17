@@ -9,5 +9,5 @@ export function abstracts<T extends TSESTree.Node>(): Comparator<T> {
 				return true;
 		}
 		return false;
-	}, C.boolean);
+	}, C.defer);
 }

@@ -9,5 +9,5 @@ export function decoration<T extends TSESTree.Node>(): Comparator<T> {
 				return $.decorators.length === 0;
 		}
 		return true;
-	}, C.boolean);
+	}, C.defer);
 }
