@@ -1,5 +1,6 @@
 import { printers as estreePrinters } from "prettier/plugins/estree";
 import { preprocess as p } from "./lib/preprocess";
+export { parsers } from "prettier/plugins/typescript";
 
 export const printers = {
 	estree: {
