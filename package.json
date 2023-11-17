@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-sort-members",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "homepage": "https://github.com/seiyab/prettier-plugin-sort-members",
   "repository": {
