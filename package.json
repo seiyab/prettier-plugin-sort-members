@@ -1,12 +1,20 @@
 {
   "name": "prettier-plugin-sort-members",
-  "module": "index.ts",
+  "module": "dist/index.js",
   "type": "module",
+  "homepage": "https://github.com/seiyab/prettier-plugin-sort-members",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seiyab/prettier-plugin-sort-members.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seiyab/prettier-plugin-sort-members/issues"
+  },
+  "license": "MIT",
   "scripts": {
     "check": "bun test && tsc"
   },
   "devDependencies": {
-    "@typescript-eslint/types": "^6.11.0",
     "bun-types": "latest",
     "typescript": "^5.0.0"
   },
@@ -14,6 +22,7 @@
     "prettier": "^3.0.0"
   },
   "dependencies": {
+    "@typescript-eslint/types": "^6.11.0",
     "@typescript-eslint/visitor-keys": "^6.11.0"
   }
 }

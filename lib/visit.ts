@@ -1,5 +1,5 @@
 import type { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { VisitorKeys, visitorKeys } from "@typescript-eslint/visitor-keys";
+import { visitorKeys } from "@typescript-eslint/visitor-keys";
 
 type Modifier = Partial<{
 	[K in AST_NODE_TYPES]?: <T extends TSESTree.Node & { type: K }>(node: T) => T;

@@ -1,15 +1,25 @@
 # prettier-plugin-sort-members
 
-To install dependencies:
+## Project status
+
+prettier-plugin-sort-members is still in alpha version.
+Feedback is welcome.
+
+## Usage
 
 ```bash
-bun install
+npm install prettier-plugin-sort-members --save-dev
+# or
+yarn add prettier-plugin-sort-members --dev
+# or
+bun add prettier-plugin-sort-members --dev
 ```
 
-To run:
+Edit your prettierrc.
 
-```bash
-bun run index.ts
+```json
+{
+	// ...
+	"plugins": ["prettier-plugin-sort-members"]
+}
 ```
-
-This project was created using `bun init` in bun v1.0.7. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
