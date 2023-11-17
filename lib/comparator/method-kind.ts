@@ -18,6 +18,6 @@ export function methodKind<T extends TSESTree.Node>(): Comparator<T> {
 						return 3;
 				}
 		}
-		return 4;
+		return 3;
 	}, C.number);
 }

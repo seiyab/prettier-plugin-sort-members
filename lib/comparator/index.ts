@@ -12,17 +12,16 @@ export const comparator = C.chain<TSESTree.Node>(
 	// Signature
 	C.capture(
 		select.node(AST_NODE_TYPES.TSIndexSignature),
-		C.by(
-			($) =>
-				$.typeAnnotation?.typeAnnotation.type === AST_NODE_TYPES.TSFunctionType,
-			C.defer,
-		),
+		C.by(functionSignature, C.defer),
 	),
 
 	// field
 	C.capture(
 		select.or(
-			select.node(AST_NODE_TYPES.TSPropertySignature),
+			select.and(
+				select.node(AST_NODE_TYPES.TSPropertySignature),
+				select.not(functionSignature),
+			),
 			select.and(
 				select.node(
 					AST_NODE_TYPES.PropertyDefinition,
@@ -69,6 +68,10 @@ export const comparator = C.chain<TSESTree.Node>(
 				select.node(AST_NODE_TYPES.PropertyDefinition),
 				($) => $.value != null && functionExpressions.includes($.value.type),
 			),
+			select.and(
+				select.node(AST_NODE_TYPES.TSPropertySignature),
+				functionSignature,
+			),
 		),
 		C.chain(
 			C.property("static", C.prefer),
@@ -81,3 +84,11 @@ export const comparator = C.chain<TSESTree.Node>(
 		),
 	),
 );
+
+function functionSignature(
+	node: TSESTree.TSPropertySignature | TSESTree.TSIndexSignature,
+): boolean {
+	return (
+		node.typeAnnotation?.typeAnnotation.type === AST_NODE_TYPES.TSFunctionType
+	);
+}

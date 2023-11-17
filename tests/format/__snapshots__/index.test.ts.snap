@@ -121,12 +121,12 @@ exports[`format type-alias.ts 1`] = `
   [t: string]: unknown;
   [u: number]: () => number;
   r?: number;
-  x: () => () => number;
   y: number;
   [\`s\`]: number;
   new (a: 0, b: 1): A;
   get w(): number;
   v?(): number;
+  x: () => () => number;
   z(): number;
 };
 "
