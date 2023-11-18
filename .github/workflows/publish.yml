@@ -4,8 +4,7 @@ on:
   release:
     types: [published]
   push:
-    branches:
-      - [actions-playground]
+    branches: [actions-playground]
 
 jobs:
   check:
