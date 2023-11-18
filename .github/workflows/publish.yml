@@ -3,20 +3,9 @@ name: publish
 on:
   release:
     types: [published]
-  push:
-    branches: [actions-playground]
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
-      - run: bun install
-      - run: bun run check
-
   publish:
-    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

@@ -10,10 +10,9 @@ on:
 
 jobs:
   check:
-    name: bun run check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
-      - run: bun install
+      - run: bun install --frozen-lockfile
       - run: bun run check
