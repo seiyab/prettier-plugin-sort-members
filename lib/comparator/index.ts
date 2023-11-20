@@ -2,13 +2,13 @@ import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C } from "./comparator";
 import { select } from "./select";
 import { keyIdentifierName } from "./key-identifier-name";
-import { functionExpressions } from "../ast";
+import { BabelNodeTypes, Node, functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { decorated } from "./decorated";
 import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 
-export const comparator = C.chain<TSESTree.Node>(
+export const comparator = C.chain<Node>(
 	// Signature
 	C.capture(
 		select.node(AST_NODE_TYPES.TSIndexSignature),
@@ -26,6 +26,7 @@ export const comparator = C.chain<TSESTree.Node>(
 				select.node(
 					AST_NODE_TYPES.PropertyDefinition,
 					AST_NODE_TYPES.TSAbstractPropertyDefinition,
+					BabelNodeTypes.ClassProperty,
 				),
 				($) => !($.value && functionExpressions.includes($.value.type)),
 			),
@@ -64,8 +65,12 @@ export const comparator = C.chain<TSESTree.Node>(
 			select.node(AST_NODE_TYPES.TSMethodSignature),
 			select.node(AST_NODE_TYPES.MethodDefinition),
 			select.node(AST_NODE_TYPES.TSAbstractMethodDefinition),
+			select.node(BabelNodeTypes.ClassMethod),
 			select.and(
-				select.node(AST_NODE_TYPES.PropertyDefinition),
+				select.node(
+					AST_NODE_TYPES.PropertyDefinition,
+					BabelNodeTypes.ClassProperty,
+				),
 				($) => $.value != null && functionExpressions.includes($.value.type),
 			),
 			select.and(

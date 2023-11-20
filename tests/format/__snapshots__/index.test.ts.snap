@@ -131,3 +131,13 @@ exports[`format type-alias.ts 1`] = `
 };
 "
 `;
+
+exports[`format class.js 1`] = `
+"class MyClass {
+  b;
+  c;
+  constructor() {}
+  a() {}
+}
+"
+`;

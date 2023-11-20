@@ -1,12 +1,15 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { C, Comparator } from "./comparator";
+import { BabelNodeTypes, Node } from "../ast";
 
-export function methodKind<T extends TSESTree.Node>(): Comparator<T> {
+export function methodKind<T extends Node>(): Comparator<T> {
 	return C.by(($) => {
 		switch ($.type) {
 			case AST_NODE_TYPES.TSMethodSignature:
 			case AST_NODE_TYPES.MethodDefinition:
 			case AST_NODE_TYPES.TSAbstractMethodDefinition:
+			case BabelNodeTypes.ClassMethod:
+			case BabelNodeTypes.TSDeclareMethod:
 				switch ($.kind) {
 					case "constructor":
 						return 0;
