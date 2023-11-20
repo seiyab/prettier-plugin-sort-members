@@ -3,6 +3,8 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { format } from "prettier";
 
+const plugins = ["./index.ts"];
+
 describe("format", async () => {
 	const dir = join(import.meta.dir, "testdata");
 	const filenames = await readdir(dir);
@@ -10,7 +12,10 @@ describe("format", async () => {
 	test.each(filenames)("%s", async (name) => {
 		const path = join(dir, name);
 		const code = await readFile(path, "utf-8");
-		const result = await format(code, { filepath: path, plugins: ["."] });
+		const result = await format(code, {
+			filepath: path,
+			plugins,
+		});
 		expect(result).toMatchSnapshot();
 	});
 
@@ -18,8 +23,8 @@ describe("format", async () => {
 		test.each(filenames)("%s", async (name) => {
 			const path = join(dir, name);
 			const code = await readFile(path, "utf-8");
-			const result1 = await format(code, { filepath: path, plugins: ["."] });
-			const result2 = await format(result1, { filepath: path, plugins: ["."] });
+			const result1 = await format(code, { filepath: path, plugins });
+			const result2 = await format(result1, { filepath: path, plugins });
 			expect(result1).toEqual(result2);
 		});
 	});
