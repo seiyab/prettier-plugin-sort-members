@@ -34,13 +34,13 @@ export const C = {
 		return Order.Equal;
 	},
 	defer(a: boolean, b: boolean): Order {
-		if (a === b) return Order.Equal;
-		if (a) return Order.Greater;
+		if (!!a === !!b) return Order.Equal;
+		if (!!a) return Order.Greater;
 		return Order.Less;
 	},
 	prefer(a: boolean, b: boolean): Order {
-		if (a === b) return Order.Equal;
-		if (a) return Order.Less;
+		if (!!a === !!b) return Order.Equal;
+		if (!!a) return Order.Less;
 		return Order.Greater;
 	},
 	string(a: string, b: string): Order {
@@ -57,9 +57,9 @@ export const C = {
 		return (a, b) => {
 			if (a == null) {
 				if (b == null) return Order.Equal;
-				return Order.Less;
+				return Order.Greater;
 			}
-			if (b == null) return Order.Greater;
+			if (b == null) return Order.Less;
 			return comp(a, b);
 		};
 	},

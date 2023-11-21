@@ -15,8 +15,8 @@ exports[`format class.ts 1`] = `
   e: unknown;
   h: unknown;
   readonly k: unknown;
-  abstract t: unknown;
   private a: unknown;
+  abstract t: unknown;
   constructor() {}
   static f(): void {}
   @deco
@@ -37,6 +37,37 @@ exports[`format class.ts 1`] = `
   private v(): void {}
   abstract s(): void;
   abstract u(): void;
+}
+
+class Visibility {
+  o = 0;
+  public w = 0;
+  protected v = 0;
+  private z = 0;
+  #y = 0;
+  private constructor() {}
+  get n() {
+    return 0;
+  }
+  get s() {
+    return 0;
+  }
+  private get m() {
+    return 0;
+  }
+  get #l() {
+    return 0;
+  }
+  protected set r(_: 0) {}
+  set #q(_: 0) {}
+  public p() {
+    return 0;
+  }
+  private t = () => 0;
+  #u = () => 0;
+  #x() {
+    return 0;
+  }
 }
 
 function deco(a: unknown, b: unknown): void {}
@@ -129,5 +160,30 @@ exports[`format type-alias.ts 1`] = `
   x: () => () => number;
   z(): number;
 };
+"
+`;
+
+exports[`format class.js 1`] = `
+"class MyClass {
+  b;
+  c;
+  #f;
+  constructor() {}
+  a() {}
+  #d() {}
+  #e() {}
+}
+
+class MyClass2 {
+  b;
+  c;
+  @deco
+  g;
+  #f;
+  constructor() {}
+  a() {}
+  #d() {}
+  #e() {}
+}
 "
 `;

@@ -1,10 +1,14 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { BabelNodeTypes, Node } from "../ast";
 
-export function abstracted(node: TSESTree.Node): boolean {
+export function abstracted(node: Node): boolean {
 	switch (node.type) {
 		case AST_NODE_TYPES.TSAbstractPropertyDefinition:
 		case AST_NODE_TYPES.TSAbstractMethodDefinition:
 			return true;
+		case BabelNodeTypes.ClassProperty:
+		case BabelNodeTypes.TSDeclareMethod:
+			return node.abstract === true;
 	}
 	return false;
 }

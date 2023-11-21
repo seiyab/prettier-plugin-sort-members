@@ -1,16 +1,19 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { C, Comparator } from "./comparator";
-import { select } from "./select";
+import { BabelNodeTypes, Node } from "../ast";
 
 export const keyIdentifierName = <
 	T extends {
-		key: TSESTree.Node;
+		key: Node;
 	},
 >(): Comparator<T> =>
-	C.property(
-		"key",
-		C.capture<TSESTree.Node, TSESTree.Identifier>(
-			select.node(AST_NODE_TYPES.Identifier),
-			C.property("name", C.string),
-		),
-	);
+	C.by(($) => {
+		switch ($.key.type) {
+			case AST_NODE_TYPES.Identifier:
+			case AST_NODE_TYPES.PrivateIdentifier:
+				return $.key.name;
+			case BabelNodeTypes.PrivateName:
+				if ($.key.id.type === AST_NODE_TYPES.Identifier) return $.key.id.name;
+		}
+		return null;
+	}, C.maybe(C.string));

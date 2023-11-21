@@ -1,12 +1,14 @@
-import type { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { visitorKeys } from "@typescript-eslint/visitor-keys";
+import { Node, NodeTypes } from "./ast";
 
 type Modifier = Partial<{
-	[K in AST_NODE_TYPES]?: <T extends TSESTree.Node & { type: K }>(node: T) => T;
+	[K in NodeTypes]?: <T extends Node<K>>(node: T) => T;
 }>;
 
-export function visit<T extends TSESTree.Node>(node: T, modifier: Modifier): T {
+export function visit<T extends Node>(node: T, modifier: Modifier): T {
 	if (node?.type == null) return node;
+	if (node.type === "File")
+		return { ...cloneNode(node), program: visit(node.program, modifier) }; // babel
 	const modr: any = modifier[node.type];
 	const modified = cloneNode(modr?.(node) ?? node);
 	for (const key of visitorKeys[node.type] ?? []) {
@@ -20,6 +22,6 @@ export function visit<T extends TSESTree.Node>(node: T, modifier: Modifier): T {
 	return modified;
 }
 
-function cloneNode<N extends TSESTree.Node>(node: N): N {
+function cloneNode<N extends Node>(node: N): N {
 	return { ...node };
 }

@@ -1,6 +1,7 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { Node } from "../ast";
 
-export function decorated(node: TSESTree.Node): boolean {
+export function decorated(node: Node): boolean {
 	switch (node.type) {
 		case AST_NODE_TYPES.PropertyDefinition:
 		case AST_NODE_TYPES.MethodDefinition:
