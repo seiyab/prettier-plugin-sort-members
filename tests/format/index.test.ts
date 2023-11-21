@@ -25,7 +25,6 @@ describe("format", async () => {
 			const code = await readFile(path, "utf-8");
 			const result1 = await format(code, { filepath: path, plugins });
 			const result2 = await format(result1, { filepath: path, plugins });
-			const result3 = await format(result2, { filepath: path, plugins });
 			expect(result2).toEqual(result1);
 		});
 	});

@@ -34,6 +34,25 @@ abstract class A {
     get z(): 0 { return 0 };
 }
 
+class Visibility {
+    private z = 0;
+    #y = 0;
+    #x() { return 0 }
+    public w = 0;
+    protected v = 0;
+    #u = () => 0;
+    private t = () => 0;
+    get s() { return 0 }
+    protected set r(_: 0) {}
+    set #q(_: 0) {}
+    public p() { return 0 };
+    o = 0;
+    private constructor() {}
+    get n() { return 0 };
+    private get m() { return 0 };
+    get #l() { return 0 };
+}
+
 
 function deco(a: unknown, b: unknown): void {
 }

@@ -8,7 +8,7 @@ export function abstracted(node: Node): boolean {
 			return true;
 		case BabelNodeTypes.ClassProperty:
 		case BabelNodeTypes.TSDeclareMethod:
-			return node.abstract;
+			return node.abstract === true;
 	}
 	return false;
 }

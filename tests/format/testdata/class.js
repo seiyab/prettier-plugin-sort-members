@@ -16,4 +16,6 @@ class MyClass2 {
 	a() {}
 	#d() {}
 	#e() {}
+	@deco
+	g;
   }

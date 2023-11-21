@@ -37,8 +37,8 @@ export const comparator = C.chain<Node>(
 		C.chain(
 			C.property("static", C.prefer),
 			C.by(decorated, C.prefer),
-			accessibility(),
 			C.by(abstracted, C.defer),
+			accessibility(),
 			C.property("computed", C.defer),
 			keyIdentifierName(),
 		),

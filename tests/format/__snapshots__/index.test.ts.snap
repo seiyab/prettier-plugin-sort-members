@@ -3,40 +3,71 @@
 exports[`format class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
-  private static g: unknown;
   static d: unknown;
-  @deco
-  private p: unknown;
+  private static g: unknown;
   @deco
   @deco
   @deco
   q: unknown;
+  @deco
+  private p: unknown;
   public b: unknown;
-  abstract t: unknown;
-  private a: unknown;
   e: unknown;
   h: unknown;
   readonly k: unknown;
+  private a: unknown;
+  abstract t: unknown;
   constructor() {}
   static f(): void {}
   @deco
-  protected r(): void {}
-  @deco
   o(): void {}
+  @deco
+  protected r(): void {}
   get z(): 0 {
     return 0;
   }
   protected set x(_: unknown) {}
   private set w(_: unknown) {}
   abstract set y(_: unknown);
+  c(): void {}
   public i(): void {}
+  n(): void {}
   protected m(): void {}
   private l(): void {}
   private v(): void {}
-  c(): void {}
-  n(): void {}
   abstract s(): void;
   abstract u(): void;
+}
+
+class Visibility {
+  o = 0;
+  public w = 0;
+  protected v = 0;
+  private z = 0;
+  #y = 0;
+  private constructor() {}
+  get n() {
+    return 0;
+  }
+  get s() {
+    return 0;
+  }
+  private get m() {
+    return 0;
+  }
+  get #l() {
+    return 0;
+  }
+  protected set r(_: 0) {}
+  set #q(_: 0) {}
+  public p() {
+    return 0;
+  }
+  private t = () => 0;
+  #u = () => 0;
+  #x() {
+    return 0;
+  }
 }
 
 function deco(a: unknown, b: unknown): void {}
@@ -146,6 +177,8 @@ exports[`format class.js 1`] = `
 class MyClass2 {
   b;
   c;
+  @deco
+  g;
   #f;
   constructor() {}
   a() {}
