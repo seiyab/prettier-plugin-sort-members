@@ -16,7 +16,9 @@ export type Node<T extends NodeTypes = NodeTypes> = (
 // --- babel specific nodes
 export enum BabelNodeTypes {
 	ClassProperty = "ClassProperty",
+	ClassPrivateProperty = "ClassPrivateProperty",
 	ClassMethod = "ClassMethod",
+	ClassPrivateMethod = "ClassPrivateMethod",
 	TSDeclareMethod = "TSDeclareMethod",
 	PrivateName = "PrivateName",
 	File = "File",
@@ -25,7 +27,9 @@ export enum BabelNodeTypes {
 
 type BabelNode =
 	| ClassProperty
+	| ClassPrivateProperty
 	| ClassMethod
+	| ClassPrivateMethod
 	| TSDeclareMethod
 	| PrivateName
 	| File;
@@ -35,9 +39,19 @@ type ClassProperty = Override<
 	{ type: BabelNodeTypes.ClassProperty; abstract: boolean; key: Node }
 >;
 
+type ClassPrivateProperty = Override<
+	ClassProperty,
+	{ type: BabelNodeTypes.ClassPrivateProperty }
+>;
+
 type ClassMethod = Override<
 	TSESTree.MethodDefinition,
 	{ type: BabelNodeTypes.ClassMethod; key: Node }
+>;
+
+type ClassPrivateMethod = Override<
+	ClassMethod,
+	{ type: BabelNodeTypes.ClassPrivateMethod }
 >;
 
 type TSDeclareMethod = Override<
@@ -47,7 +61,7 @@ type TSDeclareMethod = Override<
 
 type PrivateName = {
 	type: BabelNodeTypes.PrivateName;
-	id: TSESTree.Identifier;
+	id: Node;
 };
 
 type File = {

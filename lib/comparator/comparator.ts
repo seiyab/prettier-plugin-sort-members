@@ -57,9 +57,9 @@ export const C = {
 		return (a, b) => {
 			if (a == null) {
 				if (b == null) return Order.Equal;
-				return Order.Less;
+				return Order.Greater;
 			}
-			if (b == null) return Order.Greater;
+			if (b == null) return Order.Less;
 			return comp(a, b);
 		};
 	},

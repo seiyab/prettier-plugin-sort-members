@@ -17,20 +17,23 @@ export const comparator = C.chain<Node>(
 
 	// field
 	C.capture(
-		select.or(
-			select.and(
-				select.node(AST_NODE_TYPES.TSPropertySignature),
-				select.not(functionSignature),
-			),
-			select.and(
-				select.node(
-					AST_NODE_TYPES.PropertyDefinition,
-					AST_NODE_TYPES.TSAbstractPropertyDefinition,
-					BabelNodeTypes.ClassProperty,
+		select
+			.or(
+				select.and(
+					select.node(AST_NODE_TYPES.TSPropertySignature),
+					select.not(functionSignature),
 				),
-				($) => !($.value && functionExpressions.includes($.value.type)),
+			)
+			.or(
+				select.and(
+					select
+						.or(select.node(AST_NODE_TYPES.PropertyDefinition))
+						.or(select.node(AST_NODE_TYPES.TSAbstractPropertyDefinition))
+						.or(select.node(BabelNodeTypes.ClassProperty))
+						.or(select.node(BabelNodeTypes.ClassPrivateProperty)),
+					($) => !($.value && functionExpressions.includes($.value.type)),
+				),
 			),
-		),
 		C.chain(
 			C.property("static", C.prefer),
 			C.by(decorated, C.prefer),
@@ -44,15 +47,16 @@ export const comparator = C.chain<Node>(
 	// constructor signature for interface
 	// constructor in class is handled as method
 	C.capture(
-		select.or(
-			select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration),
-			select.and(
-				select.node(AST_NODE_TYPES.MethodDefinition),
-				($) =>
-					$.key.type === AST_NODE_TYPES.Identifier &&
-					$.key.name === "constructor",
+		select
+			.or(select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration))
+			.or(
+				select.and(
+					select.node(AST_NODE_TYPES.MethodDefinition),
+					($) =>
+						$.key.type === AST_NODE_TYPES.Identifier &&
+						$.key.name === "constructor",
+				),
 			),
-		),
 		C.by(($) => {
 			if ($.type !== AST_NODE_TYPES.TSConstructSignatureDeclaration) return 0;
 			return $.params.length;
@@ -61,23 +65,28 @@ export const comparator = C.chain<Node>(
 
 	// method
 	C.capture(
-		select.or(
-			select.node(AST_NODE_TYPES.TSMethodSignature),
-			select.node(AST_NODE_TYPES.MethodDefinition),
-			select.node(AST_NODE_TYPES.TSAbstractMethodDefinition),
-			select.node(BabelNodeTypes.ClassMethod),
-			select.and(
-				select.node(
-					AST_NODE_TYPES.PropertyDefinition,
-					BabelNodeTypes.ClassProperty,
+		select
+			.or(select.node(AST_NODE_TYPES.TSMethodSignature))
+			.or(select.node(AST_NODE_TYPES.MethodDefinition))
+			.or(select.node(AST_NODE_TYPES.TSAbstractMethodDefinition))
+			.or(select.node(BabelNodeTypes.ClassMethod))
+			.or(select.node(BabelNodeTypes.ClassPrivateMethod))
+			.or(
+				select.and(
+					select.node(
+						AST_NODE_TYPES.PropertyDefinition,
+						BabelNodeTypes.ClassProperty,
+						BabelNodeTypes.ClassPrivateProperty,
+					),
+					($) => $.value != null && functionExpressions.includes($.value.type),
 				),
-				($) => $.value != null && functionExpressions.includes($.value.type),
+			)
+			.or(
+				select.and(
+					select.node(AST_NODE_TYPES.TSPropertySignature),
+					functionSignature,
+				),
 			),
-			select.and(
-				select.node(AST_NODE_TYPES.TSPropertySignature),
-				functionSignature,
-			),
-		),
 		C.chain(
 			C.property("static", C.prefer),
 			C.by(decorated, C.prefer),

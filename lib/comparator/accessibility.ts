@@ -18,9 +18,9 @@ export function accessibility<T extends Node>(): Comparator<T> {
 			case AST_NODE_TYPES.PropertyDefinition:
 			case AST_NODE_TYPES.MethodDefinition:
 				if ($.key.type === AST_NODE_TYPES.PrivateIdentifier) return 3;
-			case BabelNodeTypes.ClassMethod:
-			case BabelNodeTypes.ClassProperty:
-				if ($.key.type === BabelNodeTypes.PrivateName) return 3;
+			case BabelNodeTypes.ClassPrivateMethod:
+			case BabelNodeTypes.ClassPrivateProperty:
+				return 3;
 		}
 		return 0;
 	}, C.number);

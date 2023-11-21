@@ -38,44 +38,16 @@ function and<T>(...predicates: ((a: T) => boolean)[]): (a: T) => boolean {
 	return (a) => predicates.every((predicate) => predicate(a));
 }
 
-function or<T, U extends T, V extends T>(
-	p1: (a: T) => a is U,
-	p2: (a: T) => a is V,
-): (a: T) => a is U | V;
-function or<T, U extends T, V extends T, W extends T>(
-	p1: (a: T) => a is U,
-	p2: (a: T) => a is V,
-	p3: (a: T) => a is W,
-): (a: T) => a is U | V | W;
-function or<T, U extends T, V extends T, W extends T, X extends T>(
-	p1: (a: T) => a is U,
-	p2: (a: T) => a is V,
-	p3: (a: T) => a is W,
-	p4: (a: T) => a is X,
-): (a: T) => a is U | V | W | X;
-function or<T, U extends T, V extends T, W extends T, X extends T, Y extends T>(
-	p1: (a: T) => a is U,
-	p2: (a: T) => a is V,
-	p3: (a: T) => a is W,
-	p4: (a: T) => a is X,
-	p5: (a: T) => a is Y,
-): (a: T) => a is U | V | W | X | Y;
-function or<
-	T,
-	U extends T,
-	V extends T,
-	W extends T,
-	X extends T,
-	Y extends T,
-	Z extends T,
->(
-	p1: (a: T) => a is U,
-	p2: (a: T) => a is V,
-	p3: (a: T) => a is W,
-	p4: (a: T) => a is X,
-	p5: (a: T) => a is Y,
-	p6: (a: T) => a is Z,
-): (a: T) => a is U | V | W | X | Y | Z;
-function or<T>(...predicates: ((a: T) => boolean)[]): (a: T) => boolean {
-	return (a) => predicates.some((predicate) => predicate(a));
+type Or<T, U extends T> = ((a: T) => a is U) & {
+	or<V extends T>(predicate: (a: T) => a is V): Or<T, U | V>;
+};
+
+function or<T, U extends T>(predicate: (a: T) => a is U): Or<T, U> {
+	function call(a: T): a is U {
+		return predicate(a);
+	}
+	call.or = function <V extends T>(predicate: (a: T) => a is V) {
+		return or((a: T): a is U | V => predicate(a) || call(a));
+	};
+	return call;
 }
