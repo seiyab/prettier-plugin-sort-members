@@ -1,16 +1,8 @@
 import { printers as estreePrinters } from "prettier/plugins/estree";
 import { preprocess as p } from "./lib/preprocess";
-import { parsers as ts } from "prettier/plugins/typescript";
-import { parsers as babel } from "prettier/plugins/babel";
+import { AST } from "prettier";
 
-export const parsers = {
-	...babel,
-	...ts,
-};
+const originalPreprocess = estreePrinters.estree.preprocess ?? ((x: AST) => x);
 
-export const printers = {
-	estree: {
-		...estreePrinters.estree,
-		preprocess: p,
-	},
-};
+estreePrinters.estree.preprocess = (x, options) =>
+	p(originalPreprocess(x, options));
