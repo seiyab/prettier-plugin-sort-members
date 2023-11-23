@@ -40,16 +40,16 @@ exports[`format class.ts 1`] = `
 }
 
 class Visibility {
-  o = 0;
   public w = 0;
+  o = 0;
   protected v = 0;
   private z = 0;
   #y = 0;
   private constructor() {}
-  get n() {
+  get s() {
     return 0;
   }
-  get s() {
+  get n() {
     return 0;
   }
   private get m() {
@@ -64,10 +64,10 @@ class Visibility {
     return 0;
   }
   private t = () => 0;
-  #u = () => 0;
   #x() {
     return 0;
   }
+  #u = () => 0;
 }
 
 function deco(a: unknown, b: unknown): void {}
@@ -76,26 +76,26 @@ function deco(a: unknown, b: unknown): void {}
 
 exports[`format interface.ts 1`] = `
 "interface A {
-  a: string;
   b: string;
   c: unknown;
+  a: string;
 }
 
 interface B {
-  c: number;
   x: string;
+  c: number;
   a(): string;
-  b(): never;
   z(): string;
+  b(): never;
 }
 
 interface C {
+  z: 0;
   a: string;
 
-  aa: 0;
   b: string;
+  aa: 0;
   c: string;
-  z: 0;
   m(): unknown;
 }
 
@@ -113,10 +113,10 @@ interface E {
   // comment-on-a
   a: 0;
 
-  b: 0; // tail-comment-b
-
   // comment-on-c
   c: 0; // tail-comment-c
+
+  b: 0; // tail-comment-b
 
   // comment-on-d
   d(): 0; // tail-comment-d
@@ -151,27 +151,27 @@ exports[`format type-alias.ts 1`] = `
 "type A = {
   [t: string]: unknown;
   [u: number]: () => number;
-  r?: number;
   y: number;
+  r?: number;
   [\`s\`]: number;
   new (a: 0, b: 1): A;
   get w(): number;
-  v?(): number;
-  x: () => () => number;
   z(): number;
+  x: () => () => number;
+  v?(): number;
 };
 "
 `;
 
 exports[`format class.js 1`] = `
 "class MyClass {
-  b;
   c;
+  b;
   #f;
   constructor() {}
   a() {}
-  #d() {}
   #e() {}
+  #d() {}
 }
 
 class MyClass2 {
