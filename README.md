@@ -34,6 +34,8 @@ class MyClass {
 	c: string;
 	a(): void {}
 	b: number;
+	e(): void {}
+	d: number;
 	constructor() {}
 }
 
@@ -41,8 +43,10 @@ class MyClass {
 class MyClass {
 	b: number;
 	c: string;
+	d: number;
 	constructor() {}
 	a(): void {}
+	e(): void {}
 }
 ```
 

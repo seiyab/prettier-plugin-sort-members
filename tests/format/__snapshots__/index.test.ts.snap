@@ -187,3 +187,15 @@ class MyClass2 {
 }
 "
 `;
+
+exports[`format readme-example.ts 1`] = `
+"class MyClass {
+  b: number;
+  c: string;
+  d: number;
+  constructor() {}
+  a(): void {}
+  e(): void {}
+}
+"
+`;
