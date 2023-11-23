@@ -9,15 +9,16 @@ export function visit<T extends Node>(node: T, modifier: Modifier): T {
 	if (node?.type == null) return node;
 	if (node.type === "File")
 		return { ...cloneNode(node), program: visit(node.program, modifier) }; // babel
-	const modr: any = modifier[node.type];
+	const modr = modifier[node.type] as ((n: T) => T) | undefined;
 	const modified = cloneNode(modr?.(node) ?? node);
 	for (const key of visitorKeys[node.type] ?? []) {
-		const child = modified[key];
+		const k = key as keyof T;
+		const child = modified[k];
 		if (Array.isArray(child)) {
-			modified[key] = child.map((c) => visit(c, modifier));
+			modified[k] = child.map((c) => visit(c, modifier)) as T[typeof k];
 			continue;
 		}
-		modified[key] = visit(modified[key], modifier);
+		modified[k] = visit(modified[k] as Node, modifier) as T[typeof k];
 	}
 	return modified;
 }
