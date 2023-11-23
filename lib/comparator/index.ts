@@ -8,96 +8,104 @@ import { decorated } from "./decorated";
 import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 
-export const comparator = C.chain<Node>(
-	// Signature
-	C.capture(
-		select.node(AST_NODE_TYPES.TSIndexSignature),
-		C.by(functionSignature, C.defer),
-	),
+type Options = {
+	sortMembersAlphabetically?: boolean;
+};
 
-	// field
-	C.capture(
-		select
-			.or(
-				select.and(
-					select.node(AST_NODE_TYPES.TSPropertySignature),
-					select.not(functionSignature),
-				),
-			)
-			.or(
-				select.and(
-					select
-						.or(select.node(AST_NODE_TYPES.PropertyDefinition))
-						.or(select.node(AST_NODE_TYPES.TSAbstractPropertyDefinition))
-						.or(select.node(BabelNodeTypes.ClassProperty))
-						.or(select.node(BabelNodeTypes.ClassPrivateProperty)),
-					($) => !($.value && functionExpressions.includes($.value.type)),
-				),
-			),
-		C.chain(
-			C.property("static", C.prefer),
-			C.by(decorated, C.prefer),
-			C.by(abstracted, C.defer),
-			accessibility(),
-			C.property("computed", C.defer),
-			keyIdentifierName(),
+export function comparator(options: Options) {
+	const alpha = options.sortMembersAlphabetically === true;
+	return C.chain<Node>(
+		// Signature
+		C.capture(
+			select.node(AST_NODE_TYPES.TSIndexSignature),
+			C.by(functionSignature, C.defer),
 		),
-	),
 
-	// constructor signature for interface
-	// constructor in class is handled as method
-	C.capture(
-		select
-			.or(select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration))
-			.or(
-				select.and(
-					select.node(AST_NODE_TYPES.MethodDefinition),
-					($) =>
-						$.key.type === AST_NODE_TYPES.Identifier &&
-						$.key.name === "constructor",
-				),
-			),
-		C.by(($) => {
-			if ($.type !== AST_NODE_TYPES.TSConstructSignatureDeclaration) return 0;
-			return $.params.length;
-		}, C.number),
-	),
-
-	// method
-	C.capture(
-		select
-			.or(select.node(AST_NODE_TYPES.TSMethodSignature))
-			.or(select.node(AST_NODE_TYPES.MethodDefinition))
-			.or(select.node(AST_NODE_TYPES.TSAbstractMethodDefinition))
-			.or(select.node(BabelNodeTypes.ClassMethod))
-			.or(select.node(BabelNodeTypes.ClassPrivateMethod))
-			.or(
-				select.and(
-					select.node(
-						AST_NODE_TYPES.PropertyDefinition,
-						BabelNodeTypes.ClassProperty,
-						BabelNodeTypes.ClassPrivateProperty,
+		// field
+		C.capture(
+			select
+				.or(
+					select.and(
+						select.node(AST_NODE_TYPES.TSPropertySignature),
+						select.not(functionSignature),
 					),
-					($) => $.value != null && functionExpressions.includes($.value.type),
+				)
+				.or(
+					select.and(
+						select
+							.or(select.node(AST_NODE_TYPES.PropertyDefinition))
+							.or(select.node(AST_NODE_TYPES.TSAbstractPropertyDefinition))
+							.or(select.node(BabelNodeTypes.ClassProperty))
+							.or(select.node(BabelNodeTypes.ClassPrivateProperty)),
+						($) => !($.value && functionExpressions.includes($.value.type)),
+					),
 				),
-			)
-			.or(
-				select.and(
-					select.node(AST_NODE_TYPES.TSPropertySignature),
-					functionSignature,
-				),
+			C.chain(
+				C.property("static", C.prefer),
+				C.by(decorated, C.prefer),
+				C.by(abstracted, C.defer),
+				accessibility(),
+				C.property("computed", C.defer),
+				alpha ? keyIdentifierName() : C.nop,
 			),
-		C.chain(
-			C.property("static", C.prefer),
-			C.by(decorated, C.prefer),
-			methodKind(),
-			C.by(abstracted, C.defer),
-			accessibility(),
-			C.property("computed", C.defer),
-			keyIdentifierName(),
 		),
-	),
-);
+
+		// constructor signature for interface
+		// constructor in class is handled as method
+		C.capture(
+			select
+				.or(select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration))
+				.or(
+					select.and(
+						select.node(AST_NODE_TYPES.MethodDefinition),
+						($) =>
+							$.key.type === AST_NODE_TYPES.Identifier &&
+							$.key.name === "constructor",
+					),
+				),
+			C.by(($) => {
+				if ($.type !== AST_NODE_TYPES.TSConstructSignatureDeclaration) return 0;
+				return $.params.length;
+			}, C.number),
+		),
+
+		// method
+		C.capture(
+			select
+				.or(select.node(AST_NODE_TYPES.TSMethodSignature))
+				.or(select.node(AST_NODE_TYPES.MethodDefinition))
+				.or(select.node(AST_NODE_TYPES.TSAbstractMethodDefinition))
+				.or(select.node(BabelNodeTypes.ClassMethod))
+				.or(select.node(BabelNodeTypes.ClassPrivateMethod))
+				.or(
+					select.and(
+						select.node(
+							AST_NODE_TYPES.PropertyDefinition,
+							BabelNodeTypes.ClassProperty,
+							BabelNodeTypes.ClassPrivateProperty,
+						),
+						($) =>
+							$.value != null && functionExpressions.includes($.value.type),
+					),
+				)
+				.or(
+					select.and(
+						select.node(AST_NODE_TYPES.TSPropertySignature),
+						functionSignature,
+					),
+				),
+			C.chain(
+				C.property("static", C.prefer),
+				C.by(decorated, C.prefer),
+				methodKind(),
+				C.by(abstracted, C.defer),
+				accessibility(),
+				C.property("computed", C.defer),
+				alpha ? keyIdentifierName() : C.nop,
+			),
+		),
+	);
+}
 
 function functionSignature(
 	node: TSESTree.TSPropertySignature | TSESTree.TSIndexSignature,

@@ -1,6 +1,194 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`format class.ts 1`] = `
+exports[`format {} class.ts 1`] = `
+"abstract class A {
+  [j: number]: unknown;
+  static d: unknown;
+  private static g: unknown;
+  @deco
+  @deco
+  @deco
+  q: unknown;
+  @deco
+  private p: unknown;
+  public b: unknown;
+  e: unknown;
+  h: unknown;
+  readonly k: unknown;
+  private a: unknown;
+  abstract t: unknown;
+  constructor() {}
+  static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
+  get z(): 0 {
+    return 0;
+  }
+  protected set x(_: unknown) {}
+  private set w(_: unknown) {}
+  abstract set y(_: unknown);
+  c(): void {}
+  public i(): void {}
+  n(): void {}
+  protected m(): void {}
+  private l(): void {}
+  private v(): void {}
+  abstract s(): void;
+  abstract u(): void;
+}
+
+class Visibility {
+  public w = 0;
+  o = 0;
+  protected v = 0;
+  private z = 0;
+  #y = 0;
+  private constructor() {}
+  get s() {
+    return 0;
+  }
+  get n() {
+    return 0;
+  }
+  private get m() {
+    return 0;
+  }
+  get #l() {
+    return 0;
+  }
+  protected set r(_: 0) {}
+  set #q(_: 0) {}
+  public p() {
+    return 0;
+  }
+  private t = () => 0;
+  #x() {
+    return 0;
+  }
+  #u = () => 0;
+}
+
+function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {} interface.ts 1`] = `
+"interface A {
+  b: string;
+  c: unknown;
+  a: string;
+}
+
+interface B {
+  x: string;
+  c: number;
+  a(): string;
+  z(): string;
+  b(): never;
+}
+
+interface C {
+  z: 0;
+  a: string;
+
+  b: string;
+  aa: 0;
+  c: string;
+  m(): unknown;
+}
+
+interface D {
+  a: string;
+  b: string;
+
+  c: 0;
+
+  am(): 0;
+  bm(): 0;
+}
+
+interface E {
+  // comment-on-a
+  a: 0;
+
+  // comment-on-c
+  c: 0; // tail-comment-c
+
+  b: 0; // tail-comment-b
+
+  // comment-on-d
+  d(): 0; // tail-comment-d
+  e(): 0;
+  // trailing-comment
+}
+
+interface F {
+  [c: number]: 0;
+  [d: symbol]: 0;
+  b: 0;
+  [\`e\`]: 0;
+  [\`f\`]: 0;
+  new (): F;
+  new (a: 0): F;
+  new (a: 0, b: 0): F;
+  get i(): 0;
+  set h(_: 0);
+  a(): 0;
+  [\`g\`](): 0;
+}
+
+interface G {
+  [d: symbol]: 0;
+  [c: number]: () => 0;
+  a: 0;
+}
+"
+`;
+
+exports[`format {} type-alias.ts 1`] = `
+"type A = {
+  [t: string]: unknown;
+  [u: number]: () => number;
+  y: number;
+  r?: number;
+  [\`s\`]: number;
+  new (a: 0, b: 1): A;
+  get w(): number;
+  z(): number;
+  x: () => () => number;
+  v?(): number;
+};
+"
+`;
+
+exports[`format {} class.js 1`] = `
+"class MyClass {
+  c;
+  b;
+  #f;
+  constructor() {}
+  a() {}
+  #e() {}
+  #d() {}
+}
+
+class MyClass2 {
+  b;
+  c;
+  @deco
+  g;
+  #f;
+  constructor() {}
+  a() {}
+  #d() {}
+  #e() {}
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
   static d: unknown;
@@ -74,7 +262,7 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
-exports[`format interface.ts 1`] = `
+exports[`format {"sortMembersAlphabetically":true} interface.ts 1`] = `
 "interface A {
   a: string;
   b: string;
@@ -147,7 +335,7 @@ interface G {
 "
 `;
 
-exports[`format type-alias.ts 1`] = `
+exports[`format {"sortMembersAlphabetically":true} type-alias.ts 1`] = `
 "type A = {
   [t: string]: unknown;
   [u: number]: () => number;
@@ -163,7 +351,7 @@ exports[`format type-alias.ts 1`] = `
 "
 `;
 
-exports[`format class.js 1`] = `
+exports[`format {"sortMembersAlphabetically":true} class.js 1`] = `
 "class MyClass {
   b;
   c;
@@ -172,6 +360,194 @@ exports[`format class.js 1`] = `
   a() {}
   #d() {}
   #e() {}
+}
+
+class MyClass2 {
+  b;
+  c;
+  @deco
+  g;
+  #f;
+  constructor() {}
+  a() {}
+  #d() {}
+  #e() {}
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} class.ts 1`] = `
+"abstract class A {
+  [j: number]: unknown;
+  static d: unknown;
+  private static g: unknown;
+  @deco
+  @deco
+  @deco
+  q: unknown;
+  @deco
+  private p: unknown;
+  public b: unknown;
+  e: unknown;
+  h: unknown;
+  readonly k: unknown;
+  private a: unknown;
+  abstract t: unknown;
+  constructor() {}
+  static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
+  get z(): 0 {
+    return 0;
+  }
+  protected set x(_: unknown) {}
+  private set w(_: unknown) {}
+  abstract set y(_: unknown);
+  c(): void {}
+  public i(): void {}
+  n(): void {}
+  protected m(): void {}
+  private l(): void {}
+  private v(): void {}
+  abstract s(): void;
+  abstract u(): void;
+}
+
+class Visibility {
+  public w = 0;
+  o = 0;
+  protected v = 0;
+  private z = 0;
+  #y = 0;
+  private constructor() {}
+  get s() {
+    return 0;
+  }
+  get n() {
+    return 0;
+  }
+  private get m() {
+    return 0;
+  }
+  get #l() {
+    return 0;
+  }
+  protected set r(_: 0) {}
+  set #q(_: 0) {}
+  public p() {
+    return 0;
+  }
+  private t = () => 0;
+  #x() {
+    return 0;
+  }
+  #u = () => 0;
+}
+
+function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} interface.ts 1`] = `
+"interface A {
+  b: string;
+  c: unknown;
+  a: string;
+}
+
+interface B {
+  x: string;
+  c: number;
+  a(): string;
+  z(): string;
+  b(): never;
+}
+
+interface C {
+  z: 0;
+  a: string;
+
+  b: string;
+  aa: 0;
+  c: string;
+  m(): unknown;
+}
+
+interface D {
+  a: string;
+  b: string;
+
+  c: 0;
+
+  am(): 0;
+  bm(): 0;
+}
+
+interface E {
+  // comment-on-a
+  a: 0;
+
+  // comment-on-c
+  c: 0; // tail-comment-c
+
+  b: 0; // tail-comment-b
+
+  // comment-on-d
+  d(): 0; // tail-comment-d
+  e(): 0;
+  // trailing-comment
+}
+
+interface F {
+  [c: number]: 0;
+  [d: symbol]: 0;
+  b: 0;
+  [\`e\`]: 0;
+  [\`f\`]: 0;
+  new (): F;
+  new (a: 0): F;
+  new (a: 0, b: 0): F;
+  get i(): 0;
+  set h(_: 0);
+  a(): 0;
+  [\`g\`](): 0;
+}
+
+interface G {
+  [d: symbol]: 0;
+  [c: number]: () => 0;
+  a: 0;
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} type-alias.ts 1`] = `
+"type A = {
+  [t: string]: unknown;
+  [u: number]: () => number;
+  y: number;
+  r?: number;
+  [\`s\`]: number;
+  new (a: 0, b: 1): A;
+  get w(): number;
+  z(): number;
+  x: () => () => number;
+  v?(): number;
+};
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} class.js 1`] = `
+"class MyClass {
+  c;
+  b;
+  #f;
+  constructor() {}
+  a() {}
+  #e() {}
+  #d() {}
 }
 
 class MyClass2 {
