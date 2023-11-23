@@ -15,7 +15,10 @@
     "check": "bun test && tsc"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "bun-types": "latest",
+    "eslint": "^8.54.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
