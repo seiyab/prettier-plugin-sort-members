@@ -35,12 +35,12 @@ export const C = {
 	},
 	defer(a: boolean, b: boolean): Order {
 		if (!!a === !!b) return Order.Equal;
-		if (!!a) return Order.Greater;
+		if (a) return Order.Greater;
 		return Order.Less;
 	},
 	prefer(a: boolean, b: boolean): Order {
 		if (!!a === !!b) return Order.Equal;
-		if (!!a) return Order.Less;
+		if (a) return Order.Less;
 		return Order.Greater;
 	},
 	string(a: string, b: string): Order {

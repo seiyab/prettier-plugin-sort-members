@@ -8,11 +8,11 @@ import { decorated } from "./decorated";
 import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 
-type Options = {
+export type Options = {
 	sortMembersAlphabetically?: boolean;
 };
 
-export function comparator(options: Options) {
+export function comparator(options: Partial<Options>) {
 	const alpha = options.sortMembersAlphabetically === true;
 	return C.chain<Node>(
 		// Signature

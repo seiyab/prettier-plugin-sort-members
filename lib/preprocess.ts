@@ -1,9 +1,9 @@
-import { Options, type AST } from "prettier";
+import { type AST } from "prettier";
 import { visit } from "./visit";
-import { comparator } from "./comparator";
+import { Options, comparator } from "./comparator";
 
-export function preprocess(ast: AST, options: any): AST {
-	const comp = comparator(options);
+export function preprocess(ast: AST, options: unknown): AST {
+	const comp = comparator(options as Options);
 	return visit(ast, {
 		TSInterfaceBody(node) {
 			return {
