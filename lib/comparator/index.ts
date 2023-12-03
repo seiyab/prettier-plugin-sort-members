@@ -1,23 +1,25 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { C } from "./comparator";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import bt from "@babel/types";
+import { C, Comparator } from "./comparator";
 import { select } from "./select";
 import { keyIdentifierName } from "./key-identifier-name";
-import { BabelNodeTypes, Node, functionExpressions } from "../ast";
+import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { decorated } from "./decorated";
 import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
+import { MemberNode, MemberType, MemberTypes } from "../ast/member-like";
 
 export type Options = {
 	sortMembersAlphabetically?: boolean;
 };
 
-export function comparator(options: Partial<Options>) {
+export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	const alpha = options.sortMembersAlphabetically === true;
-	return C.chain<Node>(
-		// Signature
+	return C.chain<MemberNode>(
+		// signature
 		C.capture(
-			select.node(AST_NODE_TYPES.TSIndexSignature),
+			node(MemberTypes.TSIndexSignature),
 			C.by(functionSignature, C.defer),
 		),
 
@@ -26,17 +28,21 @@ export function comparator(options: Partial<Options>) {
 			select
 				.or(
 					select.and(
-						select.node(AST_NODE_TYPES.TSPropertySignature),
+						node(MemberTypes.TSPropertySignature),
 						select.not(functionSignature),
 					),
 				)
 				.or(
 					select.and(
 						select
-							.or(select.node(AST_NODE_TYPES.PropertyDefinition))
-							.or(select.node(AST_NODE_TYPES.TSAbstractPropertyDefinition))
-							.or(select.node(BabelNodeTypes.ClassProperty))
-							.or(select.node(BabelNodeTypes.ClassPrivateProperty)),
+							.or(node(MemberTypes.PropertyDefinition))
+							.or(node(MemberTypes.TSAbstractPropertyDefinition))
+							.or(
+								select.and(
+									bt.isNode,
+									select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
+								),
+							),
 						($) => !($.value && functionExpressions.includes($.value.type)),
 					),
 				),
@@ -45,7 +51,6 @@ export function comparator(options: Partial<Options>) {
 				C.by(decorated, C.prefer),
 				C.by(abstracted, C.defer),
 				accessibility(),
-				C.property("computed", C.defer),
 				alpha ? keyIdentifierName() : C.nop,
 			),
 		),
@@ -54,17 +59,15 @@ export function comparator(options: Partial<Options>) {
 		// constructor in class is handled as method
 		C.capture(
 			select
-				.or(select.node(AST_NODE_TYPES.TSConstructSignatureDeclaration))
+				.or(node(MemberTypes.TSConstructSignatureDeclaration))
 				.or(
 					select.and(
-						select.node(AST_NODE_TYPES.MethodDefinition),
-						($) =>
-							$.key.type === AST_NODE_TYPES.Identifier &&
-							$.key.name === "constructor",
+						node(MemberTypes.MethodDefinition),
+						($) => $.key.type === "Identifier" && $.key.name === "constructor",
 					),
 				),
 			C.by(($) => {
-				if ($.type !== AST_NODE_TYPES.TSConstructSignatureDeclaration) return 0;
+				if ($.type !== MemberTypes.TSConstructSignatureDeclaration) return 0;
 				return $.params.length;
 			}, C.number),
 		),
@@ -72,27 +75,31 @@ export function comparator(options: Partial<Options>) {
 		// method
 		C.capture(
 			select
-				.or(select.node(AST_NODE_TYPES.TSMethodSignature))
-				.or(select.node(AST_NODE_TYPES.MethodDefinition))
-				.or(select.node(AST_NODE_TYPES.TSAbstractMethodDefinition))
-				.or(select.node(BabelNodeTypes.ClassMethod))
-				.or(select.node(BabelNodeTypes.ClassPrivateMethod))
+				.or(node(MemberTypes.TSMethodSignature))
+				.or(node(MemberTypes.MethodDefinition))
+				.or(node(MemberTypes.TSAbstractMethodDefinition))
 				.or(
 					select.and(
-						select.node(
-							AST_NODE_TYPES.PropertyDefinition,
-							BabelNodeTypes.ClassProperty,
-							BabelNodeTypes.ClassPrivateProperty,
-						),
+						bt.isNode,
+						select.or(bt.isClassMethod).or(bt.isClassPrivateMethod),
+					),
+				)
+				.or(
+					select.and(
+						select
+							.or(node(MemberTypes.PropertyDefinition))
+							.or(
+								select.and(
+									bt.isNode,
+									select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
+								),
+							),
 						($) =>
 							$.value != null && functionExpressions.includes($.value.type),
 					),
 				)
 				.or(
-					select.and(
-						select.node(AST_NODE_TYPES.TSPropertySignature),
-						functionSignature,
-					),
+					select.and(node(MemberTypes.TSPropertySignature), functionSignature),
 				),
 			C.chain(
 				C.property("static", C.prefer),
@@ -100,7 +107,6 @@ export function comparator(options: Partial<Options>) {
 				methodKind(),
 				C.by(abstracted, C.defer),
 				accessibility(),
-				C.property("computed", C.defer),
 				alpha ? keyIdentifierName() : C.nop,
 			),
 		),
@@ -108,9 +114,17 @@ export function comparator(options: Partial<Options>) {
 }
 
 function functionSignature(
-	node: TSESTree.TSPropertySignature | TSESTree.TSIndexSignature,
+	node: MemberNode<
+		AST_NODE_TYPES.TSPropertySignature | AST_NODE_TYPES.TSIndexSignature
+	>,
 ): boolean {
 	return (
 		node.typeAnnotation?.typeAnnotation.type === AST_NODE_TYPES.TSFunctionType
 	);
+}
+
+function node<K extends MemberType>(key: K) {
+	return function (node: MemberNode): node is MemberNode<K> {
+		return node.type === key;
+	};
 }

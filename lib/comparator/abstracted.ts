@@ -1,13 +1,13 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { BabelNodeTypes, Node } from "../ast";
+import { Node } from "../ast";
+import { MemberTypes } from "../ast/member-like";
 
 export function abstracted(node: Node): boolean {
 	switch (node.type) {
-		case AST_NODE_TYPES.TSAbstractPropertyDefinition:
-		case AST_NODE_TYPES.TSAbstractMethodDefinition:
+		case MemberTypes.TSAbstractPropertyDefinition:
+		case MemberTypes.TSAbstractMethodDefinition:
 			return true;
-		case BabelNodeTypes.ClassProperty:
-		case BabelNodeTypes.TSDeclareMethod:
+		case MemberTypes.ClassProperty:
+		case MemberTypes.TSDeclareMethod:
 			return node.abstract === true;
 	}
 	return false;

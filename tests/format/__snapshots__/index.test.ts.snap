@@ -152,8 +152,8 @@ exports[`format {} type-alias.ts 1`] = `
   [t: string]: unknown;
   [u: number]: () => number;
   y: number;
-  r?: number;
   [\`s\`]: number;
+  r?: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
@@ -528,8 +528,8 @@ exports[`format {"sortMembersAlphabetically":false} type-alias.ts 1`] = `
   [t: string]: unknown;
   [u: number]: () => number;
   y: number;
-  r?: number;
   [\`s\`]: number;
+  r?: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;

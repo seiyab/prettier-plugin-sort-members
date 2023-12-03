@@ -1,16 +1,17 @@
 import { visitorKeys } from "@typescript-eslint/visitor-keys";
-import { Node, NodeTypes } from "./ast";
+import { Node } from "./ast";
 
-type Modifier = Partial<{
-	[K in NodeTypes]?: <T extends Node<K>>(node: T) => T;
-}>;
-
-export function visit<T extends Node>(node: T, modifier: Modifier): T {
+export function visit<T extends Node>(
+	node: T,
+	modifier: <S extends Node>(node: S) => S,
+): T {
 	if (node?.type == null) return node;
 	if (node.type === "File")
-		return { ...cloneNode(node), program: visit(node.program, modifier) }; // babel
-	const modr = modifier[node.type] as ((n: T) => T) | undefined;
-	const modified = cloneNode(modr?.(node) ?? node);
+		return {
+			...cloneNode(node),
+			program: visit(node.program, modifier),
+		}; // babel
+	const modified = cloneNode(modifier(node));
 	for (const key of visitorKeys[node.type] ?? []) {
 		const k = key as keyof T;
 		const child = modified[k];

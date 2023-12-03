@@ -25,6 +25,7 @@
     "prettier": "^3.0.0"
   },
   "dependencies": {
+    "@babel/types": "^7.23.5",
     "@typescript-eslint/types": "^6.11.0",
     "@typescript-eslint/visitor-keys": "^6.11.0"
   },

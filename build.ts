@@ -3,6 +3,7 @@ await Bun.build({
 	outdir: "./dist",
 	external: [
 		"prettier",
+		"@babel/types",
 		"@typescript-eslint/visitor-keys",
 		"@typescript-eslint/types",
 	],

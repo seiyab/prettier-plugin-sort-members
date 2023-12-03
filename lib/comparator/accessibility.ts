@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { C, Comparator } from "./comparator";
-import { BabelNodeTypes, Node } from "../ast";
+import { MemberNode, MemberTypes } from "../ast/member-like";
 
-export function accessibility<T extends Node>(): Comparator<T> {
+export function accessibility<T extends MemberNode>(): Comparator<T> {
 	return C.by(($) => {
 		if ("accessibility" in $) {
 			switch ($.accessibility) {
@@ -15,12 +15,12 @@ export function accessibility<T extends Node>(): Comparator<T> {
 			}
 		}
 		switch ($.type) {
-			case AST_NODE_TYPES.PropertyDefinition:
-			case AST_NODE_TYPES.MethodDefinition:
+			case MemberTypes.PropertyDefinition:
+			case MemberTypes.MethodDefinition:
 				if ($.key.type === AST_NODE_TYPES.PrivateIdentifier) return 3;
 				break;
-			case BabelNodeTypes.ClassPrivateMethod:
-			case BabelNodeTypes.ClassPrivateProperty:
+			case MemberTypes.ClassPrivateMethod:
+			case MemberTypes.ClassPrivateProperty:
 				return 3;
 		}
 		return 0;
