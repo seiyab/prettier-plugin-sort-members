@@ -1,4 +1,5 @@
-import { visitorKeys } from "@typescript-eslint/visitor-keys";
+import { visitorKeys as esVisitorKeys } from "@typescript-eslint/visitor-keys";
+import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { Node } from "./ast";
 
 export function visit<T extends Node>(
@@ -12,7 +13,12 @@ export function visit<T extends Node>(
 			program: visit(node.program, modifier),
 		}; // babel
 	const modified = cloneNode(modifier(node));
-	for (const key of visitorKeys[node.type] ?? []) {
+	const keys = new Set(
+		(esVisitorKeys[modified.type] ?? []).concat(
+			babelVisitorKeys[modified.type] ?? [],
+		),
+	) as Set<keyof T>;
+	for (const key of keys) {
 		const k = key as keyof T;
 		const child = modified[k];
 		if (Array.isArray(child)) {

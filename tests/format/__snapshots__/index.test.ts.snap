@@ -18,17 +18,17 @@ exports[`format {} class.ts 1`] = `
   private a: unknown;
   abstract t: unknown;
   constructor() {}
-  static f(): void {}
-  @deco
-  o(): void {}
-  @deco
-  protected r(): void {}
   get z(): 0 {
     return 0;
   }
   protected set x(_: unknown) {}
   private set w(_: unknown) {}
   abstract set y(_: unknown);
+  static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
   c(): void {}
   public i(): void {}
   n(): void {}
@@ -175,10 +175,10 @@ exports[`format {} class.js 1`] = `
 }
 
 class MyClass2 {
-  b;
-  c;
   @deco
   g;
+  b;
+  c;
   #f;
   constructor() {}
   a() {}
@@ -206,17 +206,17 @@ exports[`format {"sortMembersAlphabetically":true} class.ts 1`] = `
   private a: unknown;
   abstract t: unknown;
   constructor() {}
-  static f(): void {}
-  @deco
-  o(): void {}
-  @deco
-  protected r(): void {}
   get z(): 0 {
     return 0;
   }
   protected set x(_: unknown) {}
   private set w(_: unknown) {}
   abstract set y(_: unknown);
+  static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
   c(): void {}
   public i(): void {}
   n(): void {}
@@ -363,10 +363,10 @@ exports[`format {"sortMembersAlphabetically":true} class.js 1`] = `
 }
 
 class MyClass2 {
-  b;
-  c;
   @deco
   g;
+  b;
+  c;
   #f;
   constructor() {}
   a() {}
@@ -394,17 +394,17 @@ exports[`format {"sortMembersAlphabetically":false} class.ts 1`] = `
   private a: unknown;
   abstract t: unknown;
   constructor() {}
-  static f(): void {}
-  @deco
-  o(): void {}
-  @deco
-  protected r(): void {}
   get z(): 0 {
     return 0;
   }
   protected set x(_: unknown) {}
   private set w(_: unknown) {}
   abstract set y(_: unknown);
+  static f(): void {}
+  @deco
+  o(): void {}
+  @deco
+  protected r(): void {}
   c(): void {}
   public i(): void {}
   n(): void {}
@@ -551,10 +551,10 @@ exports[`format {"sortMembersAlphabetically":false} class.js 1`] = `
 }
 
 class MyClass2 {
-  b;
-  c;
   @deco
   g;
+  b;
+  c;
   #f;
   constructor() {}
   a() {}

@@ -8,6 +8,7 @@ export function methodKind<T extends MemberNode>(): Comparator<T> {
 			case MemberTypes.MethodDefinition:
 			case MemberTypes.TSAbstractMethodDefinition:
 			case MemberTypes.ClassMethod:
+			case MemberTypes.ClassPrivateMethod:
 			case MemberTypes.TSDeclareMethod:
 				switch ($.kind) {
 					case "constructor":

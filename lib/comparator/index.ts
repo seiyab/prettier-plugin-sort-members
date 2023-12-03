@@ -68,7 +68,10 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				),
 			C.by(($) => {
 				if ($.type !== MemberTypes.TSConstructSignatureDeclaration) return 0;
-				return $.params.length;
+				return (
+					$.params?.length ??
+					($ as unknown as bt.TSConstructSignatureDeclaration).parameters.length
+				);
 			}, C.number),
 		),
 
@@ -102,9 +105,9 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 					select.and(node(MemberTypes.TSPropertySignature), functionSignature),
 				),
 			C.chain(
+				methodKind(),
 				C.property("static", C.prefer),
 				C.by(decorated, C.prefer),
-				methodKind(),
 				C.by(abstracted, C.defer),
 				accessibility(),
 				alpha ? keyIdentifierName() : C.nop,
