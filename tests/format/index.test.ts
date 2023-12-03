@@ -5,14 +5,15 @@ import { format } from "prettier";
 
 const plugins = ["./index.ts"];
 
-describe("format", async () => {
+const dir = join(import.meta.dir, "testdata");
+const filenames = await readdir(dir);
+
+describe("format", () => {
 	const options = [
 		{},
 		{ sortMembersAlphabetically: true },
 		{ sortMembersAlphabetically: false },
 	];
-	const dir = join(import.meta.dir, "testdata");
-	const filenames = await readdir(dir);
 
 	describe.each(options)("%j", (opts) => {
 		test.each(filenames)("%s", async (name) => {
@@ -41,6 +42,30 @@ describe("format", async () => {
 					plugins,
 				});
 				expect(result2).toEqual(result1);
+			});
+		});
+
+		describe("parser agnostic", () => {
+			describe("TypeScript", () => {
+				const parsers = ["typescript", "babel-ts"];
+				describe.each(parsers)("%s", async (parser) => {
+					test.each(filenames)("%s", async (name) => {
+						const path = join(dir, name);
+						const code = await readFile(path, "utf-8");
+						const expected = await format(code, {
+							...opts,
+							filepath: path,
+							plugins,
+						});
+						const actual = await format(code, {
+							...opts,
+							filepath: path,
+							plugins,
+							parser,
+						});
+						expect(actual).toBe(expected);
+					});
+				});
 			});
 		});
 	});
