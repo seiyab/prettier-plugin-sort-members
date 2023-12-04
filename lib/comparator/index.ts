@@ -9,6 +9,7 @@ import { decorated } from "./decorated";
 import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 import { MemberNode, MemberType, MemberTypes } from "../ast/member-like";
+import { classMember } from "./class-member";
 
 export type Options = {
 	sortMembersAlphabetically?: boolean;
@@ -47,7 +48,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 					),
 				),
 			C.chain(
-				C.property("static", C.prefer),
+				classMember(),
 				C.by(decorated, C.prefer),
 				C.by(abstracted, C.defer),
 				accessibility(),
@@ -107,7 +108,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				),
 			C.chain(
 				methodKind(),
-				C.property("static", C.prefer),
+				classMember(),
 				C.by(decorated, C.prefer),
 				C.by(abstracted, C.defer),
 				accessibility(),
