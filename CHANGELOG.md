@@ -2,6 +2,17 @@
 
 ---
 
+### 0.1.0-rc.0
+
+#### Feature
+
+- Support babel-ts parser
+
+#### Bug fix
+
+- Keep order for computed property if `sortMembersAlphabetically` is not true
+- Method type precedes static-ness and decorated-ness
+
 ### 0.0.8-alpha.0
 
 #### Breaking
