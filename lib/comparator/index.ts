@@ -81,6 +81,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				.or(node(MemberTypes.TSMethodSignature))
 				.or(node(MemberTypes.MethodDefinition))
 				.or(node(MemberTypes.TSAbstractMethodDefinition))
+				.or(node(MemberTypes.TSDeclareMethod))
 				.or(
 					select.and(
 						bt.isNode,
