@@ -1,15 +1,15 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { C, Comparator } from "./comparator";
-import { BabelNodeTypes, Node } from "../ast";
+import { MemberNode, MemberTypes } from "../ast/member-like";
 
-export function methodKind<T extends Node>(): Comparator<T> {
+export function methodKind<T extends MemberNode>(): Comparator<T> {
 	return C.by(($) => {
 		switch ($.type) {
-			case AST_NODE_TYPES.TSMethodSignature:
-			case AST_NODE_TYPES.MethodDefinition:
-			case AST_NODE_TYPES.TSAbstractMethodDefinition:
-			case BabelNodeTypes.ClassMethod:
-			case BabelNodeTypes.TSDeclareMethod:
+			case MemberTypes.TSMethodSignature:
+			case MemberTypes.MethodDefinition:
+			case MemberTypes.TSAbstractMethodDefinition:
+			case MemberTypes.ClassMethod:
+			case MemberTypes.ClassPrivateMethod:
+			case MemberTypes.TSDeclareMethod:
 				switch ($.kind) {
 					case "constructor":
 						return 0;
