@@ -11,7 +11,14 @@
     "url": "https://github.com/seiyab/prettier-plugin-sort-members/issues"
   },
   "license": "MIT",
-  "keywords": [ "prettier", "plugin", "sort", "members", "javascript", "typescript" ],
+  "keywords": [
+    "prettier",
+    "plugin",
+    "sort",
+    "members",
+    "javascript",
+    "typescript"
+  ],
   "scripts": {
     "check": "bun test && tsc && eslint ."
   },
@@ -30,5 +37,5 @@
     "@typescript-eslint/types": "^6.11.0",
     "@typescript-eslint/visitor-keys": "^6.11.0"
   },
-  "version": "0.1.0-rc.0"
+  "version": "0.1.0"
 }
