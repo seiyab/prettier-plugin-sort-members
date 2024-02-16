@@ -2,6 +2,10 @@
 
 ---
 
+### 0.1.0
+
+Nothing has changed since 0.1.0-rc.0
+
 ### 0.1.0-rc.0
 
 #### Feature
