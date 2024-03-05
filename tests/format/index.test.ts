@@ -47,24 +47,28 @@ describe("format", () => {
 
 		describe("parser agnostic", () => {
 			describe("TypeScript", () => {
+				const skipFile = new Set(["issue-34-literal-keys.js"]);
 				const parsers = ["typescript", "babel-ts"];
 				describe.each(parsers)("%s", async (parser) => {
-					test.each(filenames)("%s", async (name) => {
-						const path = join(dir, name);
-						const code = await readFile(path, "utf-8");
-						const expected = await format(code, {
-							...opts,
-							filepath: path,
-							plugins,
-						});
-						const actual = await format(code, {
-							...opts,
-							filepath: path,
-							plugins,
-							parser,
-						});
-						expect(actual).toBe(expected);
-					});
+					test.each(filenames.filter((n) => !skipFile.has(n)))(
+						"%s",
+						async (name) => {
+							const path = join(dir, name);
+							const code = await readFile(path, "utf-8");
+							const expected = await format(code, {
+								...opts,
+								filepath: path,
+								plugins,
+							});
+							const actual = await format(code, {
+								...opts,
+								filepath: path,
+								plugins,
+								parser,
+							});
+							expect(actual).toBe(expected);
+						},
+					);
 				});
 			});
 		});

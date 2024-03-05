@@ -110,6 +110,18 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {} issue-34-literal-keys.js 1`] = `
+"class A {
+  [fruit] = 1;
+  egg = 1;
+  banana = 1;
+  ["apple"] = 1;
+  dumping() {}
+  ["chocolate"]() {}
+}
+"
+`;
+
 exports[`format {} interface.ts 1`] = `
 "interface A {
   b: string;
@@ -334,6 +346,18 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.js 1`] = `
+"class A {
+  ["apple"] = 1;
+  banana = 1;
+  egg = 1;
+  [fruit] = 1;
+  ["chocolate"]() {}
+  dumping() {}
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} interface.ts 1`] = `
 "interface A {
   a: string;
@@ -555,6 +579,18 @@ class Visibility {
 }
 
 function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.js 1`] = `
+"class A {
+  [fruit] = 1;
+  egg = 1;
+  banana = 1;
+  ["apple"] = 1;
+  dumping() {}
+  ["chocolate"]() {}
+}
 "
 `;
 
