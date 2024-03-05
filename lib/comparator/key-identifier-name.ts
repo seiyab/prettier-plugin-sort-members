@@ -10,6 +10,12 @@ export const keyIdentifierName = (): Comparator<Node> =>
 				case AST_NODE_TYPES.Identifier:
 				case AST_NODE_TYPES.PrivateIdentifier:
 					return $.key.name;
+				case AST_NODE_TYPES.Literal:
+				case "StringLiteral": {
+					const value = $.key.value;
+					if (typeof value === "string") return value;
+					break;
+				}
 			}
 			if (isNode($.key) && isPrivateName($.key)) {
 				if ($.key.id.type === AST_NODE_TYPES.Identifier) return $.key.id.name;

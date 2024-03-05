@@ -1,5 +1,13 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`format {} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+"
+`;
+
 exports[`format {} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -185,6 +193,14 @@ class MyClass2 {
   #d() {}
   #e() {}
 }
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+  user: Endpoint<UserResponse>;
+};
 "
 `;
 
@@ -376,6 +392,14 @@ class MyClass2 {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":false} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -561,29 +585,5 @@ class MyClass2 {
   #d() {}
   #e() {}
 }
-"
-`;
-
-exports[`format {} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
-  user: Endpoint<UserResponse>;
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-};
-"
-`;
-
-exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
-  user: Endpoint<UserResponse>;
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-};
-"
-`;
-
-exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
-  user: Endpoint<UserResponse>;
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-};
 "
 `;
