@@ -1,5 +1,50 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`format {} issue-34-literal-keys.ts 1`] = `
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+
+type X = {
+  data: unknown;
+  "background-color": unknown;
+  ["color"]: unknown;
+  alpha: unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  date: Date;
+  best: unknown;
+  ["circle"]: unknown;
+  [alpha]: unknown;
+  alpha: unknown;
+};
+
+type Z = {
+  dog: unknown;
+  "big-value": number;
+  "another-one": 0;
+  edge: () => void;
+  "change-value": () => void;
+};
+
+interface A {
+  [alpha]: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  four: unknown;
+  ["three"](): void;
+  five(): void;
+}
+"
+`;
+
 exports[`format {} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -71,6 +116,18 @@ class Visibility {
 }
 
 function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {} issue-34-literal-keys.js 1`] = `
+"class A {
+  [fruit] = 1;
+  egg = 1;
+  banana = 1;
+  ["apple"] = 1;
+  dumping() {}
+  ["chocolate"]() {}
+}
 "
 `;
 
@@ -188,6 +245,51 @@ class MyClass2 {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+  user: Endpoint<UserResponse>;
+};
+
+type X = {
+  alpha: unknown;
+  "background-color": unknown;
+  ["color"]: unknown;
+  data: unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  alpha: unknown;
+  best: unknown;
+  ["circle"]: unknown;
+  date: Date;
+  [alpha]: unknown;
+};
+
+type Z = {
+  "another-one": 0;
+  "big-value": number;
+  dog: unknown;
+  "change-value": () => void;
+  edge: () => void;
+};
+
+interface A {
+  four: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  [alpha]: unknown;
+  five(): void;
+  ["three"](): void;
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -259,6 +361,18 @@ class Visibility {
 }
 
 function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.js 1`] = `
+"class A {
+  ["apple"] = 1;
+  banana = 1;
+  egg = 1;
+  [fruit] = 1;
+  ["chocolate"]() {}
+  dumping() {}
+}
 "
 `;
 
@@ -376,6 +490,51 @@ class MyClass2 {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+
+type X = {
+  data: unknown;
+  "background-color": unknown;
+  ["color"]: unknown;
+  alpha: unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  date: Date;
+  best: unknown;
+  ["circle"]: unknown;
+  [alpha]: unknown;
+  alpha: unknown;
+};
+
+type Z = {
+  dog: unknown;
+  "big-value": number;
+  "another-one": 0;
+  edge: () => void;
+  "change-value": () => void;
+};
+
+interface A {
+  [alpha]: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  four: unknown;
+  ["three"](): void;
+  five(): void;
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":false} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -447,6 +606,18 @@ class Visibility {
 }
 
 function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.js 1`] = `
+"class A {
+  [fruit] = 1;
+  egg = 1;
+  banana = 1;
+  ["apple"] = 1;
+  dumping() {}
+  ["chocolate"]() {}
+}
 "
 `;
 
