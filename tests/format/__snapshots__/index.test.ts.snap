@@ -563,3 +563,27 @@ class MyClass2 {
 }
 "
 `;
+
+exports[`format {} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
+"export type DataEndpoints = {
+  user: Endpoint<UserResponse>;
+  "repair-orders": Endpoint<RepairOrdersResponse>;
+};
+"
+`;
