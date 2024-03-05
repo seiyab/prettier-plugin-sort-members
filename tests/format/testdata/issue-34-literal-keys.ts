@@ -30,3 +30,12 @@ type Z = {
   'big-value': number;
   'another-one': 0;
 }
+
+interface A {
+  [alpha]: unknown;
+  'one': unknown;
+  ['two']: unknown;
+  ['three'](): void;
+  four: unknown;
+  five(): void;
+}

@@ -33,6 +33,15 @@ type Z = {
   edge: () => void;
   "change-value": () => void;
 };
+
+interface A {
+  [alpha]: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  four: unknown;
+  ["three"](): void;
+  five(): void;
+}
 "
 `;
 
@@ -269,6 +278,15 @@ type Z = {
   "change-value": () => void;
   edge: () => void;
 };
+
+interface A {
+  four: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  [alpha]: unknown;
+  five(): void;
+  ["three"](): void;
+}
 "
 `;
 
@@ -505,6 +523,15 @@ type Z = {
   edge: () => void;
   "change-value": () => void;
 };
+
+interface A {
+  [alpha]: unknown;
+  one: unknown;
+  ["two"]: unknown;
+  four: unknown;
+  ["three"](): void;
+  five(): void;
+}
 "
 `;
 
