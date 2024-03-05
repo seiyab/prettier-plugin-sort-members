@@ -6,7 +6,7 @@
 
 #### Bug fix
 
-- Sort literal keys alphabetically if `sortMembersAlphabetically` is true #34
+- Sort literal keys alphabetically if `sortMembersAlphabetically` is true ([#34](https://github.com/seiyab/prettier-plugin-sort-members/issues/34))
 
 #### Others
 
