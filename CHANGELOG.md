@@ -4,6 +4,16 @@
 
 ### 0.1.0
 
+#### Bug fix
+
+- Sort literal keys alphabetically if `sortMembersAlphabetically` is true ([#34](https://github.com/seiyab/prettier-plugin-sort-members/issues/34))
+
+#### Others
+
+- Update dependencies
+
+### 0.1.0
+
 Nothing has changed since 0.1.0-rc.0
 
 ### 0.1.0-rc.0
