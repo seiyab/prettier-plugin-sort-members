@@ -1,7 +1,11 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`format {} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
   user: Endpoint<UserResponse>;
   "repair-orders": Endpoint<RepairOrdersResponse>;
 };
@@ -197,7 +201,11 @@ class MyClass2 {
 `;
 
 exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
   "repair-orders": Endpoint<RepairOrdersResponse>;
   user: Endpoint<UserResponse>;
 };
@@ -393,7 +401,11 @@ class MyClass2 {
 `;
 
 exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
-"export type DataEndpoints = {
+"type Endpoint<T> = T | unknown;
+type UserResponse = unknown;
+type RepairOrdersResponse = unknown;
+
+export type DataEndpoints = {
   user: Endpoint<UserResponse>;
   "repair-orders": Endpoint<RepairOrdersResponse>;
 };
