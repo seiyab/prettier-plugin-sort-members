@@ -10,6 +10,23 @@ export type DataEndpoints = {
 type X = {
   data: unknown;
   'background-color': unknown;
+  ['color']: unknown;
   alpha: unknown;
-  'color-${0 | 1 | 2}': unknown;
+}
+
+const alpha = Symbol()
+type Y = {
+  date: Date;
+  'best': unknown;
+  ['circle']: unknown;
+  [alpha]: unknown; 
+  alpha: unknown;
+}
+
+type Z = {
+  edge: () => void;
+  dog: unknown
+  'change-value': () => void;
+  'big-value': number;
+  'another-one': 0;
 }

@@ -13,8 +13,25 @@ export type DataEndpoints = {
 type X = {
   data: unknown;
   "background-color": unknown;
+  ["color"]: unknown;
   alpha: unknown;
-  "color-${0 | 1 | 2}": unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  date: Date;
+  best: unknown;
+  ["circle"]: unknown;
+  [alpha]: unknown;
+  alpha: unknown;
+};
+
+type Z = {
+  dog: unknown;
+  "big-value": number;
+  "another-one": 0;
+  edge: () => void;
+  "change-value": () => void;
 };
 "
 `;
@@ -220,8 +237,25 @@ export type DataEndpoints = {
 type X = {
   alpha: unknown;
   "background-color": unknown;
-  "color-${0 | 1 | 2}": unknown;
+  ["color"]: unknown;
   data: unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  alpha: unknown;
+  best: unknown;
+  ["circle"]: unknown;
+  date: Date;
+  [alpha]: unknown;
+};
+
+type Z = {
+  "another-one": 0;
+  "big-value": number;
+  dog: unknown;
+  "change-value": () => void;
+  edge: () => void;
 };
 "
 `;
@@ -427,8 +461,25 @@ export type DataEndpoints = {
 type X = {
   data: unknown;
   "background-color": unknown;
+  ["color"]: unknown;
   alpha: unknown;
-  "color-${0 | 1 | 2}": unknown;
+};
+
+const alpha = Symbol();
+type Y = {
+  date: Date;
+  best: unknown;
+  ["circle"]: unknown;
+  [alpha]: unknown;
+  alpha: unknown;
+};
+
+type Z = {
+  dog: unknown;
+  "big-value": number;
+  "another-one": 0;
+  edge: () => void;
+  "change-value": () => void;
 };
 "
 `;
@@ -618,62 +669,5 @@ class MyClass2 {
   #d() {}
   #e() {}
 }
-"
-`;
-
-exports[`format {} issue-34-literal-keys.ts 1`] = `
-"type Endpoint<T> = T | unknown;
-type UserResponse = unknown;
-type RepairOrdersResponse = unknown;
-
-export type DataEndpoints = {
-  user: Endpoint<UserResponse>;
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-};
-
-type X = {
-  data: unknown;
-  "background-color": unknown;
-  alpha: unknown;
-  "color-${0 | 1 | 2}": unknown;
-};
-"
-`;
-
-exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
-"type Endpoint<T> = T | unknown;
-type UserResponse = unknown;
-type RepairOrdersResponse = unknown;
-
-export type DataEndpoints = {
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-  user: Endpoint<UserResponse>;
-};
-
-type X = {
-  alpha: unknown;
-  "background-color": unknown;
-  "color-${0 | 1 | 2}": unknown;
-  data: unknown;
-};
-"
-`;
-
-exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
-"type Endpoint<T> = T | unknown;
-type UserResponse = unknown;
-type RepairOrdersResponse = unknown;
-
-export type DataEndpoints = {
-  user: Endpoint<UserResponse>;
-  "repair-orders": Endpoint<RepairOrdersResponse>;
-};
-
-type X = {
-  data: unknown;
-  "background-color": unknown;
-  alpha: unknown;
-  "color-${0 | 1 | 2}": unknown;
-};
 "
 `;
