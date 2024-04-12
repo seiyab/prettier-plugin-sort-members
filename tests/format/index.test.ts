@@ -2,6 +2,7 @@ import { describe, test, expect } from "bun:test";
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { format } from "prettier";
+import { ESLint } from "eslint";
 
 const plugins = ["./index.ts"];
 
@@ -70,6 +71,35 @@ describe("format", () => {
 						},
 					);
 				});
+			});
+		});
+
+		describe("compatible with eslint-typescript", () => {
+			const eslint = new ESLint({
+				overrideConfig: {
+					parser: "@typescript-eslint/parser",
+					plugins: ["@typescript-eslint"],
+					extends: [],
+					rules: {
+						"@typescript-eslint/member-ordering": "error",
+					},
+				},
+				useEslintrc: false,
+			});
+
+			test.each(filenames)("%s", async (name) => {
+				const path = join(dir, name);
+				const code = await readFile(path, "utf-8");
+				const result = await format(code, {
+					...opts,
+					filepath: path,
+					plugins,
+				});
+
+				const lintResults = await eslint.lintText(result);
+
+				expect(lintResults).toHaveLength(1);
+				expect(lintResults[0].messages).toBeEmpty();
 			});
 		});
 	});

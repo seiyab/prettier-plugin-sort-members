@@ -194,6 +194,7 @@ interface F {
   set h(_: 0);
   a(): 0;
   [\`g\`](): 0;
+  j: () => 0;
 }
 
 interface G {
@@ -438,6 +439,7 @@ interface F {
   get i(): 0;
   set h(_: 0);
   a(): 0;
+  j: () => 0;
   [\`g\`](): 0;
 }
 
@@ -684,6 +686,7 @@ interface F {
   set h(_: 0);
   a(): 0;
   [\`g\`](): 0;
+  j: () => 0;
 }
 
 interface G {
