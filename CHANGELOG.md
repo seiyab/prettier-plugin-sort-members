@@ -2,6 +2,13 @@
 
 ---
 
+### 0.1.2
+
+#### Bug fix
+
+- For type alias and interface, consider function members as members, not method ([#40](https://github.com/seiyab/prettier-plugin-sort-members/issues/40)). This improves compatibility with [`@typescript-eslint/member-ordering`](https://typescript-eslint.io/rules/member-ordering/#default-configuration)'s default setting.
+  - Feel free to request an option if you feel former ordering is more consistent or come up with better rule.
+
 ### 0.1.1
 
 #### Bug fix
