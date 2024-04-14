@@ -27,11 +27,11 @@ type Y = {
 };
 
 type Z = {
+  edge: () => void;
   dog: unknown;
+  "change-value": () => void;
   "big-value": number;
   "another-one": 0;
-  edge: () => void;
-  "change-value": () => void;
 };
 
 interface A {
@@ -119,6 +119,33 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {} issue-40-function-member.ts 1`] = `
+"type Link = {
+  foo: () => void;
+  text: string;
+  onClick: () => void;
+};
+
+type Literal = {
+  func: () => void;
+  value: number;
+  method(): void;
+};
+
+interface Interface {
+  func: () => void;
+  value: number;
+  method(): void;
+}
+
+class Class {
+  value = 0;
+  method(): void {}
+  func = () => 0;
+}
+"
+`;
+
 exports[`format {} issue-34-literal-keys.js 1`] = `
 "class A {
   [fruit] = 1;
@@ -187,6 +214,7 @@ interface F {
   b: 0;
   [\`e\`]: 0;
   [\`f\`]: 0;
+  j: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -197,8 +225,8 @@ interface F {
 }
 
 interface G {
-  [d: symbol]: 0;
   [c: number]: () => 0;
+  [d: symbol]: 0;
   a: 0;
 }
 "
@@ -206,15 +234,15 @@ interface G {
 
 exports[`format {} type-alias.ts 1`] = `
 "type A = {
-  [t: string]: unknown;
   [u: number]: () => number;
+  [t: string]: unknown;
   y: number;
+  x: () => () => number;
   [\`s\`]: number;
   r?: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
-  x: () => () => number;
   v?(): number;
 };
 "
@@ -274,8 +302,8 @@ type Y = {
 type Z = {
   "another-one": 0;
   "big-value": number;
-  dog: unknown;
   "change-value": () => void;
+  dog: unknown;
   edge: () => void;
 };
 
@@ -364,6 +392,33 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-40-function-member.ts 1`] = `
+"type Link = {
+  foo: () => void;
+  onClick: () => void;
+  text: string;
+};
+
+type Literal = {
+  func: () => void;
+  value: number;
+  method(): void;
+};
+
+interface Interface {
+  func: () => void;
+  value: number;
+  method(): void;
+}
+
+class Class {
+  value = 0;
+  func = () => 0;
+  method(): void {}
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.js 1`] = `
 "class A {
   ["apple"] = 1;
@@ -430,6 +485,7 @@ interface F {
   [c: number]: 0;
   [d: symbol]: 0;
   b: 0;
+  j: () => 0;
   [\`e\`]: 0;
   [\`f\`]: 0;
   new (): F;
@@ -442,8 +498,8 @@ interface F {
 }
 
 interface G {
-  [d: symbol]: 0;
   [c: number]: () => 0;
+  [d: symbol]: 0;
   a: 0;
 }
 "
@@ -451,15 +507,15 @@ interface G {
 
 exports[`format {"sortMembersAlphabetically":true} type-alias.ts 1`] = `
 "type A = {
-  [t: string]: unknown;
   [u: number]: () => number;
+  [t: string]: unknown;
   r?: number;
+  x: () => () => number;
   y: number;
   [\`s\`]: number;
   new (a: 0, b: 1): A;
   get w(): number;
   v?(): number;
-  x: () => () => number;
   z(): number;
 };
 "
@@ -517,11 +573,11 @@ type Y = {
 };
 
 type Z = {
+  edge: () => void;
   dog: unknown;
+  "change-value": () => void;
   "big-value": number;
   "another-one": 0;
-  edge: () => void;
-  "change-value": () => void;
 };
 
 interface A {
@@ -609,6 +665,33 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":false} issue-40-function-member.ts 1`] = `
+"type Link = {
+  foo: () => void;
+  text: string;
+  onClick: () => void;
+};
+
+type Literal = {
+  func: () => void;
+  value: number;
+  method(): void;
+};
+
+interface Interface {
+  func: () => void;
+  value: number;
+  method(): void;
+}
+
+class Class {
+  value = 0;
+  method(): void {}
+  func = () => 0;
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.js 1`] = `
 "class A {
   [fruit] = 1;
@@ -677,6 +760,7 @@ interface F {
   b: 0;
   [\`e\`]: 0;
   [\`f\`]: 0;
+  j: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -687,8 +771,8 @@ interface F {
 }
 
 interface G {
-  [d: symbol]: 0;
   [c: number]: () => 0;
+  [d: symbol]: 0;
   a: 0;
 }
 "
@@ -696,15 +780,15 @@ interface G {
 
 exports[`format {"sortMembersAlphabetically":false} type-alias.ts 1`] = `
 "type A = {
-  [t: string]: unknown;
   [u: number]: () => number;
+  [t: string]: unknown;
   y: number;
+  x: () => () => number;
   [\`s\`]: number;
   r?: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
-  x: () => () => number;
   v?(): number;
 };
 "

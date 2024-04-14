@@ -1,4 +1,3 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import bt from "@babel/types";
 import { C, Comparator } from "./comparator";
 import { select } from "./select";
@@ -19,34 +18,24 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	const alpha = options.sortMembersAlphabetically === true;
 	return C.chain<MemberNode>(
 		// signature
-		C.capture(
-			node(MemberTypes.TSIndexSignature),
-			C.by(functionSignature, C.defer),
-		),
+		C.capture(node(MemberTypes.TSIndexSignature), C.nop),
 
 		// field
 		C.capture(
-			select
-				.or(
-					select.and(
-						node(MemberTypes.TSPropertySignature),
-						select.not(functionSignature),
-					),
-				)
-				.or(
-					select.and(
-						select
-							.or(node(MemberTypes.PropertyDefinition))
-							.or(node(MemberTypes.TSAbstractPropertyDefinition))
-							.or(
-								select.and(
-									bt.isNode,
-									select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
-								),
+			select.or(node(MemberTypes.TSPropertySignature)).or(
+				select.and(
+					select
+						.or(node(MemberTypes.PropertyDefinition))
+						.or(node(MemberTypes.TSAbstractPropertyDefinition))
+						.or(
+							select.and(
+								bt.isNode,
+								select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
 							),
-						($) => !($.value && functionExpressions.includes($.value.type)),
-					),
+						),
+					($) => !($.value && functionExpressions.includes($.value.type)),
 				),
+			),
 			C.chain(
 				classMember(),
 				C.by(decorated, C.prefer),
@@ -103,9 +92,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 							$.value != null && functionExpressions.includes($.value.type),
 					),
 				)
-				.or(
-					select.and(node(MemberTypes.TSPropertySignature), functionSignature),
-				),
+				.or(node(MemberTypes.TSPropertySignature)),
 			C.chain(
 				methodKind(),
 				classMember(),
@@ -115,16 +102,6 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				alpha ? keyIdentifierName() : C.nop,
 			),
 		),
-	);
-}
-
-function functionSignature(
-	node: MemberNode<
-		AST_NODE_TYPES.TSPropertySignature | AST_NODE_TYPES.TSIndexSignature
-	>,
-): boolean {
-	return (
-		node.typeAnnotation?.typeAnnotation.type === AST_NODE_TYPES.TSFunctionType
 	);
 }
 
