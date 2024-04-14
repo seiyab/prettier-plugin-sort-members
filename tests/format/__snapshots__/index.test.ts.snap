@@ -119,6 +119,33 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {} issue-40-function-member.ts 1`] = `
+"type Link = {
+  text: string;
+  foo: () => void;
+  onClick: () => void;
+};
+
+type Literal = {
+  value: number;
+  method(): void;
+  func: () => void;
+};
+
+interface Interface {
+  value: number;
+  method(): void;
+  func: () => void;
+}
+
+class Class {
+  value = 0;
+  method(): void {}
+  func = () => 0;
+}
+"
+`;
+
 exports[`format {} issue-34-literal-keys.js 1`] = `
 "class A {
   [fruit] = 1;
@@ -365,6 +392,33 @@ function deco(a: unknown, b: unknown): void {}
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-40-function-member.ts 1`] = `
+"type Link = {
+  text: string;
+  foo: () => void;
+  onClick: () => void;
+};
+
+type Literal = {
+  value: number;
+  func: () => void;
+  method(): void;
+};
+
+interface Interface {
+  value: number;
+  func: () => void;
+  method(): void;
+}
+
+class Class {
+  value = 0;
+  func = () => 0;
+  method(): void {}
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.js 1`] = `
 "class A {
   ["apple"] = 1;
@@ -608,6 +662,33 @@ class Visibility {
 }
 
 function deco(a: unknown, b: unknown): void {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-40-function-member.ts 1`] = `
+"type Link = {
+  text: string;
+  foo: () => void;
+  onClick: () => void;
+};
+
+type Literal = {
+  value: number;
+  method(): void;
+  func: () => void;
+};
+
+interface Interface {
+  value: number;
+  method(): void;
+  func: () => void;
+}
+
+class Class {
+  value = 0;
+  method(): void {}
+  func = () => 0;
+}
 "
 `;
 
