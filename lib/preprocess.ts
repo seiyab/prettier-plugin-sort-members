@@ -1,5 +1,5 @@
 import { type AST } from "prettier";
-import { visit } from "./visit";
+import { stopModifying, visit } from "./visit";
 import { Options, comparator } from "./comparator";
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C } from "./comparator/comparator";
@@ -9,7 +9,7 @@ import { Node } from "./ast";
 export function preprocess(ast: AST, options: unknown): AST {
 	const memcomp = comparator(options as Options);
 	const comp = C.capture(memberNodes, memcomp);
-	return visit(ast, <T extends Node>(node: T): T => {
+	return visit(ast, <T extends Node>(node: T): T | typeof stopModifying => {
 		switch (node.type) {
 			case AST_NODE_TYPES.TSInterfaceBody:
 				return {
