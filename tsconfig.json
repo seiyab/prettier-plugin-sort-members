@@ -18,5 +18,7 @@
     "types": [
       "bun-types" // add Bun global
     ]
-  }
+  },
+  "include": ["**/*"],
+  "exclude": ["**/testdata/*"]
 }
