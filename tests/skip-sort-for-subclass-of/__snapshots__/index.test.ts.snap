@@ -52,10 +52,11 @@ class MyComponent extends React.Component {
     }
   }
 
-  onClick() {}
   render() {
     return null;
   }
+
+  onClick() {}
 }
 "
 `;

@@ -5,6 +5,7 @@ import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { C } from "./comparator/comparator";
 import { MemberLikeNodeTypesArray, MemberNode } from "./ast/member-like";
 import { Node } from "./ast";
+import { isExcludedSubclass } from "./subclass";
 
 export function preprocess(ast: AST, options: unknown): AST {
 	const memcomp = comparator(options as Options);
@@ -26,6 +27,9 @@ export function preprocess(ast: AST, options: unknown): AST {
 					...node,
 					members: node.members.slice().sort(comp),
 				} as TSESTree.TSTypeLiteral as T;
+			case AST_NODE_TYPES.ClassDeclaration:
+				if (isExcludedSubclass(node, options)) return stopModifying;
+				return node;
 		}
 		return node;
 	});
