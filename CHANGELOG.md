@@ -2,6 +2,11 @@
 
 ---
 
+### 0.2.0-rc.0
+
+#### Feature
+- Add new option `skipSortForSubclassOf`
+
 ### 0.1.2
 
 #### Bug fix
