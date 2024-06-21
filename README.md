@@ -77,6 +77,21 @@ The order respects default order of [`@typescript-eslint/member-ordering`](https
 A boolean value to enable alphabetical ordering.
 Other criteria such as visibility still precedes even if set `true`.
 
+### skipSortForSubclassOf (experimental)
+
+- type: `Array<string>`
+- default: `[]`
+- since: 0.2.0
+
+This option takes an array of strings representing the names of base classes. When set, the plugin will not sort members of any class that extends the specified base classes. It's particularly useful when any class that extends the specified base class should follow other ordering such as [`react/sort-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/b7474504fe5b9101dd7f607d9bc71aa2e61dfb37/docs/rules/sort-comp.md)
+
+```js
+// example if you are using react/sort-comp
+{
+	"skipSortForSubclassOf": ["React.Component"]
+}
+```
+
 ## Contributing
 
 ## Reporting issues
