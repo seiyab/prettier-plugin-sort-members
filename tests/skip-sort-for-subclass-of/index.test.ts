@@ -10,7 +10,7 @@ const files = await readdir(dir);
 
 describe("react/sort-comp", () => {
 	const supers = [[[]], [["React.Component"]], [["Component"]], [["Promise"]]];
-	describe.each(supers)("%j", async (sp) => {
+	describe.each(supers)("%j", (sp) => {
 		test.each(files.filter((f) => f.startsWith("react")))(
 			"%s",
 			async (name) => {

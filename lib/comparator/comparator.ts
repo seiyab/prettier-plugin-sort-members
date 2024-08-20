@@ -9,6 +9,7 @@ export type Comparator<A> = (a: A, b: A) => number;
 
 export const C = {
 	property<T, K extends keyof T>(
+		this: void,
 		key: K,
 		comp: Comparator<T[K]>,
 	): Comparator<T> {
@@ -16,12 +17,12 @@ export const C = {
 			return comp(a[key], b[key]);
 		};
 	},
-	by<T, U>(fn: ($: T) => U, comp: Comparator<U>): Comparator<T> {
+	by<T, U>(this: void, fn: ($: T) => U, comp: Comparator<U>): Comparator<T> {
 		return (a, b) => {
 			return comp(fn(a), fn(b));
 		};
 	},
-	chain<T>(...comps: Comparator<T>[]): Comparator<T> {
+	chain<T>(this: void, ...comps: Comparator<T>[]): Comparator<T> {
 		return (a, b) => {
 			for (const comp of comps) {
 				const res = comp(a, b);
@@ -30,30 +31,30 @@ export const C = {
 			return Order.Equal;
 		};
 	},
-	nop(): Order {
+	nop(this: void,): Order {
 		return Order.Equal;
 	},
-	defer(a: boolean, b: boolean): Order {
+	defer(this: void, a: boolean, b: boolean): Order {
 		if (!!a === !!b) return Order.Equal;
 		if (a) return Order.Greater;
 		return Order.Less;
 	},
-	prefer(a: boolean, b: boolean): Order {
+	prefer(this: void, a: boolean, b: boolean): Order {
 		if (!!a === !!b) return Order.Equal;
 		if (a) return Order.Less;
 		return Order.Greater;
 	},
-	string(a: string, b: string): Order {
+	string(this: void, a: string, b: string): Order {
 		if (a < b) return Order.Less;
 		if (a > b) return Order.Greater;
 		return Order.Equal;
 	},
-	number(a: number, b: number): Order {
+	number(this: void, a: number, b: number): Order {
 		if (a < b) return Order.Less;
 		if (a > b) return Order.Greater;
 		return Order.Equal;
 	},
-	maybe<T>(comp: Comparator<T>): Comparator<T | undefined | null> {
+	maybe<T>(this: void, comp: Comparator<T>): Comparator<T | undefined | null> {
 		return (a, b) => {
 			if (a == null) {
 				if (b == null) return Order.Equal;
@@ -63,10 +64,11 @@ export const C = {
 			return comp(a, b);
 		};
 	},
-	reverse<T>(comp: Comparator<T>): Comparator<T> {
+	reverse<T>(this: void, comp: Comparator<T>): Comparator<T> {
 		return (a, b) => comp(b, a);
 	},
 	capture<T, U extends T>(
+		this: void,
 		pred: (a: T) => a is U,
 		comp: Comparator<U>,
 	): Comparator<T> {

@@ -1,10 +1,14 @@
 import { printers as estreePrinters } from "prettier/plugins/estree";
 import { preprocess } from "./lib/preprocess";
-import type { AST, SupportOption } from "prettier";
+import type { ParserOptions, SupportOption } from "prettier";
 
-const originalPreprocess = estreePrinters.estree.preprocess ?? ((x: AST) => x);
+type AST = unknown;
+
+const originalPreprocess: (x: AST, opts: ParserOptions<AST>) => AST =
+	estreePrinters.estree.preprocess ?? ((x: AST) => x);
 
 estreePrinters.estree.preprocess = (x, options) =>
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	preprocess(originalPreprocess(x, options), options);
 
 export const options = {

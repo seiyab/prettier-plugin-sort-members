@@ -27,8 +27,6 @@ export const MemberTypes = Object.fromEntries(
 export type MemberType = (typeof MemberLikeNodeTypesArray)[number];
 
 export type MemberNode<K extends MemberType = MemberType> = (
-	| never // avoid prettier bug
-
 	// babel-ast
 	| TSESTree.PropertyDefinition
 	| TSESTree.MethodDefinition
