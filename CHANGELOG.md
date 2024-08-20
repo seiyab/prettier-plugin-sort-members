@@ -2,6 +2,11 @@
 
 ---
 
+### 0.2.0
+
+#### Feature
+- Add new option `keepGettersAndSettersTogether`
+
 ### 0.2.0-rc.0
 
 #### Feature
