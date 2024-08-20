@@ -77,6 +77,15 @@ The order respects default order of [`@typescript-eslint/member-ordering`](https
 A boolean value to enable alphabetical ordering.
 Other criteria such as visibility still precedes even if set `true`.
 
+### keepGettersAndSettersTogether
+
+- type: `boolean`
+- default: `false`
+- since: 0.2.0
+
+A boolean value to place getters and setters same group.
+You can use it to avoid conflicting with [`@typescript-eslint/adjacent-overload-signatures`](https://typescript-eslint.io/rules/adjacent-overload-signatures/).
+
 ### skipSortForSubclassOf (experimental)
 
 - type: `Array<string>`

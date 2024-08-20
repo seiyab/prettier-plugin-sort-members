@@ -12,10 +12,12 @@ import { classMember } from "./class-member";
 
 export type Options = {
 	sortMembersAlphabetically?: boolean;
+	keepGettersAndSettersTogether?: boolean;
 };
 
 export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	const alpha = options.sortMembersAlphabetically === true;
+	const keepGettersAndSettersTogether = options.keepGettersAndSettersTogether ?? false;
 	return C.chain<MemberNode>(
 		// signature
 		C.capture(node(MemberTypes.TSIndexSignature), C.nop),
@@ -94,7 +96,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				)
 				.or(node(MemberTypes.TSPropertySignature)),
 			C.chain(
-				methodKind(),
+				methodKind({ keepGettersAndSettersTogether }),
 				classMember(),
 				C.by(decorated, C.prefer),
 				C.by(abstracted, C.defer),
