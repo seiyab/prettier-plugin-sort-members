@@ -1,96 +1,5 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`react/sort-comp [] react-1.jsx 1`] = `
-"import * as React from "react";
-
-class MyComponent extends React.Component {
-  state = {
-    serverUrl: "https://localhost:1234",
-  };
-
-  componentDidMount() {
-    this.setupConnection();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.roomId !== prevProps.roomId ||
-      this.state.serverUrl !== prevState.serverUrl
-    ) {
-      this.destroyConnection();
-      this.setupConnection();
-    }
-  }
-
-  onClick() {}
-  render() {
-    return null;
-  }
-}
-"
-`;
-
-exports[`react/sort-comp ["React.Component"] react-1.jsx 1`] = `
-"import * as React from "react";
-
-class MyComponent extends React.Component {
-  state = {
-    serverUrl: "https://localhost:1234",
-  };
-
-  componentDidMount() {
-    this.setupConnection();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.roomId !== prevProps.roomId ||
-      this.state.serverUrl !== prevState.serverUrl
-    ) {
-      this.destroyConnection();
-      this.setupConnection();
-    }
-  }
-
-  render() {
-    return null;
-  }
-
-  onClick() {}
-}
-"
-`;
-
-exports[`react/sort-comp ["Promise"] react-1.jsx 1`] = `
-"import * as React from "react";
-
-class MyComponent extends React.Component {
-  state = {
-    serverUrl: "https://localhost:1234",
-  };
-
-  componentDidMount() {
-    this.setupConnection();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.roomId !== prevProps.roomId ||
-      this.state.serverUrl !== prevState.serverUrl
-    ) {
-      this.destroyConnection();
-      this.setupConnection();
-    }
-  }
-
-  onClick() {}
-  render() {
-    return null;
-  }
-}
-"
-`;
-
 exports[`react/sort-comp [] react-3.tsx 1`] = `
 "import * as React from "react";
 
@@ -126,6 +35,36 @@ class MyComponent extends React.Component<Props, State> {
 
 exports[`react/sort-comp [] react-2.jsx 1`] = `
 "class MyComponent extends Component {
+  state = {
+    serverUrl: "https://localhost:1234",
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  onClick() {}
+  render() {
+    return null;
+  }
+}
+"
+`;
+
+exports[`react/sort-comp [] react-1.jsx 1`] = `
+"import * as React from "react";
+
+class MyComponent extends React.Component {
   state = {
     serverUrl: "https://localhost:1234",
   };
@@ -214,13 +153,10 @@ exports[`react/sort-comp ["React.Component"] react-2.jsx 1`] = `
 "
 `;
 
-exports[`react/sort-comp ["Promise"] react-3.tsx 1`] = `
+exports[`react/sort-comp ["React.Component"] react-1.jsx 1`] = `
 "import * as React from "react";
 
-type Props = { roomId: string };
-type State = { serverUrl: string };
-
-class MyComponent extends React.Component<Props, State> {
+class MyComponent extends React.Component {
   state = {
     serverUrl: "https://localhost:1234",
   };
@@ -239,38 +175,11 @@ class MyComponent extends React.Component<Props, State> {
     }
   }
 
-  onClick() {}
   render() {
     return null;
   }
-}
-"
-`;
-
-exports[`react/sort-comp ["Promise"] react-2.jsx 1`] = `
-"class MyComponent extends Component {
-  state = {
-    serverUrl: "https://localhost:1234",
-  };
-
-  componentDidMount() {
-    this.setupConnection();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.roomId !== prevProps.roomId ||
-      this.state.serverUrl !== prevState.serverUrl
-    ) {
-      this.destroyConnection();
-      this.setupConnection();
-    }
-  }
 
   onClick() {}
-  render() {
-    return null;
-  }
 }
 "
 `;
@@ -338,6 +247,97 @@ exports[`react/sort-comp ["Component"] react-2.jsx 1`] = `
 `;
 
 exports[`react/sort-comp ["Component"] react-1.jsx 1`] = `
+"import * as React from "react";
+
+class MyComponent extends React.Component {
+  state = {
+    serverUrl: "https://localhost:1234",
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  onClick() {}
+  render() {
+    return null;
+  }
+}
+"
+`;
+
+exports[`react/sort-comp ["Promise"] react-3.tsx 1`] = `
+"import * as React from "react";
+
+type Props = { roomId: string };
+type State = { serverUrl: string };
+
+class MyComponent extends React.Component<Props, State> {
+  state = {
+    serverUrl: "https://localhost:1234",
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  onClick() {}
+  render() {
+    return null;
+  }
+}
+"
+`;
+
+exports[`react/sort-comp ["Promise"] react-2.jsx 1`] = `
+"class MyComponent extends Component {
+  state = {
+    serverUrl: "https://localhost:1234",
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  onClick() {}
+  render() {
+    return null;
+  }
+}
+"
+`;
+
+exports[`react/sort-comp ["Promise"] react-1.jsx 1`] = `
 "import * as React from "react";
 
 class MyComponent extends React.Component {
