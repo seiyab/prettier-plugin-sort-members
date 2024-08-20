@@ -1,7 +1,9 @@
 import { C, Comparator } from "./comparator";
 import { MemberNode, MemberTypes } from "../ast/member-like";
 
-export function methodKind<T extends MemberNode>(): Comparator<T> {
+export function methodKind<T extends MemberNode>(opt: {
+	keepGettersAndSettersTogether: boolean;
+}): Comparator<T> {
 	return C.by(($) => {
 		switch ($.type) {
 			case MemberTypes.TSMethodSignature:
@@ -16,7 +18,7 @@ export function methodKind<T extends MemberNode>(): Comparator<T> {
 					case "get":
 						return 1;
 					case "set":
-						return 2;
+						return opt.keepGettersAndSettersTogether ? 1 : 2;
 					case "method":
 						return 3;
 				}

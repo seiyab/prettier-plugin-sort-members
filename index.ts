@@ -19,7 +19,14 @@ export const options = {
 		type: "string",
 		array: true,
 		category: "Global",
-		description: "Do not sort members of classes that are subclass of this class.",
-		default: [{value: []}],
+		description:
+			"Do not sort members of classes that are subclass of this class.",
+		default: [{ value: [] }],
+	},
+	keepGettersAndSettersTogether: {
+		type: "boolean",
+		category: "Global",
+		default: false,
+		description: "TBW",
 	},
 } satisfies Record<string, SupportOption>;

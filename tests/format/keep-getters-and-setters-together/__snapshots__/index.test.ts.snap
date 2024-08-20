@@ -17,14 +17,14 @@ class A {
   get c(): boolean {
     return true;
   }
+  set c(_val: boolean) {}
   get d(): string {
     return "d";
   }
+  set d(_val: string) {}
   get e(): boolean {
     return false;
   }
-  set c(_val: boolean) {}
-  set d(_val: string) {}
 }
 "
 `;
