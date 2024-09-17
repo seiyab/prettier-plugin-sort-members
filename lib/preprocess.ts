@@ -19,13 +19,14 @@ export function preprocess(ast: AST, options: unknown): AST {
 					...node,
 					body: node.body.slice().sort(comp),
 				} as TSESTree.TSInterfaceBody as T;
-			case AST_NODE_TYPES.ClassBody:
+			case AST_NODE_TYPES.ClassBody: {
 				const sorted = node.body.slice().sort(comp)
 				const body = opt.keepGettersAndSettersTogether ? putGettersAndSettersTogether(sorted) : sorted;
 				return {
 					...node,
 					body,
 				} as TSESTree.ClassBody as T;
+			}
 			case AST_NODE_TYPES.TSTypeLiteral:
 				return {
 					...node,

@@ -1,5 +1,4 @@
 import { Node } from "./ast";
-import { MemberNode, MemberTypes } from "./ast/member-like";
 import { nameOf } from "./ast/name-of";
 
 export function putGettersAndSettersTogether(members: Node[]): Node[] {
