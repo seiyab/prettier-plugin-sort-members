@@ -6,9 +6,11 @@ import { C } from "./comparator/comparator";
 import { MemberLikeNodeTypesArray, MemberNode } from "./ast/member-like";
 import { Node } from "./ast";
 import { isExcludedSubclass } from "./subclass";
+import { putGettersAndSettersTogether } from "./put-getters-and-setters-together";
 
 export function preprocess(ast: AST, options: unknown): AST {
-	const memcomp = comparator(options as Options);
+	const opt = options as Options;
+	const memcomp = comparator(opt);
 	const comp = C.capture(memberNodes, memcomp);
 	return visit(ast, <T extends Node>(node: T): T | typeof stopModifying => {
 		switch (node.type) {
@@ -18,9 +20,11 @@ export function preprocess(ast: AST, options: unknown): AST {
 					body: node.body.slice().sort(comp),
 				} as TSESTree.TSInterfaceBody as T;
 			case AST_NODE_TYPES.ClassBody:
+				const sorted = node.body.slice().sort(comp)
+				const body = opt.keepGettersAndSettersTogether ? putGettersAndSettersTogether(sorted) : sorted;
 				return {
 					...node,
-					body: node.body.slice().sort(comp),
+					body,
 				} as TSESTree.ClassBody as T;
 			case AST_NODE_TYPES.TSTypeLiteral:
 				return {

@@ -49,8 +49,8 @@ class B {
   set c(value) {}
   get d() {}
   set d(value) {}
-  set e(value) {}
   get e() {}
+  set e(value) {}
   set f(value) {}
 }
 "
@@ -73,10 +73,10 @@ class A {
   get c(): boolean {
     return true;
   }
+  set c(_val: boolean) {}
   get d(): string {
     return "d";
   }
-  set c(_val: boolean) {}
   set d(_val: string) {}
   get e(): boolean {
     return false;
@@ -88,26 +88,26 @@ class A {
 exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: true sortMembersAlphabetically: false getter-setter.js 1`] = `
 "export class TestClass {
   get visible() {}
-  get theme() {}
   set visible(value) {}
+  get theme() {}
 }
 
 class A {
   a = 1;
   d = 2;
   get b() {}
-  set c(value) {}
   set b(value) {}
+  set c(value) {}
 }
 
 class B {
   get d() {}
+  set d(value) {}
   get c() {}
-  set e(value) {}
+  set c(value) {}
   set f(value) {}
   get e() {}
-  set c(value) {}
-  set d(value) {}
+  set e(value) {}
 }
 "
 `;
