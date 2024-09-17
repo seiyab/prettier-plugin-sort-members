@@ -43,6 +43,16 @@ class A {
   set b(value) {}
   set c(value) {}
 }
+
+class B {
+  get c() {}
+  set c(value) {}
+  get d() {}
+  set d(value) {}
+  set e(value) {}
+  get e() {}
+  set f(value) {}
+}
 "
 `;
 
@@ -88,6 +98,16 @@ class A {
   get b() {}
   set c(value) {}
   set b(value) {}
+}
+
+class B {
+  get d() {}
+  get c() {}
+  set e(value) {}
+  set f(value) {}
+  get e() {}
+  set c(value) {}
+  set d(value) {}
 }
 "
 `;
@@ -135,6 +155,16 @@ class A {
   set b(value) {}
   set c(value) {}
 }
+
+class B {
+  get c() {}
+  get d() {}
+  get e() {}
+  set c(value) {}
+  set d(value) {}
+  set e(value) {}
+  set f(value) {}
+}
 "
 `;
 
@@ -180,6 +210,16 @@ class A {
   get b() {}
   set c(value) {}
   set b(value) {}
+}
+
+class B {
+  get d() {}
+  get c() {}
+  get e() {}
+  set e(value) {}
+  set f(value) {}
+  set c(value) {}
+  set d(value) {}
 }
 "
 `;
