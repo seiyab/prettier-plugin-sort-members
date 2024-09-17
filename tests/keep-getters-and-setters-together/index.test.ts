@@ -10,42 +10,49 @@ const dir = join(import.meta.dir, "testdata");
 const files = await readdir(dir);
 
 describe("@typescript-eslint/keep-getters-and-setters-together", () => {
-	describe.each([true, false])("%j", async (opt) => {
-		test.each(files)("%s", async (name) => {
-			const opts = {
-				keepGettersAndSettersTogether: opt,
-				sortMembersAlphabetically: true,
-			};
-			const path = join(dir, name);
-			const code = await readFile(path, "utf-8");
-			const result = await format(code, {
-				...opts,
-				filepath: path,
-				plugins,
-			});
-			expect(result).toMatchSnapshot();
-		});
+	describe.each([true, false])(
+		"keepGettersAndSettersTogether: %j",
+		async (keepGettersAndSettersTogether) => {
+			describe.each([true, false])(
+				"sortMembersAlphabetically: %j",
+				async (sortMembersAlphabetically) => {
+					test.each(files)("%s", async (name) => {
+						const opts = {
+							keepGettersAndSettersTogether,
+							sortMembersAlphabetically,
+						};
+						const path = join(dir, name);
+						const code = await readFile(path, "utf-8");
+						const result = await format(code, {
+							...opts,
+							filepath: path,
+							plugins,
+						});
+						expect(result).toMatchSnapshot();
+					});
+				},
+			);
 
-		test.each(files)("parser agnostic: %s", async (name) => {
-			const path = join(dir, name);
-			const opts = {
-				keepGettersAndSettersTogether: opt,
-				sortMembersAlphabetically: true,
-				filepath: path,
-				plugins,
-			};
-			const code = await readFile(path, "utf-8");
-			const result1 = await format(code, {
-				...opts,
-				parser: "typescript",
+			test.each(files)("parser agnostic: %s", async (name) => {
+				const path = join(dir, name);
+				const opts = {
+					keepGettersAndSettersTogether,
+					filepath: path,
+					plugins,
+				};
+				const code = await readFile(path, "utf-8");
+				const result1 = await format(code, {
+					...opts,
+					parser: "typescript",
+				});
+				const result2 = await format(code, {
+					...opts,
+					parser: "babel-ts",
+				});
+				expect(result1).toBe(result2);
 			});
-			const result2 = await format(code, {
-				...opts,
-				parser: "babel-ts",
-			});
-			expect(result1).toBe(result2);
-		});
-	});
+		},
+	);
 
 	test.each(files)("no conflict: %s", async (name) => {
 		const eslint = new ESLint({

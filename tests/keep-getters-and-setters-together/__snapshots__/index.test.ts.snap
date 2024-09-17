@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@typescript-eslint/keep-getters-and-setters-together true getter-setter.ts 1`] = `
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: true sortMembersAlphabetically: true getter-setter.ts 1`] = `
 "export class TestClass {
   get theme(): string {
     return "light";
@@ -29,7 +29,7 @@ class A {
 "
 `;
 
-exports[`@typescript-eslint/keep-getters-and-setters-together true getter-setter.js 1`] = `
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: true sortMembersAlphabetically: true getter-setter.js 1`] = `
 "export class TestClass {
   get theme() {}
   get visible() {}
@@ -46,7 +46,53 @@ class A {
 "
 `;
 
-exports[`@typescript-eslint/keep-getters-and-setters-together false getter-setter.ts 1`] = `
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: true sortMembersAlphabetically: false getter-setter.ts 1`] = `
+"export class TestClass {
+  get visible(): boolean {
+    return true;
+  }
+  set visible(_val: boolean) {}
+  get theme(): string {
+    return "light";
+  }
+}
+
+class A {
+  a: number;
+  b: string;
+  get c(): boolean {
+    return true;
+  }
+  get d(): string {
+    return "d";
+  }
+  set c(_val: boolean) {}
+  set d(_val: string) {}
+  get e(): boolean {
+    return false;
+  }
+}
+"
+`;
+
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: true sortMembersAlphabetically: false getter-setter.js 1`] = `
+"export class TestClass {
+  get visible() {}
+  get theme() {}
+  set visible(value) {}
+}
+
+class A {
+  a = 1;
+  d = 2;
+  get b() {}
+  set c(value) {}
+  set b(value) {}
+}
+"
+`;
+
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: false sortMembersAlphabetically: true getter-setter.ts 1`] = `
 "export class TestClass {
   get theme(): string {
     return "light";
@@ -75,7 +121,7 @@ class A {
 "
 `;
 
-exports[`@typescript-eslint/keep-getters-and-setters-together false getter-setter.js 1`] = `
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: false sortMembersAlphabetically: true getter-setter.js 1`] = `
 "export class TestClass {
   get theme() {}
   get visible() {}
@@ -88,6 +134,52 @@ class A {
   get b() {}
   set b(value) {}
   set c(value) {}
+}
+"
+`;
+
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: false sortMembersAlphabetically: false getter-setter.ts 1`] = `
+"export class TestClass {
+  get visible(): boolean {
+    return true;
+  }
+  get theme(): string {
+    return "light";
+  }
+  set visible(_val: boolean) {}
+}
+
+class A {
+  a: number;
+  b: string;
+  get c(): boolean {
+    return true;
+  }
+  get d(): string {
+    return "d";
+  }
+  get e(): boolean {
+    return false;
+  }
+  set c(_val: boolean) {}
+  set d(_val: string) {}
+}
+"
+`;
+
+exports[`@typescript-eslint/keep-getters-and-setters-together keepGettersAndSettersTogether: false sortMembersAlphabetically: false getter-setter.js 1`] = `
+"export class TestClass {
+  get visible() {}
+  get theme() {}
+  set visible(value) {}
+}
+
+class A {
+  a = 1;
+  d = 2;
+  get b() {}
+  set c(value) {}
+  set b(value) {}
 }
 "
 `;
