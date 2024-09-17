@@ -68,7 +68,6 @@ describe("@typescript-eslint/keep-getters-and-setters-together", () => {
 		});
 		const opts = {
 			keepGettersAndSettersTogether: true,
-			sortMembersAlphabetically: true,
 		};
 		const path = join(dir, name);
 		const code = await readFile(path, "utf-8");
