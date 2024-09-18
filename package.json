@@ -23,20 +23,21 @@
     "check": "bun test && tsc && eslint ."
   },
   "devDependencies": {
-    "@types/eslint": "^8.56.9",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "@typescript-eslint/parser": "^7.1.0",
+    "@eslint/js": "^9.9.0",
+    "@types/eslint": "^9.6.0",
+    "@types/eslint__js": "^8.42.3",
     "bun-types": "latest",
-    "eslint": "^8.54.0",
-    "typescript": "^5.3.3"
+    "eslint": "^9.9.0",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.6.0"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
   },
   "dependencies": {
     "@babel/types": "^7.1.0",
-    "@typescript-eslint/types": "^7.1.0",
-    "@typescript-eslint/visitor-keys": "^7.1.0"
+    "@typescript-eslint/types": "^8.2.0",
+    "@typescript-eslint/visitor-keys": "^8.2.0"
   },
   "version": "0.2.0"
 }

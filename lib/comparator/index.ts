@@ -17,7 +17,8 @@ export type Options = {
 
 export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	const alpha = options.sortMembersAlphabetically === true;
-	const keepGettersAndSettersTogether = options.keepGettersAndSettersTogether ?? false;
+	const keepGettersAndSettersTogether =
+		options.keepGettersAndSettersTogether ?? false;
 	return C.chain<MemberNode>(
 		// signature
 		C.capture(node(MemberTypes.TSIndexSignature), C.nop),
@@ -50,14 +51,13 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 		// constructor signature for interface
 		// constructor in class is handled as method
 		C.capture(
-			select
-				.or(node(MemberTypes.TSConstructSignatureDeclaration))
-				.or(
-					select.and(
-						node(MemberTypes.MethodDefinition),
-						($) => $.key.type === "Identifier" && $.key.name === "constructor",
-					),
+			select.or(node(MemberTypes.TSConstructSignatureDeclaration)).or(
+				select.and(
+					node(MemberTypes.MethodDefinition),
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+					($) => $.key.type === "Identifier" && $.key.name === "constructor",
 				),
+			),
 			C.by(($) => {
 				if ($.type !== MemberTypes.TSConstructSignatureDeclaration) return 0;
 				return (

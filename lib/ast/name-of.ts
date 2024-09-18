@@ -19,6 +19,7 @@ export function nameOf(n: Node): string | null {
 			// babel nodes
 			switch (true) {
 				case isPrivateName(n.key):
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
 					if (n.key.id.type !== AST_NODE_TYPES.Identifier) return null;
 					return n.key.id.name;
 				case isStringLiteral(n.key):

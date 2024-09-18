@@ -3,6 +3,8 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { format } from "prettier";
 import { ESLint } from "eslint";
+import parser from "@typescript-eslint/parser";
+import plugin from "@typescript-eslint/eslint-plugin";
 
 const plugins = ["./index.ts"];
 
@@ -12,10 +14,10 @@ const files = await readdir(dir);
 describe("@typescript-eslint/keep-getters-and-setters-together", () => {
 	describe.each([true, false])(
 		"keepGettersAndSettersTogether: %j",
-		async (keepGettersAndSettersTogether) => {
+		(keepGettersAndSettersTogether) => {
 			describe.each([true, false])(
 				"sortMembersAlphabetically: %j",
-				async (sortMembersAlphabetically) => {
+				(sortMembersAlphabetically) => {
 					test.each(files)("%s", async (name) => {
 						const opts = {
 							keepGettersAndSettersTogether,
@@ -57,14 +59,16 @@ describe("@typescript-eslint/keep-getters-and-setters-together", () => {
 	test.each(files)("no conflict: %s", async (name) => {
 		const eslint = new ESLint({
 			overrideConfig: {
-				parser: "@typescript-eslint/parser",
-				plugins: ["@typescript-eslint"],
-				extends: [],
+				languageOptions: { parser },
+				plugins: {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment
+					"@typescript-eslint": plugin as any,
+				},
 				rules: {
 					"@typescript-eslint/adjacent-overload-signatures": "error",
 				},
 			},
-			useEslintrc: false,
+			overrideConfigFile: true,
 		});
 		const opts = {
 			keepGettersAndSettersTogether: true,

@@ -3,6 +3,8 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { format } from "prettier";
 import { ESLint } from "eslint";
+import parser from "@typescript-eslint/parser";
+import plugin from "@typescript-eslint/eslint-plugin";
 
 const plugins = ["./index.ts"];
 
@@ -50,7 +52,7 @@ describe("format", () => {
 			describe("TypeScript", () => {
 				const skipFile = new Set(["issue-34-literal-keys.js"]);
 				const parsers = ["typescript", "babel-ts"];
-				describe.each(parsers)("%s", async (parser) => {
+				describe.each(parsers)("%s", (parser) => {
 					test.each(filenames.filter((n) => !skipFile.has(n)))(
 						"%s",
 						async (name) => {
@@ -77,14 +79,16 @@ describe("format", () => {
 		describe("compatible with eslint-typescript", () => {
 			const eslint = new ESLint({
 				overrideConfig: {
-					parser: "@typescript-eslint/parser",
-					plugins: ["@typescript-eslint"],
-					extends: [],
+					languageOptions: { parser },
+					plugins: {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
+						"@typescript-eslint": plugin as any,
+					},
 					rules: {
 						"@typescript-eslint/member-ordering": "error",
 					},
 				},
-				useEslintrc: false,
+				overrideConfigFile: true,
 			});
 
 			test.each(filenames)("%s", async (name) => {
