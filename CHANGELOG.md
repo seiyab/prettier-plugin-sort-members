@@ -2,14 +2,26 @@
 
 ---
 
+### 0.2.1-rc.0
+
+#### Feature
+
+- `keepGettersAndSettersTogether` will couple setter with associated getter.
+
+#### Others
+
+- Internal package updates and cleanup
+
 ### 0.2.0
 
 #### Feature
+
 - Add new option `keepGettersAndSettersTogether`
 
 ### 0.2.0-rc.0
 
 #### Feature
+
 - Add new option `skipSortForSubclassOf`
 
 ### 0.1.2
