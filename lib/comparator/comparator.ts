@@ -31,7 +31,7 @@ export const C = {
 			return Order.Equal;
 		};
 	},
-	nop(this: void,): Order {
+	nop(this: void): Order {
 		return Order.Equal;
 	},
 	defer(this: void, a: boolean, b: boolean): Order {

@@ -26,8 +26,7 @@ export const MemberTypes = Object.fromEntries(
 
 export type MemberType = (typeof MemberLikeNodeTypesArray)[number];
 
-export type MemberNode<K extends MemberType = MemberType> = (
-	// babel-ast
+type TSESTreeMemberNode =
 	| TSESTree.PropertyDefinition
 	| TSESTree.MethodDefinition
 	| TSESTree.TSAbstractMethodDefinition
@@ -35,12 +34,16 @@ export type MemberNode<K extends MemberType = MemberType> = (
 	| TSESTree.TSConstructSignatureDeclaration
 	| TSESTree.TSIndexSignature
 	| TSESTree.TSMethodSignature
-	| TSESTree.TSPropertySignature
+	| TSESTree.TSPropertySignature;
 
-	// ts-es-tree
+type BabelMemberNode =
 	| BabelTypes.ClassMethod
 	| BabelTypes.ClassPrivateMethod
 	| BabelTypes.ClassPrivateProperty
 	| BabelTypes.ClassProperty
-	| BabelTypes.TSDeclareMethod
+	| BabelTypes.TSDeclareMethod;
+
+export type MemberNode<K extends MemberType = MemberType> = (
+	| TSESTreeMemberNode
+	| BabelMemberNode
 ) & { type: K };
