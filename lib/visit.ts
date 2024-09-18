@@ -27,7 +27,9 @@ export function visit<T extends Node>(
 		const k = key satisfies keyof T;
 		const child = updatedNode[k];
 		if (Array.isArray(child)) {
-			updatedNode[k] = (child).map((c: Node) => visit(c, modifier)) as T[typeof k];
+			updatedNode[k] = child.map((c: Node) =>
+				visit(c, modifier),
+			) as T[typeof k];
 			continue;
 		}
 		updatedNode[k] = visit(updatedNode[k] as Node, modifier) as T[typeof k];
