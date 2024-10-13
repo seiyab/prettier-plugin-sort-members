@@ -4,8 +4,6 @@ import { select } from "./select";
 import { keyIdentifierName } from "./key-identifier-name";
 import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
-import { decorated } from "./decorated";
-import { abstracted } from "./abstracted";
 import { methodKind } from "./method-kind";
 import { MemberNode, MemberType, MemberTypes } from "../ast/member-like";
 import { classMember } from "./class-member";
@@ -41,8 +39,6 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 			),
 			C.chain(
 				classMember(),
-				C.by(decorated, C.prefer),
-				C.by(abstracted, C.defer),
 				accessibility(),
 				alpha ? keyIdentifierName() : C.nop,
 			),
@@ -98,8 +94,6 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 			C.chain(
 				methodKind({ keepGettersAndSettersTogether }),
 				classMember(),
-				C.by(decorated, C.prefer),
-				C.by(abstracted, C.defer),
 				accessibility(),
 				alpha ? keyIdentifierName() : C.nop,
 			),
