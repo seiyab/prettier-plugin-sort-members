@@ -273,6 +273,42 @@ class MyClass2 {
 "
 `;
 
+exports[`format {} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  private static someOtherStaticMethod = () => {
+    //
+  };
+
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  static c() {}
+  @deco
+  b() {}
+  @deco
+  static d() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} issue-34-literal-keys.ts 1`] = `
 "type Endpoint<T> = T | unknown;
 type UserResponse = unknown;
@@ -546,6 +582,42 @@ class MyClass2 {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  private static someOtherStaticMethod = () => {
+    //
+  };
+
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  static c() {}
+  @deco
+  b() {}
+  @deco
+  static d() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":false} issue-34-literal-keys.ts 1`] = `
 "type Endpoint<T> = T | unknown;
 type UserResponse = unknown;
@@ -816,5 +888,41 @@ class MyClass2 {
   #d() {}
   #e() {}
 }
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  private static someOtherStaticMethod = () => {
+    //
+  };
+
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  static c() {}
+  @deco
+  b() {}
+  @deco
+  static d() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
 "
 `;
