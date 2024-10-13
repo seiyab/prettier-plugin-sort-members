@@ -818,3 +818,111 @@ class MyClass2 {
 }
 "
 `;
+
+exports[`format {} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+
+  private static someOtherStaticMethod = () => {
+    //
+  };
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  @deco
+  static d() {}
+  static c() {}
+  @deco
+  b() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+
+  private static someOtherStaticMethod = () => {
+    //
+  };
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  @deco
+  static d() {}
+  static c() {}
+  @deco
+  b() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-57-compatibility.ts 1`] = `
+"export class SomeClass {
+  @deco
+  private static someStaticMethod() {
+    //
+  }
+
+  private static someOtherStaticMethod = () => {
+    //
+  };
+}
+
+export class SomeClassB {
+  @deco
+  private someMethod() {
+    //
+  }
+
+  private someOtherMethod() {
+    //
+  }
+}
+
+export abstract class SomeClassC {
+  @deco
+  static d() {}
+  static c() {}
+  @deco
+  b() {}
+  a() {}
+}
+
+function deco(...args: unknown[]): any {}
+"
+`;
