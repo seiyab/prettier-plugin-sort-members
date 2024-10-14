@@ -2,6 +2,13 @@
 
 ---
 
+### 0.2.1-rc.1
+
+#### Bug fix
+
+- Improve compatibility with `@typescript-eslint/member-ordering` ([#57](https://github.com/seiyab/prettier-plugin-sort-members/issues/57)).
+  - Note that `@typescript-eslint/member-ordering` is inconsistent a bit. For static methods, decorated ones go latter. On the other hand, for instance methods, decorated ones go former. From this version, `prettier-plugin-sort-members` also goes same way.
+
 ### 0.2.1-rc.0
 
 #### Feature
