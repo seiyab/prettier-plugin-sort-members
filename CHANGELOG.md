@@ -2,6 +2,10 @@
 
 ---
 
+### 0.2.1
+
+No changes from 0.2.1-rc.1
+
 ### 0.2.1-rc.1
 
 #### Bug fix
