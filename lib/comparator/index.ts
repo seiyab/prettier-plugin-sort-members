@@ -1,12 +1,14 @@
 import bt from "@babel/types";
 import { C, Comparator } from "./comparator";
-import { select } from "./select";
 import { keyIdentifierName } from "./key-identifier-name";
-import { functionExpressions } from "../ast";
 import { accessibility } from "./accessibility";
 import { methodKind } from "./method-kind";
-import { MemberNode, MemberType, MemberTypes } from "../ast/member-like";
+import { MemberNode, MemberTypes } from "../ast/member-like";
 import { classMember } from "./class-member";
+import { node } from "./kind/utils";
+import { isField } from "./kind/field";
+import { isInterfaceConstructor } from "./kind/constructor";
+import { isMethod } from "./kind/method";
 
 export type Options = {
 	sortMembersAlphabetically?: boolean;
@@ -18,37 +20,12 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	const keepGettersAndSettersTogether =
 		options.keepGettersAndSettersTogether ?? false;
 	return C.chain<MemberNode>(
-		// signature
 		C.capture(node(MemberTypes.TSIndexSignature)),
-
-		// field
-		C.capture(
-			select.or(node(MemberTypes.TSPropertySignature)).or(
-				select.and(
-					select
-						.or(node(MemberTypes.PropertyDefinition))
-						.or(node(MemberTypes.TSAbstractPropertyDefinition))
-						.or(
-							select.and(
-								bt.isNode,
-								select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
-							),
-						),
-					($) => !($.value && functionExpressions.includes($.value.type)),
-				),
-			),
-		),
-
+		C.capture(isField),
 		// constructor signature for interface
 		// constructor in class is handled as method
 		C.capture(
-			select.or(node(MemberTypes.TSConstructSignatureDeclaration)).or(
-				select.and(
-					node(MemberTypes.MethodDefinition),
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-					($) => $.key.type === "Identifier" && $.key.name === "constructor",
-				),
-			),
+			isInterfaceConstructor,
 			C.by(($) => {
 				if ($.type !== MemberTypes.TSConstructSignatureDeclaration) return 0;
 				return (
@@ -57,46 +34,10 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				);
 			}, C.number),
 		),
-
-		// method
-		C.capture(
-			select
-				.or(node(MemberTypes.TSMethodSignature))
-				.or(node(MemberTypes.MethodDefinition))
-				.or(node(MemberTypes.TSAbstractMethodDefinition))
-				.or(node(MemberTypes.TSDeclareMethod))
-				.or(
-					select.and(
-						bt.isNode,
-						select.or(bt.isClassMethod).or(bt.isClassPrivateMethod),
-					),
-				)
-				.or(
-					select.and(
-						select
-							.or(node(MemberTypes.PropertyDefinition))
-							.or(
-								select.and(
-									bt.isNode,
-									select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
-								),
-							),
-						($) =>
-							$.value != null && functionExpressions.includes($.value.type),
-					),
-				)
-				.or(node(MemberTypes.TSPropertySignature)),
-			methodKind({ keepGettersAndSettersTogether }),
-		),
+		C.capture(isMethod, methodKind({ keepGettersAndSettersTogether })),
 
 		classMember(),
 		accessibility(),
 		alpha ? keyIdentifierName() : C.nop,
 	);
-}
-
-function node<K extends MemberType>(key: K) {
-	return function (node: MemberNode): node is MemberNode<K> {
-		return node.type === key;
-	};
 }

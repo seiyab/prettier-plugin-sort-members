@@ -11,6 +11,27 @@ function nop(this: void): Order {
 	return Order.Equal;
 }
 
+function capture<T, U extends T>(
+	this: void,
+	pred: (a: T) => a is U,
+	comp: Comparator<U>,
+): Comparator<T>;
+function capture<T>(this: void, pred: (a: T) => boolean): Comparator<T>;
+function capture<T, U extends T>(
+	this: void,
+	pred: (a: T) => boolean,
+	comp: Comparator<U> = nop,
+): Comparator<T> {
+	return (a, b) => {
+		if (pred(a)) {
+			if (pred(b)) return comp(a as U, b as U);
+			return Order.Less;
+		}
+		if (pred(b)) return Order.Greater;
+		return Order.Equal;
+	};
+}
+
 export const C = {
 	property<T, K extends keyof T>(
 		this: void,
@@ -69,18 +90,5 @@ export const C = {
 	reverse<T>(this: void, comp: Comparator<T>): Comparator<T> {
 		return (a, b) => comp(b, a);
 	},
-	capture<T, U extends T>(
-		this: void,
-		pred: (a: T) => a is U,
-		comp: Comparator<U> = nop,
-	): Comparator<T> {
-		return (a, b) => {
-			if (pred(a)) {
-				if (pred(b)) return comp(a, b);
-				return Order.Less;
-			}
-			if (pred(b)) return Order.Greater;
-			return Order.Equal;
-		};
-	},
+	capture,
 };
