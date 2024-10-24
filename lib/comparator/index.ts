@@ -19,7 +19,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 		options.keepGettersAndSettersTogether ?? false;
 	return C.chain<MemberNode>(
 		// signature
-		C.capture(node(MemberTypes.TSIndexSignature), C.nop),
+		C.capture(node(MemberTypes.TSIndexSignature)),
 
 		// field
 		C.capture(
@@ -36,11 +36,6 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 						),
 					($) => !($.value && functionExpressions.includes($.value.type)),
 				),
-			),
-			C.chain(
-				classMember(),
-				accessibility(),
-				alpha ? keyIdentifierName() : C.nop,
 			),
 		),
 
@@ -91,13 +86,12 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 					),
 				)
 				.or(node(MemberTypes.TSPropertySignature)),
-			C.chain(
-				methodKind({ keepGettersAndSettersTogether }),
-				classMember(),
-				accessibility(),
-				alpha ? keyIdentifierName() : C.nop,
-			),
+			methodKind({ keepGettersAndSettersTogether }),
 		),
+
+		classMember(),
+		accessibility(),
+		alpha ? keyIdentifierName() : C.nop,
 	);
 }
 

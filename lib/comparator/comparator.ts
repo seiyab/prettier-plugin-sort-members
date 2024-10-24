@@ -7,6 +7,10 @@ export type Order = (typeof Order)[keyof typeof Order];
 
 export type Comparator<A> = (a: A, b: A) => number;
 
+function nop(this: void): Order {
+	return Order.Equal;
+}
+
 export const C = {
 	property<T, K extends keyof T>(
 		this: void,
@@ -31,16 +35,14 @@ export const C = {
 			return Order.Equal;
 		};
 	},
-	nop(this: void): Order {
-		return Order.Equal;
-	},
+	nop,
 	defer(this: void, a: boolean, b: boolean): Order {
 		if (!!a === !!b) return Order.Equal;
 		if (a) return Order.Greater;
 		return Order.Less;
 	},
 	prefer(this: void, a: boolean, b: boolean): Order {
-		if (!!a === !!b) return Order.Equal;
+		if (Boolean(a) === Boolean(b)) return Order.Equal;
 		if (a) return Order.Less;
 		return Order.Greater;
 	},
@@ -70,7 +72,7 @@ export const C = {
 	capture<T, U extends T>(
 		this: void,
 		pred: (a: T) => a is U,
-		comp: Comparator<U>,
+		comp: Comparator<U> = nop,
 	): Comparator<T> {
 		return (a, b) => {
 			if (pred(a)) {
