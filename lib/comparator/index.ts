@@ -23,8 +23,6 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	return C.chain<MemberNode>(
 		C.capture(node(MemberTypes.TSIndexSignature)),
 		C.capture(isField),
-		// constructor signature for interface
-		// constructor in class is handled as method
 		C.capture(
 			isConstructor,
 			C.by(($) => {
