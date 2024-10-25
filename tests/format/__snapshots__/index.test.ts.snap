@@ -273,6 +273,35 @@ class MyClass2 {
 "
 `;
 
+exports[`format {} accessor.ts 1`] = `
+"class AccessorTest {
+  @decorate
+  private l;
+  h;
+  constructor() {}
+  static accessor g;
+  protected static accessor d;
+  static accessor #e;
+  @decorate
+  @decorate
+  accessor k;
+  @decorate
+  private accessor b;
+  accessor a;
+  accessor f;
+  accessor m = 0;
+  private accessor c;
+  get j(): unknown {
+    return 0;
+  }
+  set j(_: unknown) {}
+  i(): void {}
+}
+
+function decorate(..._: unknown[]): void {}
+"
+`;
+
 exports[`format {} issue-57-compatibility.ts 1`] = `
 "export class SomeClass {
   private static someOtherStaticMethod = () => {
@@ -582,6 +611,35 @@ class MyClass2 {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} accessor.ts 1`] = `
+"class AccessorTest {
+  @decorate
+  private l;
+  h;
+  constructor() {}
+  static accessor g;
+  protected static accessor d;
+  static accessor #e;
+  @decorate
+  @decorate
+  accessor k;
+  @decorate
+  private accessor b;
+  accessor a;
+  accessor f;
+  accessor m = 0;
+  private accessor c;
+  get j(): unknown {
+    return 0;
+  }
+  set j(_: unknown) {}
+  i(): void {}
+}
+
+function decorate(..._: unknown[]): void {}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} issue-57-compatibility.ts 1`] = `
 "export class SomeClass {
   private static someOtherStaticMethod = () => {
@@ -888,6 +946,35 @@ class MyClass2 {
   #d() {}
   #e() {}
 }
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} accessor.ts 1`] = `
+"class AccessorTest {
+  @decorate
+  private l;
+  h;
+  constructor() {}
+  static accessor g;
+  protected static accessor d;
+  static accessor #e;
+  @decorate
+  @decorate
+  accessor k;
+  @decorate
+  private accessor b;
+  accessor a;
+  accessor f;
+  accessor m = 0;
+  private accessor c;
+  get j(): unknown {
+    return 0;
+  }
+  set j(_: unknown) {}
+  i(): void {}
+}
+
+function decorate(..._: unknown[]): void {}
 "
 `;
 

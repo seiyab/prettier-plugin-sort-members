@@ -7,8 +7,9 @@ import { MemberNode, MemberTypes } from "../ast/member-like";
 import { classMember } from "./class-member";
 import { node } from "./kind/utils";
 import { isField } from "./kind/field";
-import { isInterfaceConstructor } from "./kind/constructor";
+import { isConstructor } from "./kind/constructor";
 import { isMethod } from "./kind/method";
+import { isAccessor } from "./kind/accessor";
 
 export type Options = {
 	sortMembersAlphabetically?: boolean;
@@ -22,10 +23,8 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	return C.chain<MemberNode>(
 		C.capture(node(MemberTypes.TSIndexSignature)),
 		C.capture(isField),
-		// constructor signature for interface
-		// constructor in class is handled as method
 		C.capture(
-			isInterfaceConstructor,
+			isConstructor,
 			C.by(($) => {
 				if ($.type !== MemberTypes.TSConstructSignatureDeclaration) return 0;
 				return (
@@ -34,6 +33,7 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 				);
 			}, C.number),
 		),
+		C.capture(isAccessor),
 		C.capture(isMethod, methodKind({ keepGettersAndSettersTogether })),
 
 		classMember(),

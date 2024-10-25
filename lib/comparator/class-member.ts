@@ -13,8 +13,10 @@ export function classMember(): Comparator<Node> {
 
 function decorated(node: Node): boolean {
 	switch (node.type) {
+		case MemberTypes.AccessorProperty:
 		case MemberTypes.PropertyDefinition:
 		case MemberTypes.MethodDefinition:
+		case MemberTypes.ClassAccessorProperty:
 		case MemberTypes.ClassProperty:
 		case MemberTypes.ClassPrivateProperty:
 		case MemberTypes.ClassMethod:

@@ -3,6 +3,7 @@ import * as BabelTypes from "@babel/types";
 
 export const MemberLikeNodeTypesArray = [
 	// ts-es-tree
+	AST_NODE_TYPES.AccessorProperty,
 	AST_NODE_TYPES.PropertyDefinition,
 	AST_NODE_TYPES.MethodDefinition,
 	AST_NODE_TYPES.TSAbstractMethodDefinition,
@@ -13,6 +14,7 @@ export const MemberLikeNodeTypesArray = [
 	AST_NODE_TYPES.TSPropertySignature,
 
 	// babel-ast
+	"ClassAccessorProperty",
 	"ClassMethod",
 	"ClassPrivateMethod",
 	"ClassPrivateProperty",
@@ -27,8 +29,9 @@ export const MemberTypes = Object.fromEntries(
 export type MemberType = (typeof MemberLikeNodeTypesArray)[number];
 
 type TSESTreeMemberNode =
-	| TSESTree.PropertyDefinition
+	| TSESTree.AccessorProperty
 	| TSESTree.MethodDefinition
+	| TSESTree.PropertyDefinition
 	| TSESTree.TSAbstractMethodDefinition
 	| TSESTree.TSAbstractPropertyDefinition
 	| TSESTree.TSConstructSignatureDeclaration
@@ -37,6 +40,7 @@ type TSESTreeMemberNode =
 	| TSESTree.TSPropertySignature;
 
 type BabelMemberNode =
+	| BabelTypes.ClassAccessorProperty
 	| BabelTypes.ClassMethod
 	| BabelTypes.ClassPrivateMethod
 	| BabelTypes.ClassPrivateProperty
