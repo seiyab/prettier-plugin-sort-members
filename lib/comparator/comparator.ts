@@ -33,15 +33,6 @@ function capture<T, U extends T>(
 }
 
 export const C = {
-	property<T, K extends keyof T>(
-		this: void,
-		key: K,
-		comp: Comparator<T[K]>,
-	): Comparator<T> {
-		return (a, b) => {
-			return comp(a[key], b[key]);
-		};
-	},
 	by<T, U>(this: void, fn: ($: T) => U, comp: Comparator<U>): Comparator<T> {
 		return (a, b) => {
 			return comp(fn(a), fn(b));
@@ -57,16 +48,6 @@ export const C = {
 		};
 	},
 	nop,
-	defer(this: void, a: boolean, b: boolean): Order {
-		if (!!a === !!b) return Order.Equal;
-		if (a) return Order.Greater;
-		return Order.Less;
-	},
-	prefer(this: void, a: boolean, b: boolean): Order {
-		if (Boolean(a) === Boolean(b)) return Order.Equal;
-		if (a) return Order.Less;
-		return Order.Greater;
-	},
 	string(this: void, a: string, b: string): Order {
 		if (a < b) return Order.Less;
 		if (a > b) return Order.Greater;
@@ -86,9 +67,6 @@ export const C = {
 			if (b == null) return Order.Less;
 			return comp(a, b);
 		};
-	},
-	reverse<T>(this: void, comp: Comparator<T>): Comparator<T> {
-		return (a, b) => comp(b, a);
 	},
 	capture,
 };
