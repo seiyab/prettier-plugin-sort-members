@@ -1,22 +1,16 @@
-import bt from "@babel/types";
 import { MemberNode, MemberTypes } from "../../ast/member-like";
-import { select } from "../select";
-import { node } from "./utils";
 import { functionExpressions } from "../../ast";
 
-export const isField: (node: MemberNode) => boolean = select
-	.or(node(MemberTypes.TSPropertySignature))
-	.or(
-		select.and(
-			select
-				.or(node(MemberTypes.PropertyDefinition))
-				.or(node(MemberTypes.TSAbstractPropertyDefinition))
-				.or(
-					select.and(
-						bt.isNode,
-						select.or(bt.isClassProperty).or(bt.isClassPrivateProperty),
-					),
-				),
-			($) => !($.value && functionExpressions.includes($.value.type)),
-		),
-	);
+export function isField(node: MemberNode): boolean {
+	switch (node.type) {
+		case MemberTypes.TSPropertySignature:
+			return true;
+		case MemberTypes.PropertyDefinition:
+		case MemberTypes.TSAbstractPropertyDefinition:
+		case MemberTypes.ClassProperty:
+		case MemberTypes.ClassPrivateProperty:
+			return !node.value || !functionExpressions.includes(node.value.type);
+		default:
+			return false;
+	}
+}
