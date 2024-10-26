@@ -7,8 +7,64 @@ export type Order = (typeof Order)[keyof typeof Order];
 
 export type Comparator<A> = (a: A, b: A) => number;
 
+export const C = {
+	by,
+	chain,
+	nop,
+	string,
+	number,
+	maybe,
+	capture,
+};
+
 function nop(this: void): Order {
 	return Order.Equal;
+}
+
+function by<T, U>(
+	this: void,
+	fn: ($: T) => U,
+	comp: Comparator<U>,
+): Comparator<T> {
+	return (a, b) => {
+		return comp(fn(a), fn(b));
+	};
+}
+
+function chain<T>(this: void, ...comps: Comparator<T>[]): Comparator<T> {
+	return (a, b) => {
+		for (const comp of comps) {
+			const res = comp(a, b);
+			if (res !== Order.Equal) return res;
+		}
+		return Order.Equal;
+	};
+}
+
+function string(this: void, a: string, b: string): Order {
+	if (a < b) return Order.Less;
+	if (a > b) return Order.Greater;
+	return Order.Equal;
+}
+
+function number(this: void, a: number, b: number): Order {
+	if (a < b) return Order.Less;
+	if (a > b) return Order.Greater;
+	return Order.Equal;
+}
+
+function maybe<T>(
+	this: void,
+	comp: Comparator<T>,
+): Comparator<T | undefined | null> {
+	return (a, b) => {
+		if (a == null) {
+			if (b == null) return Order.Equal;
+			return Order.Greater;
+		}
+		if (b == null) return Order.Less;
+		return comp(a, b);
+	};
 }
 
 type Captured<T, U> = Comparator<T> & {
@@ -37,42 +93,3 @@ function capture<T, U extends T>(
 
 	return captured;
 }
-
-export const C = {
-	by<T, U>(this: void, fn: ($: T) => U, comp: Comparator<U>): Comparator<T> {
-		return (a, b) => {
-			return comp(fn(a), fn(b));
-		};
-	},
-	chain<T>(this: void, ...comps: Comparator<T>[]): Comparator<T> {
-		return (a, b) => {
-			for (const comp of comps) {
-				const res = comp(a, b);
-				if (res !== Order.Equal) return res;
-			}
-			return Order.Equal;
-		};
-	},
-	nop,
-	string(this: void, a: string, b: string): Order {
-		if (a < b) return Order.Less;
-		if (a > b) return Order.Greater;
-		return Order.Equal;
-	},
-	number(this: void, a: number, b: number): Order {
-		if (a < b) return Order.Less;
-		if (a > b) return Order.Greater;
-		return Order.Equal;
-	},
-	maybe<T>(this: void, comp: Comparator<T>): Comparator<T | undefined | null> {
-		return (a, b) => {
-			if (a == null) {
-				if (b == null) return Order.Equal;
-				return Order.Greater;
-			}
-			if (b == null) return Order.Less;
-			return comp(a, b);
-		};
-	},
-	capture,
-};
