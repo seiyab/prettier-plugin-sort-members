@@ -11,25 +11,31 @@ function nop(this: void): Order {
 	return Order.Equal;
 }
 
+type Captured<T, U> = Comparator<T> & {
+	then: (comp: Comparator<U>) => Comparator<T>;
+};
+
 function capture<T, U extends T>(
 	this: void,
 	pred: (a: T) => a is U,
-	comp: Comparator<U>,
-): Comparator<T>;
+): Captured<T, U>;
 function capture<T>(this: void, pred: (a: T) => boolean): Comparator<T>;
 function capture<T, U extends T>(
 	this: void,
 	pred: (a: T) => boolean,
-	comp: Comparator<U> = nop,
-): Comparator<T> {
-	return (a, b) => {
-		if (pred(a)) {
-			if (pred(b)) return comp(a as U, b as U);
-			return Order.Less;
-		}
-		if (pred(b)) return Order.Greater;
-		return Order.Equal;
-	};
+): Captured<T, U> {
+	function then(comp: Comparator<U>): Comparator<T> {
+		return (a, b) => {
+			if (pred(a) && pred(b)) return comp(a as U, b as U);
+			if (pred(a)) return Order.Less;
+			if (pred(b)) return Order.Greater;
+			return Order.Equal;
+		};
+	}
+	const captured = then(nop) as Captured<T, U>;
+	captured.then = then;
+
+	return captured;
 }
 
 export const C = {

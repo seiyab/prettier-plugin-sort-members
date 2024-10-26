@@ -11,7 +11,7 @@ import { putGettersAndSettersTogether } from "./put-getters-and-setters-together
 export function preprocess(ast: AST, options: unknown): AST {
 	const opt = options as Options;
 	const memcomp = comparator(opt);
-	const comp = C.capture(memberNodes, memcomp);
+	const comp = C.capture(memberNodes).then(memcomp);
 	return visit(ast, <T extends Node>(node: T): T | typeof stopModifying => {
 		switch (node.type) {
 			case AST_NODE_TYPES.TSInterfaceBody:

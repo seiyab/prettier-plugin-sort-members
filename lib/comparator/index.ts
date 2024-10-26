@@ -22,9 +22,9 @@ export function comparator(options: Partial<Options>): Comparator<MemberNode> {
 	return C.chain<MemberNode>(
 		C.capture(node(MemberTypes.TSIndexSignature)),
 		C.capture(isField),
-		C.capture(isConstructor, constructorParams()),
+		C.capture(isConstructor).then(constructorParams()),
 		C.capture(isAccessor),
-		C.capture(isMethod, methodKind({ keepGettersAndSettersTogether })),
+		C.capture(isMethod).then(methodKind({ keepGettersAndSettersTogether })),
 
 		classMember(),
 		accessibility(),
