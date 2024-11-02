@@ -45,6 +45,23 @@ interface A {
 "
 `;
 
+exports[`format {} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  method2() {}
+
+  [Symbol.dispose]() {}
+
+  method1() {}
+}
+"
+`;
+
 exports[`format {} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -383,6 +400,23 @@ interface A {
 "
 `;
 
+exports[`format {"sortMembersAlphabetically":true} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  method1() {}
+
+  method2() {}
+
+  [Symbol.dispose]() {}
+}
+"
+`;
+
 exports[`format {"sortMembersAlphabetically":true} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -717,6 +751,23 @@ interface A {
   four: unknown;
   ["three"](): void;
   five(): void;
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  method2() {}
+
+  [Symbol.dispose]() {}
+
+  method1() {}
 }
 "
 `;
