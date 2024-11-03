@@ -62,6 +62,8 @@ interface F {
 	set h(_: 0);
 	get i(): 0;
 	j: () => 0;
+	'k': 0;
+	'l': () => 0;
 }
 
 interface G {

@@ -232,6 +232,8 @@ interface F {
   [\`e\`]: 0;
   [\`f\`]: 0;
   j: () => 0;
+  k: 0;
+  l: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -257,10 +259,12 @@ exports[`format {} type-alias.ts 1`] = `
   x: () => () => number;
   [\`s\`]: number;
   r?: number;
+  q: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
   v?(): number;
+  "p"(): number;
 };
 "
 `;
@@ -585,6 +589,8 @@ interface F {
   [d: symbol]: 0;
   b: 0;
   j: () => 0;
+  k: 0;
+  l: () => 0;
   [\`e\`]: 0;
   [\`f\`]: 0;
   new (): F;
@@ -608,12 +614,14 @@ exports[`format {"sortMembersAlphabetically":true} type-alias.ts 1`] = `
 "type A = {
   [u: number]: () => number;
   [t: string]: unknown;
+  q: number;
   r?: number;
   x: () => () => number;
   y: number;
   [\`s\`]: number;
   new (a: 0, b: 1): A;
   get w(): number;
+  "p"(): number;
   v?(): number;
   z(): number;
 };
@@ -942,6 +950,8 @@ interface F {
   [\`e\`]: 0;
   [\`f\`]: 0;
   j: () => 0;
+  k: 0;
+  l: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -967,10 +977,12 @@ exports[`format {"sortMembersAlphabetically":false} type-alias.ts 1`] = `
   x: () => () => number;
   [\`s\`]: number;
   r?: number;
+  q: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
   v?(): number;
+  "p"(): number;
 };
 "
 `;
