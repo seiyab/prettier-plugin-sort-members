@@ -57,6 +57,9 @@ exports[`format {} issue-66-resource.ts 1`] = `
 
   [Symbol.dispose]() {}
 
+  ["method4"]() {}
+  method3() {}
+
   method1() {}
 }
 "
@@ -417,6 +420,10 @@ exports[`format {"sortMembersAlphabetically":true} issue-66-resource.ts 1`] = `
   method1() {}
 
   method2() {}
+
+  method3() {}
+
+  ["method4"]() {}
 }
 "
 `;
@@ -774,6 +781,9 @@ exports[`format {"sortMembersAlphabetically":false} issue-66-resource.ts 1`] = `
   method2() {}
 
   [Symbol.dispose]() {}
+
+  ["method4"]() {}
+  method3() {}
 
   method1() {}
 }
