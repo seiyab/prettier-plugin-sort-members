@@ -2,6 +2,16 @@
 
 ---
 
+### 0.2.2
+
+#### Feature
+
+- Support TypeScript accessor ([#62](https://github.com/seiyab/prettier-plugin-sort-members/pull/62)).
+
+#### Bug fix
+
+- Improve `sortMembersAlphabetically` in compatibility with `@typescript-eslint/member-ordering`'s `{ order: "alphabetically" }` ([#67](https://github.com/seiyab/prettier-plugin-sort-members/pull/67))
+
 ### 0.2.1
 
 No changes from 0.2.1-rc.1
