@@ -45,6 +45,26 @@ interface A {
 "
 `;
 
+exports[`format {} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  method2() {}
+
+  [Symbol.dispose]() {}
+
+  ["method4"]() {}
+  method3() {}
+
+  method1() {}
+}
+"
+`;
+
 exports[`format {} class.ts 1`] = `
 "abstract class A {
   [j: number]: unknown;
@@ -215,6 +235,8 @@ interface F {
   [\`e\`]: 0;
   [\`f\`]: 0;
   j: () => 0;
+  k: 0;
+  l: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -240,10 +262,12 @@ exports[`format {} type-alias.ts 1`] = `
   x: () => () => number;
   [\`s\`]: number;
   r?: number;
+  q: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
   v?(): number;
+  "p"(): number;
 };
 "
 `;
@@ -357,11 +381,11 @@ type X = {
 
 const alpha = Symbol();
 type Y = {
+  [alpha]: unknown;
   alpha: unknown;
   best: unknown;
   ["circle"]: unknown;
   date: Date;
-  [alpha]: unknown;
 };
 
 type Z = {
@@ -373,12 +397,33 @@ type Z = {
 };
 
 interface A {
+  [alpha]: unknown;
   four: unknown;
   one: unknown;
   ["two"]: unknown;
-  [alpha]: unknown;
   five(): void;
   ["three"](): void;
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":true} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  [Symbol.dispose]() {}
+
+  method1() {}
+
+  method2() {}
+
+  method3() {}
+
+  ["method4"]() {}
 }
 "
 `;
@@ -549,17 +594,19 @@ interface E {
 interface F {
   [c: number]: 0;
   [d: symbol]: 0;
-  b: 0;
-  j: () => 0;
   [\`e\`]: 0;
   [\`f\`]: 0;
+  b: 0;
+  j: () => 0;
+  k: 0;
+  l: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
   get i(): 0;
   set h(_: 0);
-  a(): 0;
   [\`g\`](): 0;
+  a(): 0;
 }
 
 interface G {
@@ -572,14 +619,16 @@ interface G {
 
 exports[`format {"sortMembersAlphabetically":true} type-alias.ts 1`] = `
 "type A = {
-  [u: number]: () => number;
   [t: string]: unknown;
+  [u: number]: () => number;
+  [\`s\`]: number;
+  q: number;
   r?: number;
   x: () => () => number;
   y: number;
-  [\`s\`]: number;
   new (a: 0, b: 1): A;
   get w(): number;
+  "p"(): number;
   v?(): number;
   z(): number;
 };
@@ -717,6 +766,26 @@ interface A {
   four: unknown;
   ["three"](): void;
   five(): void;
+}
+"
+`;
+
+exports[`format {"sortMembersAlphabetically":false} issue-66-resource.ts 1`] = `
+"class Resource {
+  constructor() {}
+
+  get prop() {
+    return 0;
+  }
+
+  method2() {}
+
+  [Symbol.dispose]() {}
+
+  ["method4"]() {}
+  method3() {}
+
+  method1() {}
 }
 "
 `;
@@ -891,6 +960,8 @@ interface F {
   [\`e\`]: 0;
   [\`f\`]: 0;
   j: () => 0;
+  k: 0;
+  l: () => 0;
   new (): F;
   new (a: 0): F;
   new (a: 0, b: 0): F;
@@ -916,10 +987,12 @@ exports[`format {"sortMembersAlphabetically":false} type-alias.ts 1`] = `
   x: () => () => number;
   [\`s\`]: number;
   r?: number;
+  q: number;
   new (a: 0, b: 1): A;
   get w(): number;
   z(): number;
   v?(): number;
+  "p"(): number;
 };
 "
 `;

@@ -9,4 +9,6 @@ type A = {
     [t: string]: unknown;
     [`s`]: number;
     r?: number;
+    'q': number;
+    'p'(): number;
 }
