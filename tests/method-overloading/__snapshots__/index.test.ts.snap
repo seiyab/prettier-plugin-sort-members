@@ -2,12 +2,12 @@
 
 exports[`method-overloading {} issue-71.ts 1`] = `
 "class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
   @decorator
   foo(arg: any): any {
     return arg;
   }
-  foo(arg: number): number;
-  foo(arg: string): string;
 }
 "
 `;
@@ -18,8 +18,8 @@ exports[`method-overloading {} overloading.ts 1`] = `
     return a + b;
   }
 
-  static sub(a: string, b: string): string;
-  static sub(a: number, b: number): number;
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
   @decorator
   add(a: number | string, b: number | string): number | string {
     if (typeof a === "number" && typeof b === "number") {
@@ -31,13 +31,13 @@ exports[`method-overloading {} overloading.ts 1`] = `
     }
   }
 
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
   @decorator
   static sub(a: any, b: any): unknown {
     return a - b;
   }
 
-  add(a: number, b: number): number;
-  add(a: string, b: string): string;
   sub(a: number, b: number): number {
     return a - b;
   }
@@ -58,12 +58,12 @@ exports[`method-overloading {} overloading.ts 1`] = `
 
 exports[`method-overloading {"sortMembersAlphabetically":true} issue-71.ts 1`] = `
 "class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
   @decorator
   foo(arg: any): any {
     return arg;
   }
-  foo(arg: number): number;
-  foo(arg: string): string;
 }
 "
 `;
@@ -74,8 +74,8 @@ exports[`method-overloading {"sortMembersAlphabetically":true} overloading.ts 1`
     return a + b;
   }
 
-  static sub(a: string, b: string): string;
-  static sub(a: number, b: number): number;
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
   @decorator
   add(a: number | string, b: number | string): number | string {
     if (typeof a === "number" && typeof b === "number") {
@@ -87,13 +87,13 @@ exports[`method-overloading {"sortMembersAlphabetically":true} overloading.ts 1`
     }
   }
 
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
   @decorator
   static sub(a: any, b: any): unknown {
     return a - b;
   }
 
-  add(a: number, b: number): number;
-  add(a: string, b: string): string;
   bar(x: number): number {
     return x + 1;
   }
@@ -113,12 +113,12 @@ exports[`method-overloading {"sortMembersAlphabetically":true} overloading.ts 1`
 
 exports[`method-overloading {"sortMembersAlphabetically":false} issue-71.ts 1`] = `
 "class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
   @decorator
   foo(arg: any): any {
     return arg;
   }
-  foo(arg: number): number;
-  foo(arg: string): string;
 }
 "
 `;
@@ -129,8 +129,8 @@ exports[`method-overloading {"sortMembersAlphabetically":false} overloading.ts 1
     return a + b;
   }
 
-  static sub(a: string, b: string): string;
-  static sub(a: number, b: number): number;
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
   @decorator
   add(a: number | string, b: number | string): number | string {
     if (typeof a === "number" && typeof b === "number") {
@@ -142,13 +142,13 @@ exports[`method-overloading {"sortMembersAlphabetically":false} overloading.ts 1
     }
   }
 
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
   @decorator
   static sub(a: any, b: any): unknown {
     return a - b;
   }
 
-  add(a: number, b: number): number;
-  add(a: string, b: string): string;
   sub(a: number, b: number): number {
     return a - b;
   }
