@@ -1,0 +1,168 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`method-overloading {} issue-71.ts 1`] = `
+"class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
+  @decorator
+  foo(arg: any): any {
+    return arg;
+  }
+}
+"
+`;
+
+exports[`method-overloading {} overloading.ts 1`] = `
+"class Foo {
+  static add(a: number, b: number): number {
+    return a + b;
+  }
+
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
+  @decorator
+  add(a: number | string, b: number | string): number | string {
+    if (typeof a === "number" && typeof b === "number") {
+      return a + b;
+    } else if (typeof a === "string" && typeof b === "string") {
+      return a + b;
+    } else {
+      throw new Error("Invalid arguments");
+    }
+  }
+
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
+  @decorator
+  static sub(a: any, b: any): unknown {
+    return a - b;
+  }
+
+  sub(a: number, b: number): number {
+    return a - b;
+  }
+
+  ["baz"](x: number): number;
+  baz(x: string): string;
+  ["baz"](x: boolean): boolean;
+  baz(x: unknown): unknown {
+    return x;
+  }
+
+  bar(x: number): number {
+    return x + 1;
+  }
+}
+"
+`;
+
+exports[`method-overloading {"sortMembersAlphabetically":true} issue-71.ts 1`] = `
+"class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
+  @decorator
+  foo(arg: any): any {
+    return arg;
+  }
+}
+"
+`;
+
+exports[`method-overloading {"sortMembersAlphabetically":true} overloading.ts 1`] = `
+"class Foo {
+  static add(a: number, b: number): number {
+    return a + b;
+  }
+
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
+  @decorator
+  add(a: number | string, b: number | string): number | string {
+    if (typeof a === "number" && typeof b === "number") {
+      return a + b;
+    } else if (typeof a === "string" && typeof b === "string") {
+      return a + b;
+    } else {
+      throw new Error("Invalid arguments");
+    }
+  }
+
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
+  @decorator
+  static sub(a: any, b: any): unknown {
+    return a - b;
+  }
+
+  bar(x: number): number {
+    return x + 1;
+  }
+  ["baz"](x: number): number;
+  baz(x: string): string;
+  ["baz"](x: boolean): boolean;
+  baz(x: unknown): unknown {
+    return x;
+  }
+
+  sub(a: number, b: number): number {
+    return a - b;
+  }
+}
+"
+`;
+
+exports[`method-overloading {"sortMembersAlphabetically":false} issue-71.ts 1`] = `
+"class Foo {
+  foo(arg: number): number;
+  foo(arg: string): string;
+  @decorator
+  foo(arg: any): any {
+    return arg;
+  }
+}
+"
+`;
+
+exports[`method-overloading {"sortMembersAlphabetically":false} overloading.ts 1`] = `
+"class Foo {
+  static add(a: number, b: number): number {
+    return a + b;
+  }
+
+  add(a: number, b: number): number;
+  add(a: string, b: string): string;
+  @decorator
+  add(a: number | string, b: number | string): number | string {
+    if (typeof a === "number" && typeof b === "number") {
+      return a + b;
+    } else if (typeof a === "string" && typeof b === "string") {
+      return a + b;
+    } else {
+      throw new Error("Invalid arguments");
+    }
+  }
+
+  static sub(a: string, b: string): string;
+  static sub(a: number, b: number): number;
+  @decorator
+  static sub(a: any, b: any): unknown {
+    return a - b;
+  }
+
+  sub(a: number, b: number): number {
+    return a - b;
+  }
+
+  ["baz"](x: number): number;
+  baz(x: string): string;
+  ["baz"](x: boolean): boolean;
+  baz(x: unknown): unknown {
+    return x;
+  }
+
+  bar(x: number): number {
+    return x + 1;
+  }
+}
+"
+`;

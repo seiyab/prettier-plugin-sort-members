@@ -7,6 +7,7 @@ import { MemberLikeNodeTypesArray, MemberNode } from "./ast/member-like";
 import { Node } from "./ast";
 import { isExcludedSubclass } from "./subclass";
 import { putGettersAndSettersTogether } from "./put-getters-and-setters-together";
+import { mergeOverloads, splitOverloads } from "./ast/overloading";
 
 export function preprocess(ast: AST, options: unknown): AST {
 	const opt = options as Options;
@@ -20,10 +21,13 @@ export function preprocess(ast: AST, options: unknown): AST {
 					body: node.body.slice().sort(comp),
 				} as TSESTree.TSInterfaceBody as T;
 			case AST_NODE_TYPES.ClassBody: {
-				const sorted = node.body.slice().sort(comp);
-				const body = opt.keepGettersAndSettersTogether
+				const [overloads, nonOverloads] = splitOverloads(node.body);
+				const sorted = nonOverloads.slice().sort(comp);
+				const arrangedNonOverloads = opt.keepGettersAndSettersTogether
 					? putGettersAndSettersTogether(sorted)
 					: sorted;
+				const body = mergeOverloads(overloads, arrangedNonOverloads);
+
 				return {
 					...node,
 					body,
