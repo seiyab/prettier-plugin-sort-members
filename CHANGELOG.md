@@ -2,6 +2,12 @@
 
 ---
 
+### 0.2.3
+
+#### Bug fix
+
+- Handle TypeScript decorated method overloading ([#72](https://github.com/seiyab/prettier-plugin-sort-members/pull/72))
+
 ### 0.2.2
 
 #### Feature
