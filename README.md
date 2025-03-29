@@ -1,5 +1,7 @@
 # prettier-plugin-sort-members
 
+![CI](https://github.com/seiyab/prettier-plugin-sort-members/actions/workflows/check.yml/badge.svg?branch=main&event=push) [![npm version](https://img.shields.io/npm/v/prettier-plugin-sort-members)](https://www.npmjs.com/package/prettier-plugin-sort-members) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 ## Usage
 
 ```bash
