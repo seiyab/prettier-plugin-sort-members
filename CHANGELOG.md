@@ -2,6 +2,12 @@
 
 ---
 
+### 0.2.4
+
+#### Chore
+
+- Update dependencies ([#75](https://github.com/seiyab/prettier-plugin-sort-members/pull/75))
+
 ### 0.2.3
 
 #### Bug fix
