@@ -23,21 +23,21 @@
 		"check": "bun test && tsc && eslint . && prettier -c '**/*.{mjs,ts}'"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.9.0",
-		"@types/eslint": "^9.6.0",
+		"@eslint/js": "^9.39.3",
+		"@types/eslint": "^9.6.1",
 		"@types/eslint__js": "^8.42.3",
 		"bun-types": "latest",
-		"eslint": "^9.9.0",
-		"typescript": "^5.3.3",
-		"typescript-eslint": "^8.27.0"
+		"eslint": "^9.39.3",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.56.1"
 	},
 	"peerDependencies": {
 		"prettier": "^3.0.0"
 	},
 	"dependencies": {
-		"@babel/types": "^7.28.2",
-		"@typescript-eslint/types": "^8.41.0",
-		"@typescript-eslint/visitor-keys": "^8.41.0"
+		"@babel/types": "^7.29.0",
+		"@typescript-eslint/types": "^8.56.1",
+		"@typescript-eslint/visitor-keys": "^8.56.1"
 	},
 	"version": "0.2.4"
 }
