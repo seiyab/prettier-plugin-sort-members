@@ -2,6 +2,13 @@
 
 ---
 
+### 0.2.5
+
+#### Chore
+
+- Update dependencies ([#80](https://github.com/seiyab/prettier-plugin-sort-members/pull/80), [#81](https://github.com/seiyab/prettier-plugin-sort-members/pull/81))
+- Publish with OIDC ([#82](https://github.com/seiyab/prettier-plugin-sort-members/pull/82), [#83](https://github.com/seiyab/prettier-plugin-sort-members/pull/83))
+
 ### 0.2.4
 
 #### Chore
