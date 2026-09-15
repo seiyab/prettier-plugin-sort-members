@@ -41,5 +41,5 @@
 		"@typescript-eslint/types": "^8.70.0",
 		"@typescript-eslint/visitor-keys": "^8.70.0"
 	},
-	"version": "0.2.4"
+	"version": "0.2.5"
 }
