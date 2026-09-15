@@ -1,6 +1,7 @@
 name: publish
 permissions:
   contents: read
+  id-token: write
 
 on:
   release:
