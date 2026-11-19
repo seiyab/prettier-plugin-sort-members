@@ -18,13 +18,7 @@ export function visit<T extends Node>(
 	const modified = modifier(node);
 	if (modified === stopModifying) return node;
 	const updatedNode = cloneNode(modified);
-	const keys = new Set(
-		(esVisitorKeys[updatedNode.type] ?? []).concat(
-			babelVisitorKeys[updatedNode.type] ?? [],
-		),
-	) as Set<keyof T>;
-	for (const key of keys) {
-		const k = key satisfies keyof T;
+	for (const k of childKeys(updatedNode)) {
 		const child = updatedNode[k];
 		if (Array.isArray(child)) {
 			updatedNode[k] = child.map((c: Node) =>
@@ -35,6 +29,12 @@ export function visit<T extends Node>(
 		updatedNode[k] = visit(updatedNode[k] as Node, modifier) as T[typeof k];
 	}
 	return updatedNode;
+}
+
+export function childKeys<T extends Node>(node: T): Set<keyof T> {
+	return new Set(
+		(esVisitorKeys[node.type] ?? []).concat(babelVisitorKeys[node.type] ?? []),
+	) as Set<keyof T>;
 }
 
 function cloneNode<N extends Node>(node: N): N {

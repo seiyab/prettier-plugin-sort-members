@@ -67,7 +67,11 @@ class MyClass {
 }
 ```
 
-The order respects default order of [`@typescript-eslint/member-ordering`](https://typescript-eslint.io/rules/member-ordering/#default-configuration)
+The sorter uses the default order of [`@typescript-eslint/member-ordering`](https://typescript-eslint.io/rules/member-ordering/#default-configuration) as its preferred order. Tied members that are eligible to move are picked in source order.
+
+In classes, a field initializer that directly reads another field in the same class keeps its original order relative to that field. This covers named and private member access on `this`, literal bracket access, and access by the enclosing class name in static initializers. The detection skips indirect reads through aliases, dynamic property names, and function bodies.
+
+Static blocks keep their relative order with each other and with static runtime fields. Static fields can still sort within the gaps between blocks, and ordinary methods and constructors can move across blocks.
 
 ## Options
 

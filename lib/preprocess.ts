@@ -8,6 +8,7 @@ import { Node } from "./ast";
 import { isExcludedSubclass } from "./subclass";
 import { putGettersAndSettersTogether } from "./put-getters-and-setters-together";
 import { mergeOverloads, splitOverloads } from "./ast/overloading";
+import { sortClassMembers } from "./sort-class-members";
 
 export function preprocess(ast: AST, options: unknown): AST {
 	const opt = options as Options;
@@ -20,9 +21,20 @@ export function preprocess(ast: AST, options: unknown): AST {
 					...node,
 					body: node.body.slice().sort(comp),
 				} as TSESTree.TSInterfaceBody as T;
-			case AST_NODE_TYPES.ClassBody: {
-				const [overloads, nonOverloads] = splitOverloads(node.body);
-				const sorted = nonOverloads.slice().sort(comp);
+			case AST_NODE_TYPES.ClassDeclaration:
+			case AST_NODE_TYPES.ClassExpression: {
+				if (
+					node.type === AST_NODE_TYPES.ClassDeclaration &&
+					isExcludedSubclass(node, options)
+				)
+					return stopModifying;
+				const [overloads, nonOverloads] = splitOverloads(node.body.body);
+				const sorted = sortClassMembers(
+					nonOverloads,
+					node.id?.name,
+					comp,
+					memberNodes,
+				);
 				const arrangedNonOverloads = opt.keepGettersAndSettersTogether
 					? putGettersAndSettersTogether(sorted)
 					: sorted;
@@ -30,17 +42,14 @@ export function preprocess(ast: AST, options: unknown): AST {
 
 				return {
 					...node,
-					body,
-				} as TSESTree.ClassBody as T;
+					body: { ...node.body, body },
+				};
 			}
 			case AST_NODE_TYPES.TSTypeLiteral:
 				return {
 					...node,
 					members: node.members.slice().sort(comp),
 				} as TSESTree.TSTypeLiteral as T;
-			case AST_NODE_TYPES.ClassDeclaration:
-				if (isExcludedSubclass(node, options)) return stopModifying;
-				return node;
 		}
 		return node;
 	});
