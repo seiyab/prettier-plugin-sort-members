@@ -2,7 +2,7 @@ import { AST_NODE_TYPES as Types } from "@typescript-eslint/types";
 import { Node } from "./ast";
 import { abstracted } from "./ast/class-member";
 import { MemberNode } from "./ast/member-like";
-import { Comparator } from "./comparator/comparator";
+import { C, Comparator } from "./comparator/comparator";
 import { isField } from "./comparator/kind/field";
 import { childKeys } from "./visit";
 
@@ -83,9 +83,10 @@ export function sortClassMembers(
 		return 2;
 	}
 
+	const preferredOrder = C.chain(C.by(rank, C.number), compare);
 	const pending = entries
 		.slice()
-		.sort((a, b) => rank(a.node) - rank(b.node) || compare(a.node, b.node));
+		.sort(C.by((entry) => entry.node, preferredOrder));
 	if (pending.every((entry) => entry.incoming === 0))
 		return pending.map(({ node }) => node);
 
